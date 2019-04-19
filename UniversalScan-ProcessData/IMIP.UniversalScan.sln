@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMIP.UniversalScan", "IMIP.UniversalScan.csproj", "{F8675C09-640E-4ADA-BA4A-9F06634D0828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMIP.ActiveDirectory", "..\IMIP.ActiveDirectory\IMIP.ActiveDirectory.csproj", "{2C7CC231-5895-41FA-9254-3803204E8429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMIP.CustomMapping", "..\CustomMapping\IMIP.CustomMapping.csproj", "{BD819C47-F05A-4FCB-9367-4DAC536BF83D}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://dev.imipgroup.com:8080/tfs/imip%20-%20all%20projects
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = IMIP.UniversalScan.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = ..\\IMIP.ActiveDirectory\\IMIP.ActiveDirectory.csproj
+		SccProjectName2 = ../IMIP.ActiveDirectory
+		SccLocalPath2 = ..\\IMIP.ActiveDirectory
+		SccProjectUniqueName3 = ..\\CustomMapping\\IMIP.CustomMapping.csproj
+		SccProjectName3 = ../CustomMapping
+		SccLocalPath3 = ..\\CustomMapping
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8675C09-640E-4ADA-BA4A-9F06634D0828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8675C09-640E-4ADA-BA4A-9F06634D0828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8675C09-640E-4ADA-BA4A-9F06634D0828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8675C09-640E-4ADA-BA4A-9F06634D0828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C7CC231-5895-41FA-9254-3803204E8429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C7CC231-5895-41FA-9254-3803204E8429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C7CC231-5895-41FA-9254-3803204E8429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C7CC231-5895-41FA-9254-3803204E8429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD819C47-F05A-4FCB-9367-4DAC536BF83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD819C47-F05A-4FCB-9367-4DAC536BF83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD819C47-F05A-4FCB-9367-4DAC536BF83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD819C47-F05A-4FCB-9367-4DAC536BF83D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

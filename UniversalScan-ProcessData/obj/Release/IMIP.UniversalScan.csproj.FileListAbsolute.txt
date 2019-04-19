@@ -1,0 +1,17 @@
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.UniversalScan.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\vi\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.ActiveDirectory.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.SharedComponent.CustomMapping.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.SharedComponent.CustomMapping.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Release\IMIP.ActiveDirectory.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.csprojResolveAssemblyReference.cache
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.Profile.DocumentSeparation.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.Profile.DocumentSeparation.de.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.Profile.DocumentSeparation.vi.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.csproj.GenerateResource.Cache
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\vi\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Release\IMIP.UniversalScan.pdb

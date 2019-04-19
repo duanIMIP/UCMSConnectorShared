@@ -1,0 +1,30 @@
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.UniversalScan.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\vi\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.ActiveDirectory.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.SharedComponent.CustomMapping.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.SharedComponent.CustomMapping.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\bin\Debug\IMIP.ActiveDirectory.pdb
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csprojResolveAssemblyReference.cache
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.de.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.vi.resources
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csproj.GenerateResource.Cache
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\vi\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\Shared\Components\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.resources
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.de.resources
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.vi.resources
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csproj.GenerateResource.Cache
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\bin\Debug\IMIP.UniversalScan.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\bin\Debug\IMIP.UniversalScan.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\bin\Debug\de\IMIP.UniversalScan.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\bin\Debug\vi\IMIP.UniversalScan.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\bin\Debug\IMIP.SharedComponent.CustomMapping.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\de\IMIP.UniversalScan.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UniversalScan-ProcessData\obj\Debug\vi\IMIP.UniversalScan.resources.dll

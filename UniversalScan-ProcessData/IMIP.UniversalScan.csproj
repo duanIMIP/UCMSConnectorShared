@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8675C09-640E-4ADA-BA4A-9F06634D0828}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IMIP.UniversalScan</RootNamespace>
+    <AssemblyName>IMIP.UniversalScan</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IMIP.SharedComponent.CustomMapping, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\IMIP.SharedComponent.CustomMapping.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AuthResult.cs" />
+    <Compile Include="Common\BatchName.cs" />
+    <Compile Include="Connector\BackendConnectorConfig.cs" />
+    <Compile Include="Connector\IBackendConnector.cs" />
+    <Compile Include="Connector\IReleaseAdapter.cs" />
+    <Compile Include="Data\BPData.cs" />
+    <Compile Include="Data\Branch.cs" />
+    <Compile Include="Data\UniBarcode.cs" />
+    <Compile Include="Data\UniCell.cs" />
+    <Compile Include="Def\UniColumn.cs" />
+    <Compile Include="Def\UniProperties\UniBoolProperty.cs" />
+    <Compile Include="Def\UniProperties\UniDateTimeProperty.cs" />
+    <Compile Include="Def\UniProperties\UniIntProperty.cs" />
+    <Compile Include="Def\UniProperties\UniProperty.cs" />
+    <Compile Include="Def\UniProperties\UniStringProperty.cs" />
+    <Compile Include="Def\UniZone.cs" />
+    <Compile Include="Profile\BatchNamingProfile.cs" />
+    <Compile Include="Common\Common.cs" />
+    <Compile Include="Data\UniBatch.cs" />
+    <Compile Include="Data\UniDocument.cs" />
+    <Compile Include="Data\UniField.cs" />
+    <Compile Include="Def\UniFormType.cs" />
+    <Compile Include="Data\UniMedium.cs" />
+    <Compile Include="Data\UniPage.cs" />
+    <Compile Include="Def\UniParameterSet.cs" />
+    <Compile Include="Common\Helper.cs" />
+    <Compile Include="Profile\DocumentProfile.cs" />
+    <Compile Include="Profile\DocumentSeparation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Profile\DocumentSeparation.designer.cs">
+      <DependentUpon>DocumentSeparation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\ProfileProperty.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Connector\IConnector.cs" />
+    <Compile Include="Def\UniFieldDefinition.cs" />
+    <Compile Include="Connector\ConnectorInfo.cs" />
+    <Compile Include="Profile\ScanProfiles.cs" />
+    <Compile Include="Profile\ScanSetting.cs" />
+    <Compile Include="Profile\SeparationProfile.cs" />
+    <Compile Include="Profile\ValidationProfile.cs" />
+    <Compile Include="Twain\ITwainScanning.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Profile\DocumentSeparation.de.resx">
+      <DependentUpon>DocumentSeparation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profile\DocumentSeparation.resx">
+      <DependentUpon>DocumentSeparation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profile\DocumentSeparation.vi.resx">
+      <DependentUpon>DocumentSeparation.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

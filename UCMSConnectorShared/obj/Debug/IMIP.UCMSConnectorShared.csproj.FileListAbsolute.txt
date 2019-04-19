@@ -1,0 +1,64 @@
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.UCMSConnectorShared.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.UCMSConnectorShared.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\vi\IMIP.UCMSConnectorShared.resources.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\GdPicture.NET.12.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\MultipartDataMediaFormatter.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\NLog.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\UCMS.Core.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\UCMS.Model.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\UCMS.RestClient.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.SharedComponent.CustomMapping.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.ActiveDirectory.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\System.Net.Http.Formatting.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\Newtonsoft.Json.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\Npgsql.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\Hashids.net.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\log4net.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.UniversalScan.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\GdPicture.NET.12.xml
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\NLog.xml
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.SharedComponent.CustomMapping.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\IMIP.ActiveDirectory.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\bin\Debug\vi\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csprojResolveAssemblyReference.cache
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resources.resources
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resource.vi.resources
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csproj.GenerateResource.Cache
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\vi\IMIP.UCMSConnectorShared.resources.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\GdPicture.NET.12.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\MultipartDataMediaFormatter.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\Newtonsoft.Json.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\NLog.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\UCMS.Core.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\UCMS.Model.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\UCMS.RestClient.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.ActiveDirectory.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\System.Net.Http.Formatting.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\GdPicture.NET.12.xml
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\IMIP.ActiveDirectory.pdb
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\de\IMIP.UniversalScan.resources.dll
+C:\WORKING_DATA\IMIPProjects\IMIP Products\UCMS\UCMSConnectorShared\obj\Debug\vi\IMIP.UniversalScan.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csprojResolveAssemblyReference.cache
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resources.resources
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resource.vi.resources
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csproj.GenerateResource.Cache
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\vi\IMIP.UCMSConnectorShared.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\System.Net.Http.Formatting.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.pdb
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\de\IMIP.UniversalScan.resources.dll
+C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\vi\IMIP.UniversalScan.resources.dll
