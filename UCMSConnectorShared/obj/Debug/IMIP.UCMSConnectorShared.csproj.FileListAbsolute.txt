@@ -62,3 +62,20 @@ C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.Univers
 C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.pdb
 C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\de\IMIP.UniversalScan.resources.dll
 C:\Users\sonlt\Desktop\New folder (3)\UCMSConnectorShared\obj\Debug\vi\IMIP.UniversalScan.resources.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csprojAssemblyReference.cache
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resources.resources
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.Connector.USMSConnectorShared.Properties.Resource.vi.resources
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csproj.GenerateResource.cache
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csproj.CoreCompileInputs.cache
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\vi\IMIP.UCMSConnectorShared.resources.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.csproj.CopyComplete
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UCMSConnectorShared.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\Newtonsoft.Json.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\System.Net.Http.Formatting.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\de\IMIP.UniversalScan.resources.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\vi\IMIP.UniversalScan.resources.dll

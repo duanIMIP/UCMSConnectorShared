@@ -46,6 +46,7 @@
             this.txtFolder = new System.Windows.Forms.TextBox();
             this.cboContentType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -141,7 +142,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 181);
+            this.label5.Location = new System.Drawing.Point(26, 166);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 12;
@@ -150,7 +151,7 @@
             // txtFiles
             // 
             this.txtFiles.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtFiles.Location = new System.Drawing.Point(112, 158);
+            this.txtFiles.Location = new System.Drawing.Point(112, 185);
             this.txtFiles.Multiline = true;
             this.txtFiles.Name = "txtFiles";
             this.txtFiles.ReadOnly = true;
@@ -159,7 +160,7 @@
             // 
             // btnUploadFile
             // 
-            this.btnUploadFile.Location = new System.Drawing.Point(474, 156);
+            this.btnUploadFile.Location = new System.Drawing.Point(484, 184);
             this.btnUploadFile.Name = "btnUploadFile";
             this.btnUploadFile.Size = new System.Drawing.Size(97, 23);
             this.btnUploadFile.TabIndex = 14;
@@ -169,7 +170,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(289, 237);
+            this.btnSubmit.Location = new System.Drawing.Point(137, 234);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(97, 23);
             this.btnSubmit.TabIndex = 15;
@@ -179,7 +180,7 @@
             // 
             // btnUploadFolder
             // 
-            this.btnUploadFolder.Location = new System.Drawing.Point(475, 191);
+            this.btnUploadFolder.Location = new System.Drawing.Point(484, 156);
             this.btnUploadFolder.Name = "btnUploadFolder";
             this.btnUploadFolder.Size = new System.Drawing.Size(96, 23);
             this.btnUploadFolder.TabIndex = 16;
@@ -190,7 +191,7 @@
             // txtFolder
             // 
             this.txtFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtFolder.Location = new System.Drawing.Point(112, 193);
+            this.txtFolder.Location = new System.Drawing.Point(112, 158);
             this.txtFolder.Multiline = true;
             this.txtFolder.Name = "txtFolder";
             this.txtFolder.ReadOnly = true;
@@ -214,14 +215,25 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "ContentType";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(404, 234);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(97, 23);
+            this.btnRefresh.TabIndex = 20;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // WatchFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 288);
+            this.ClientSize = new System.Drawing.Size(653, 291);
+            this.Controls.Add(this.txtFolder);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cboContentType);
-            this.Controls.Add(this.txtFolder);
             this.Controls.Add(this.btnUploadFolder);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnUploadFile);
@@ -238,6 +250,7 @@
             this.Controls.Add(this.cboBrank);
             this.Controls.Add(this.label1);
             this.Name = "WatchFolder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WatchFolder";
             this.Load += new System.EventHandler(this.WatchFolder_Load);
             this.ResumeLayout(false);
@@ -265,5 +278,6 @@
         private System.Windows.Forms.TextBox txtFolder;
         private System.Windows.Forms.ComboBox cboContentType;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

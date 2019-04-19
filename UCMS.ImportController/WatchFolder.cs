@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 using UCMS.RestClient;
 
 namespace UCMS.ImportController
@@ -120,7 +121,7 @@ namespace UCMS.ImportController
                 //---------------------------------------------------------
                 oContent.Tags = new List<string>();
                 oContent.Name = cboBrank.Text + cboWorkflow.Text + DateTime.Now.ToString("yyMMddHHmmssff");
-                oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
+                //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
                 //-----------------------------------------------------------
 
                 //Update Field Library content values
@@ -129,42 +130,34 @@ namespace UCMS.ImportController
                     var library = oUCMSApiClient.Folder.GetLibrary(oContent.Folder.Id);
                     if (LibraryField.Count == 0)
                     {
-                        oContent.LibraryFieldValues = new Dictionary<string, object>();
+                        LibraryField = new Dictionary<string, object>();
                         foreach (var item in library.Fields)
                         {
-                            oContent.LibraryFieldValues.Add(item.Id, item.DefaultValue);
+                            LibraryField.Add(item.Id, item.DefaultValue);
                         }
-                    }
-                    else
-                    {
-                        oContent.LibraryFieldValues = LibraryField;
                     }
 
                     if (ContentTypes.Count == 0 && library.ContentTypes.Count > 0)
                     {
-                        var contentType = oUCMSApiClient.ContentType.GetById(library.ContentTypes[0].Id);
-                        oContent.ContentType = new Model.ContentType() { Id = contentType.Id };
-                        oContent.Values = new Dictionary<string, object>();
+                        var contentType = oUCMSApiClient.ContentType.GetById(cboContentType.SelectedValue.ToString());
+                        ContentTypes = new Dictionary<string, object>();
                         foreach (var item in contentType.Fields) //Chon gia tri cho contentType
                         {
-                            oContent.Values.Add(item.Name, item.DefaultValue);
+                            ContentTypes.Add(item.Name, item.DefaultValue);
                         }
                     }
-                    else
-                    {
-                        oContent.Values = ContentTypes;
-                    }
-                    oContent.Values.Add("BranchId", cboBrank.Text);
                 }
-                else
-                {
-                    oContent.LibraryFieldValues = LibraryField;
-                    oContent.Values = ContentTypes;
-                    oContent.Values.Add("BranchId", cboBrank.Text);
-                }                
+
+                oContent.ContentType = new Model.ContentType() { Id = cboContentType.SelectedValue.ToString() };
+                oContent.LibraryFieldValues = LibraryField;
+                ContentTypes.Add("BranchId", cboBrank.Text);
+                oContent.Values = ContentTypes;
+
                 var oContentMd = oUCMSApiClient.Content.Create(oContent);
 
-                //oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData() { });
+                oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData(){
+                    Key = "USCBatch", Value= PrivateData(oContent.Values)
+                });
 
                 // ---------Attachment-----------------------------------------------------------------
                 oUCMSApiClient.Content.Checkout(oContentMd.Id);//Checkout content
@@ -182,6 +175,25 @@ namespace UCMS.ImportController
                         oUCMSApiClient.Attachment.Upload(attachment);
                     }
                 }
+                if (txtFolder.Text.Trim() != "")
+                {
+                    if (Directory.Exists(txtFolder.Text.Trim()))
+                    {
+                        String[] fileEntries = Directory.GetFiles(txtFolder.Text.Trim());
+                        foreach (string item in fileEntries)
+                        {
+                            var attachment = new Model.Attachment();
+                            attachment.Name = Path.GetFileName(item.Trim());
+                            attachment.ContentId = oContentMd.Id;
+                            attachment.MIME = Path.GetExtension(item.Trim()).Replace(".", "image/");
+                            attachment.Data = File.ReadAllBytes(item.Trim());
+                            attachment.Type = Model.Enum.AttachmentType.Public;
+                            attachment.Path = item.Trim();
+                            oUCMSApiClient.Attachment.Upload(attachment);
+                        }
+                    }
+                }
+
                 oUCMSApiClient.Content.Checkin(oContentMd.Id);// Checkint content
                 //-----------------------------------------------------------------------------------------
 
@@ -197,13 +209,33 @@ namespace UCMS.ImportController
 
                 MessageBox.Show("Cập nhật thành công");
                 txtFiles.Text = "";
+                txtFolder.Text = "";
                 ContentTypes = new Dictionary<string, object>();
                 LibraryField = new Dictionary<string, object>();
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Có lỗi trong quá trình cập nhật");
+                Common.LogToFile(ex.Message);
             }
+        }
+
+        private String PrivateData(Dictionary<String, object> content)
+        {
+            IMIP.UniversalScan.Data.UniBatch oUniBatch = new IMIP.UniversalScan.Data.UniBatch();
+            oUniBatch.BranchID = cboBrank.Text;
+            List<IMIP.UniversalScan.Data.UniField> oField = new List<IMIP.UniversalScan.Data.UniField>();
+            foreach (var item in content)
+            {
+                oField.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString() });
+            }
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(IMIP.UniversalScan.Data.UniBatch));
+            XmlDocument doc = new XmlDocument();
+            StringWriter sww = new StringWriter();
+            XmlWriter writer = XmlWriter.Create(sww);
+            xsSubmit.Serialize(writer, oUniBatch);
+            var xml = sww.ToString(); // Your xml
+            return xml;
         }
 
         private bool CheckSubmit()
@@ -315,6 +347,14 @@ namespace UCMS.ImportController
                 }
                 txtFolder.Text = fbd.SelectedPath;
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            txtFiles.Text = "";
+            txtFolder.Text = "";
+            ContentTypes = new Dictionary<string, object>();
+            LibraryField = new Dictionary<string, object>();
         }
     }
 }

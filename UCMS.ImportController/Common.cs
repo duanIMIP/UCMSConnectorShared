@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.IO;
+using System.Diagnostics;
 
 namespace UCMS.ImportController
 {
@@ -16,6 +18,29 @@ namespace UCMS.ImportController
         public static String UCMSWebAPIEndPoint = ConfigurationSettings.AppSettings["UCMSWebAPIEndPoint"].ToString();
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
 
+        public static void LogToFile(string message)
+        {
+            try
+            {
+                message = DateTime.Now.ToString("HH:mm:ss") + " " + message;
+                string logPath = string.Empty;
+                logPath = @"C:\UCMSLog\" + DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("HH");
+                if (!Directory.Exists(logPath))
+                {
+                    Directory.CreateDirectory(logPath);
+                }
+                logPath = logPath + @"\EXCEPTION.log";
+
+                TextWriterTraceListener listener = new TextWriterTraceListener(logPath);
+                listener.WriteLine(message);
+                listener.Flush();
+                listener.Close();
+            }
+            catch
+            {
+
+            }
+        }
         public static ResponseObject GetBy(string requestUri)
         {
             ResponseObject res = new ResponseObject();

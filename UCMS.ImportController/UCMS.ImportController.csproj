@@ -110,5 +110,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversalScan-ProcessData\IMIP.UniversalScan.csproj">
+      <Project>{f8675c09-640e-4ada-ba4a-9f06634d0828}</Project>
+      <Name>IMIP.UniversalScan</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
