@@ -120,7 +120,7 @@ namespace UCMS.ImportController
 
                 //---------------------------------------------------------
                 oContent.Tags = new List<string>();
-                oContent.Name = cboBrank.Text + cboWorkflow.Text + DateTime.Now.ToString("yyMMddHHmmssff");
+                oContent.Name = cboBrank.Text + cboContentType.Text + DateTime.Now.ToString("yyMMddHHmmssff");
                 //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
                 //-----------------------------------------------------------
 
@@ -153,11 +153,7 @@ namespace UCMS.ImportController
                 ContentTypes.Add("BranchId", cboBrank.Text);
                 oContent.Values = ContentTypes;
 
-                var oContentMd = oUCMSApiClient.Content.Create(oContent);
-
-                oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData(){
-                    Key = "USCBatch", Value= PrivateData(oContent.Values)
-                });
+                var oContentMd = oUCMSApiClient.Content.Create(oContent);               
 
                 // ---------Attachment-----------------------------------------------------------------
                 oUCMSApiClient.Content.Checkout(oContentMd.Id);//Checkout content
@@ -197,6 +193,12 @@ namespace UCMS.ImportController
                 oUCMSApiClient.Content.Checkin(oContentMd.Id);// Checkint content
                 //-----------------------------------------------------------------------------------------
 
+                oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData()
+                {
+                    Key = "USCBatch",
+                    Value = PrivateData(oContentMd.Id)
+                });
+
                 //---Insert content in workflow------------------------------------------------------------
                 Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
                 oWorkflowItem.Content = oContentMd;
@@ -220,20 +222,38 @@ namespace UCMS.ImportController
             }
         }
 
-        private String PrivateData(Dictionary<String, object> content)
+        private String PrivateData(String contentId)
         {
-            IMIP.UniversalScan.Data.UniBatch oUniBatch = new IMIP.UniversalScan.Data.UniBatch();
-            oUniBatch.BranchID = cboBrank.Text;
-            List<IMIP.UniversalScan.Data.UniField> oField = new List<IMIP.UniversalScan.Data.UniField>();
-            foreach (var item in content)
+            IMIP.UniversalScan.Data.UniBatch oBatch = new IMIP.UniversalScan.Data.UniBatch();
+            oBatch.ClientName = cboLibrary.SelectedText;
+            oBatch.ProcessName = cboWorkflow.SelectedText;
+            oBatch.ProcessStepName = cboWorkflowStep.SelectedText;
+            oBatch.FormTypeName = cboContentType.SelectedText;
+            oBatch.Fields = new List<IMIP.UniversalScan.Data.UniField>();
+            foreach (var item in LibraryField)
             {
-                oField.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString() });
+                oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString(),  });
+            }
+            oBatch.Pages = new List<IMIP.UniversalScan.Data.UniPage>();
+            var content = oUCMSApiClient.Content.GetById(contentId);
+            for (int i = 0; i < content.Attachments.Count; i++)
+            {
+                oBatch.Pages.Add(new IMIP.UniversalScan.Data.UniPage()
+                {
+                    ID = content.Attachments[i].Id,
+                    FullFileName = content.Attachments[i].Name,
+                    Rejected = false,
+                    IsRescan = false,
+                    IsNew = false,
+                    SheetID = "",
+                    RejectedNote = ""
+                });
             }
             XmlSerializer xsSubmit = new XmlSerializer(typeof(IMIP.UniversalScan.Data.UniBatch));
             XmlDocument doc = new XmlDocument();
             StringWriter sww = new StringWriter();
             XmlWriter writer = XmlWriter.Create(sww);
-            xsSubmit.Serialize(writer, oUniBatch);
+            xsSubmit.Serialize(writer, oBatch);
             var xml = sww.ToString(); // Your xml
             return xml;
         }
@@ -299,6 +319,16 @@ namespace UCMS.ImportController
             frmChildren frm = new frmChildren();
             LibraryField = new Dictionary<string, object>();
             frm.oLibrary = oUCMSApiClient.Folder.GetLibrary(cboLibrary.SelectedValue.ToString());
+            //var listContent = oUCMSApiClient.Content. GetContents(cboLibrary.SelectedValue.ToString());
+            //foreach (Model.Content item in listContent.Items)
+            //{
+            //    if(item.ContentType.Id == cboContentType.SelectedValue.ToString())
+            //    {
+            //        frm.oContent = item;
+            //        break;
+            //    }
+            //}
+            frm.oFromChild = "btlLibraryField";
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 for (int i = 0; i < frm.Controls.Count; i++)
@@ -320,6 +350,7 @@ namespace UCMS.ImportController
             frmChildren frm = new frmChildren();
             ContentTypes = new Dictionary<string, object>();
             frm.oContentType = oUCMSApiClient.ContentType.GetById(cboContentType.SelectedValue.ToString());
+            frm.oFromChild = "btlContentType";
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 for (int i = 0; i < frm.Controls.Count; i++)

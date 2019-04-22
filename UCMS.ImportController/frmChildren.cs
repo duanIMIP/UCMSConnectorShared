@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using UCMS.RestClient;
 
 namespace UCMS.ImportController
 {
@@ -15,13 +15,15 @@ namespace UCMS.ImportController
     {
         public UCMS.Model.Library oLibrary = null;
         public UCMS.Model.ContentType oContentType = null;
+        public UCMS.Model.Content oContent = null;
+        public String oFromChild = "";
         public frmChildren()
         {
             InitializeComponent();            
         }
         private void frmChildren_Load(object sender, EventArgs e)
         {
-            if (oLibrary != null)
+            if (oFromChild == "btlLibraryField")
             {
                 for (int i = 0; i < oLibrary.Fields.Count; i++)
                 {
@@ -65,7 +67,7 @@ namespace UCMS.ImportController
                 btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
                 this.Controls.Add(btnSubmit);
             }
-            else if (oContentType != null)
+            else if (oFromChild == "btlContentType")
             {
                 for (int i = 0; i < oContentType.Fields.Count; i++)
                 {

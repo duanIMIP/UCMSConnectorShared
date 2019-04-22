@@ -8,6 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace UCMS.ImportController
 {
@@ -17,6 +18,44 @@ namespace UCMS.ImportController
         public static String Password = ConfigurationSettings.AppSettings["Password"].ToString();
         public static String UCMSWebAPIEndPoint = ConfigurationSettings.AppSettings["UCMSWebAPIEndPoint"].ToString();
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
+
+        public static string SerializeObjectToString(System.Type oType, object objectToSerialize)
+        {
+            TextWriter textWriter = null;
+            MemoryStream oMemoryStream = new MemoryStream();
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(oType);
+                textWriter = new StreamWriter(oMemoryStream);
+                serializer.Serialize(textWriter, objectToSerialize);
+                return System.Text.Encoding.UTF8.GetString(oMemoryStream.ToArray());
+            }
+            finally
+            {
+                if (textWriter != null)
+                    textWriter.Close();
+            }
+        }
+
+        public static object DeSerializeObjectFromString(string value, System.Type oType)
+        {
+            TextReader textReader = null;
+            object oBatch;
+            try
+            {
+                XmlSerializer deserializer = new XmlSerializer(oType);
+                textReader = new StringReader(value);
+
+                oBatch = deserializer.Deserialize(textReader);
+            }
+            finally
+            {
+                if (textReader != null)
+                    textReader.Close();
+            }
+
+            return oBatch;
+        }
 
         public static void LogToFile(string message)
         {
