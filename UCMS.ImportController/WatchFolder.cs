@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using UCMS.ImportController.Data;
 using UCMS.RestClient;
 
 namespace UCMS.ImportController
@@ -120,12 +121,17 @@ namespace UCMS.ImportController
 
                 //---------------------------------------------------------
                 oContent.Tags = new List<string>();
-                oContent.Name = cboBrank.Text + cboContentType.Text + DateTime.Now.ToString("yyMMddHHmmssff");
-                //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
-                //-----------------------------------------------------------
+                oContent.Name = Naming();
+                if(oContent.Name == "")
+                {
+                    MessageBox.Show("Setting naming cho content");
+                    return;
+                }
+            //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
+            //-----------------------------------------------------------
 
-                //Update Field Library content values
-                if(LibraryField.Count == 0 || ContentTypes.Count == 0)
+            //Update Field Library content values
+            if (LibraryField.Count == 0 || ContentTypes.Count == 0)
                 {
                     var library = oUCMSApiClient.Folder.GetLibrary(oContent.Folder.Id);
                     if (LibraryField.Count == 0)
@@ -148,26 +154,30 @@ namespace UCMS.ImportController
                     }
                 }
 
-                oContent.ContentType = new Model.ContentType() { Id = cboContentType.SelectedValue.ToString() };
+                oContent.ContentType = new Model.ContentType() {Id = cboContentType.SelectedValue.ToString() };
                 oContent.LibraryFieldValues = LibraryField;
                 ContentTypes.Add("BranchId", cboBrank.Text);
                 oContent.Values = ContentTypes;
-
-                var oContentMd = oUCMSApiClient.Content.Create(oContent);               
+                var oContentMd = oUCMSApiClient.Content.Create(oContent);
 
                 // ---------Attachment-----------------------------------------------------------------
+                var strPath = Common.PathUpload;
+                if (!Directory.Exists(strPath))
+                {
+                    Directory.CreateDirectory(strPath);
+                }
                 oUCMSApiClient.Content.Checkout(oContentMd.Id);//Checkout content
                 foreach (String item in txtFiles.Text.Split(';'))
                 {
                     if (item.Trim().Length > 0)
                     {
                         var attachment = new Model.Attachment();
-                        attachment.Name = Path.GetFileName(item.Trim());
+                        attachment.Name = Path.GetFullPath(strPath) + Guid.NewGuid() + Path.GetExtension(item.Trim());
                         attachment.ContentId = oContentMd.Id;
                         attachment.MIME = Path.GetExtension(item.Trim()).Replace(".", "image/");
                         attachment.Data = File.ReadAllBytes(item.Trim());
                         attachment.Type = Model.Enum.AttachmentType.Public;
-                        attachment.Path = item.Trim();
+                        attachment.Path = Path.GetFullPath(strPath);
                         oUCMSApiClient.Attachment.Upload(attachment);
                     }
                 }
@@ -179,12 +189,12 @@ namespace UCMS.ImportController
                         foreach (string item in fileEntries)
                         {
                             var attachment = new Model.Attachment();
-                            attachment.Name = Path.GetFileName(item.Trim());
+                            attachment.Name = Path.GetFullPath(strPath) + Guid.NewGuid() + Path.GetExtension(item.Trim());
                             attachment.ContentId = oContentMd.Id;
                             attachment.MIME = Path.GetExtension(item.Trim()).Replace(".", "image/");
                             attachment.Data = File.ReadAllBytes(item.Trim());
                             attachment.Type = Model.Enum.AttachmentType.Public;
-                            attachment.Path = item.Trim();
+                            attachment.Path = Path.GetFullPath(strPath);
                             oUCMSApiClient.Attachment.Upload(attachment);
                         }
                     }
@@ -220,22 +230,27 @@ namespace UCMS.ImportController
                 MessageBox.Show("Có lỗi trong quá trình cập nhật");
                 Common.LogToFile(ex.Message);
             }
-        }
+        }       
 
         private String PrivateData(String contentId)
         {
+            var content = oUCMSApiClient.Content.GetById(contentId);
             IMIP.UniversalScan.Data.UniBatch oBatch = new IMIP.UniversalScan.Data.UniBatch();
-            oBatch.ClientName = cboLibrary.SelectedText;
-            oBatch.ProcessName = cboWorkflow.SelectedText;
-            oBatch.ProcessStepName = cboWorkflowStep.SelectedText;
-            oBatch.FormTypeName = cboContentType.SelectedText;
+            oBatch.BranchID = cboBrank.Text;
+            oBatch.Name = content.Name;
+            oBatch.ClientName = cboLibrary.Text;
+            oBatch.ProcessName = cboWorkflow.Text;
+            oBatch.ProcessStepName = cboWorkflowStep.Text;
+            oBatch.FormTypeName = content.ContentType.Name;
             oBatch.Fields = new List<IMIP.UniversalScan.Data.UniField>();
-            foreach (var item in LibraryField)
+
+            foreach (var item in ContentTypes)
             {
-                oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString(),  });
+                if(!item.Key.Equals("BranchId"))
+                oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString(), });
             }
             oBatch.Pages = new List<IMIP.UniversalScan.Data.UniPage>();
-            var content = oUCMSApiClient.Content.GetById(contentId);
+            
             for (int i = 0; i < content.Attachments.Count; i++)
             {
                 oBatch.Pages.Add(new IMIP.UniversalScan.Data.UniPage()
@@ -256,6 +271,68 @@ namespace UCMS.ImportController
             xsSubmit.Serialize(writer, oBatch);
             var xml = sww.ToString(); // Your xml
             return xml;
+        }
+
+        private String Naming(){
+            String tempName = "";
+            Model.WorkflowStepSetting workFlowStep = oUCMSApiClient.Workflow.GetStepSetting(cboWorkflowStep.SelectedValue.ToString());
+            XmlDocument xmlDocument = new XmlDocument();
+            if (string.IsNullOrEmpty(workFlowStep.Setting))
+            {
+                return "";
+            }
+            xmlDocument.LoadXml(workFlowStep.Setting);
+            XmlNode xmlNodeBatchNaming = xmlDocument.DocumentElement.SelectSingleNode("/ActivityConfiguration/BatchNamingProfileSetting");
+
+            if (xmlNodeBatchNaming == null)
+            {
+                return "";
+            }
+
+            BatchNamingProfileSetting oBatchName = Common.DeserializeXML<BatchNamingProfileSetting>(xmlNodeBatchNaming.OuterXml);
+            
+            if (oBatchName == null)
+            {
+                return "";
+            }
+
+            if(!oBatchName.Enabled)
+            {
+                return cboBrank.Text + cboContentType.Text + DateTime.Now.ToString("yyMMddHHmmssff");
+            }
+
+            foreach (var item in oBatchName.BatchNamingSettings.Items)
+            {
+                if (item.DocumentTypeName.Equals(cboContentType.Text))
+                {
+                    foreach (var itemChild in item.BatchNamingTemplate.Items)
+                    {
+                        switch(itemChild.Type)
+                        {
+                            case Common.SourceFieldType.DocVariable:
+                                tempName += cboContentType.Text;
+                                break;
+                            case Common.SourceFieldType.System:
+                                if(itemChild.StaticName.Equals("Date"))
+                                {
+                                    tempName += DateTime.Now.ToString(item.DateFormat);
+                                }
+                                else if (itemChild.StaticName.Equals("Time"))
+                                {
+                                    tempName += DateTime.Now.ToString(item.TimeFormat);
+                                }
+                                else
+                                {
+                                    tempName += itemChild.DisplayName;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }            
+            return tempName;
         }
 
         private bool CheckSubmit()

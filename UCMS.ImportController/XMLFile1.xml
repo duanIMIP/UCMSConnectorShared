@@ -1,98 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Batch
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Invoice20190419161034" ID="1eb2aebb-4bc1-4c49-8c06-8e581af2893a" FormTypeName="Invoice" CreationDate="2019-04-20T06:10:41.7998032+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="GenData" ProcessName="GenaralProcess" ProcessStepName="UniversalScan" Priority="1" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
-  <CustomProperties xsi:type="xsd:string" />
-  <Media />
-  <Pages>
-    <UniPage ID="45e5aa33-3c2a-441c-8f2c-2bc9b2769628" FullFileName="C:\\IMIP.UCMS\\IMIP.WebScanApplication\\CurrentBatch\\1eb2aebb-4bc1-4c49-8c06-8e581af2893a\\45e5aa33-3c2a-441c-8f2c-2bc9b2769628.TIF" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
-      <Barcodes />
-    </UniPage>
-  </Pages>
-  <Fields />
-  <UniParameterSet>
-    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-04-20T06:10:41.8154851+07:00" Description="" Creator="" Enabled="false">
-      <ProfileProperties Name="ImageMode" Shared="false">
-        <Value xsi:type="xsd:int">0</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Resolution" Shared="false">
-        <Value xsi:type="xsd:int">200</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="PageSize" Shared="false">
-        <Value xsi:type="xsd:int">4</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="ScanType" Shared="false">
-        <Value xsi:type="xsd:int">0</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Contrast" Shared="false">
-        <Value xsi:type="xsd:int">0</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Brightness" Shared="false">
-        <Value xsi:type="xsd:int">0</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="AutoBrightness" Shared="false">
-        <Value xsi:type="xsd:boolean">true</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Duplex" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="AutoDeskew" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="AutoDespecle" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="RemoveBlackBorder" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="ShowTwainUI" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Compression" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="ExtractBarcodes" Shared="false">
-        <Value xsi:type="xsd:boolean">false</Value>
-      </ProfileProperties>
-      <ProfileProperties Name="Rotate" Shared="false">
-        <Value xsi:type="xsd:int">0</Value>
-      </ProfileProperties>
-    </ScanProfileSetting>
-    <BatchNamingProfileSetting>
-      <Enabled>false</Enabled>
-      <BatchNamingSettings />
-      <ReplaceIllegalChar />
-    </BatchNamingProfileSetting>
-    <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
-      <FixPageSeparationSetting>
-        <PageCount>1</PageCount>
-      </FixPageSeparationSetting>
-      <BlankPageSeparationSetting>
-        <DiregardPage>false</DiregardPage>
-        <Threshold>99</Threshold>
-      </BlankPageSeparationSetting>
-      <CustomSeparationSetting />
-      <BarcodeSeparationSettings />
-    </SeparationProfileSetting>
-    <ValidationProfileSetting>
-      <EnforceDefaultValidation>false</EnforceDefaultValidation>
-      <EnforceCustomValidation>false</EnforceCustomValidation>
-      <BatchStructureProfiles />
-    </ValidationProfileSetting>
-    <DocumentTypeProfileSetting>
-      <PreDefineFieldList />
-      <UniFormtypeList />
-    </DocumentTypeProfileSetting>
-    <SettingReference />
-    <AllowCreateNewBatch>true</AllowCreateNewBatch>
-    <AllowEditBatch>true</AllowEditBatch>
-    <NeedPrint>false</NeedPrint>
-    <FilterRescanByUser>false</FilterRescanByUser>
-  </UniParameterSet>
-  <Docs />
-  <FormTypes />
-</Batch>
+<ActivityConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ScanProfileSetting ProfileName="Admin Scan Profile" CreationDate="2019-04-19T16:05:31.2402393-07:00" Description="4/19/2019 4:10:10 PM" Creator="" Enabled="false">
+    <ProfileProperties Name="ImageMode" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Resolution" Shared="false">
+      <Value xsi:type="xsd:int">200</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="PageSize" Shared="false">
+      <Value xsi:type="xsd:int">4</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ScanType" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Contrast" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Brightness" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoBrightness" Shared="false">
+      <Value xsi:type="xsd:boolean">true</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Duplex" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoDeskew" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoDespecle" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="RemoveBlackBorder" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ShowTwainUI" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Compression" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ExtractBarcodes" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Rotate" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+  </ScanProfileSetting>
+  <BatchNamingProfileSetting>
+    <Enabled>true</Enabled>
+    <BatchNamingSettings>
+      <BatchNamingSetting>
+        <DocumentTypeName>Invoice</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>DocVariable</Type>
+            <StaticName>Type</StaticName>
+            <DisplayName>Type</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>LC</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>DocVariable</Type>
+            <StaticName>Type</StaticName>
+            <DisplayName>Type</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+    </BatchNamingSettings>
+    <ReplaceIllegalChar />
+  </BatchNamingProfileSetting>
+  <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
+    <FixPageSeparationSetting>
+      <PageCount>1</PageCount>
+      <FormType>Invoice</FormType>
+    </FixPageSeparationSetting>
+    <BlankPageSeparationSetting>
+      <DiregardPage>false</DiregardPage>
+      <Threshold>99</Threshold>
+    </BlankPageSeparationSetting>
+    <CustomSeparationSetting />
+    <BarcodeSeparationSettings />
+  </SeparationProfileSetting>
+  <ValidationProfileSetting>
+    <EnforceDefaultValidation>false</EnforceDefaultValidation>
+    <EnforceCustomValidation>false</EnforceCustomValidation>
+    <BatchStructureProfiles />
+  </ValidationProfileSetting>
+  <DocumentTypeProfileSetting>
+    <PreDefineFieldList />
+    <UniFormtypeList>
+      <UniFormType Name="Invoice" Visible="true" ExternalID="pcTF3qFnNNrFrhpWpLmU" Root="true">
+        <FieldDefs />
+        <DocumentNamingSetting>
+          <DateFormat>ddMMyyyy</DateFormat>
+          <TimeFormat>HHmmss</TimeFormat>
+          <BatchNamingTemplate />
+        </DocumentNamingSetting>
+      </UniFormType>
+      <UniFormType Name="LC" Visible="true" ExternalID="1PODU8uI0CrD3y86WApI" Root="true">
+        <FieldDefs />
+        <DocumentNamingSetting>
+          <DateFormat>ddMMyyyy</DateFormat>
+          <TimeFormat>HHmmss</TimeFormat>
+          <BatchNamingTemplate />
+        </DocumentNamingSetting>
+      </UniFormType>
+    </UniFormtypeList>
+  </DocumentTypeProfileSetting>
+  <SettingReference>--- Own Setting --- </SettingReference>
+  <AllowCreateNewBatch>true</AllowCreateNewBatch>
+  <AllowEditBatch>true</AllowEditBatch>
+  <NeedPrint>false</NeedPrint>
+  <FilterRescanByUser>false</FilterRescanByUser>
+</ActivityConfiguration>
