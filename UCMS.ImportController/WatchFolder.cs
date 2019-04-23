@@ -161,24 +161,21 @@ namespace UCMS.ImportController
                 var oContentMd = oUCMSApiClient.Content.Create(oContent);
 
                 // ---------Attachment-----------------------------------------------------------------
-                var strPath = Common.PathUpload;
-                if (!Directory.Exists(strPath))
-                {
-                    Directory.CreateDirectory(strPath);
-                }
+                var strPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                Directory.CreateDirectory(strPath);
                 oUCMSApiClient.Content.Checkout(oContentMd.Id);//Checkout content
                 foreach (String item in txtFiles.Text.Split(';'))
                 {
                     if (item.Trim().Length > 0)
                     {
-                        var attachment = new Model.Attachment();
-                        attachment.Name = Path.GetFullPath(strPath) + Guid.NewGuid() + Path.GetExtension(item.Trim());
-                        attachment.ContentId = oContentMd.Id;
-                        attachment.MIME = Path.GetExtension(item.Trim()).Replace(".", "image/");
-                        attachment.Data = File.ReadAllBytes(item.Trim());
-                        attachment.Type = Model.Enum.AttachmentType.Public;
-                        attachment.Path = Path.GetFullPath(strPath);
-                        oUCMSApiClient.Attachment.Upload(attachment);
+                        oUCMSApiClient.Attachment.Upload(new Model.Attachment
+                        {
+                            ContentId = oContentMd.Id,
+                            Data = File.ReadAllBytes(item.Trim()),
+                            MIME = "image/universalscan",
+                            Type = UCMS.Model.Enum.AttachmentType.Public,
+                            Name = Guid.NewGuid() + Path.GetExtension(item.Trim())
+                        });
                     }
                 }
                 if (txtFolder.Text.Trim() != "")
@@ -188,14 +185,14 @@ namespace UCMS.ImportController
                         String[] fileEntries = Directory.GetFiles(txtFolder.Text.Trim());
                         foreach (string item in fileEntries)
                         {
-                            var attachment = new Model.Attachment();
-                            attachment.Name = Path.GetFullPath(strPath) + Guid.NewGuid() + Path.GetExtension(item.Trim());
-                            attachment.ContentId = oContentMd.Id;
-                            attachment.MIME = Path.GetExtension(item.Trim()).Replace(".", "image/");
-                            attachment.Data = File.ReadAllBytes(item.Trim());
-                            attachment.Type = Model.Enum.AttachmentType.Public;
-                            attachment.Path = Path.GetFullPath(strPath);
-                            oUCMSApiClient.Attachment.Upload(attachment);
+                            oUCMSApiClient.Attachment.Upload(new Model.Attachment
+                            {
+                                ContentId = oContentMd.Id,
+                                Data = File.ReadAllBytes(item.Trim()),
+                                MIME = "image/universalscan",
+                                Type = UCMS.Model.Enum.AttachmentType.Public,
+                                Name = Guid.NewGuid() + Path.GetExtension(item.Trim())
+                            });
                         }
                     }
                 }
@@ -206,7 +203,7 @@ namespace UCMS.ImportController
                 oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData()
                 {
                     Key = "USCBatch",
-                    Value = PrivateData(oContentMd.Id)
+                    Value = PrivateData(oContentMd.Id, strPath + "\\")
                 });
 
                 //---Insert content in workflow------------------------------------------------------------
@@ -232,7 +229,7 @@ namespace UCMS.ImportController
             }
         }       
 
-        private String PrivateData(String contentId)
+        private String PrivateData(String contentId, string pathClient)
         {
             var content = oUCMSApiClient.Content.GetById(contentId);
             IMIP.UniversalScan.Data.UniBatch oBatch = new IMIP.UniversalScan.Data.UniBatch();
@@ -243,7 +240,6 @@ namespace UCMS.ImportController
             oBatch.ProcessStepName = cboWorkflowStep.Text;
             oBatch.FormTypeName = content.ContentType.Name;
             oBatch.Fields = new List<IMIP.UniversalScan.Data.UniField>();
-
             foreach (var item in ContentTypes)
             {
                 if(!item.Key.Equals("BranchId"))
@@ -255,8 +251,8 @@ namespace UCMS.ImportController
             {
                 oBatch.Pages.Add(new IMIP.UniversalScan.Data.UniPage()
                 {
-                    ID = content.Attachments[i].Id,
-                    FullFileName = content.Attachments[i].Name,
+                    ID = Path.GetFileNameWithoutExtension(content.Attachments[i].Name),
+                    FullFileName = pathClient + content.Attachments[i].Name,
                     Rejected = false,
                     IsRescan = false,
                     IsNew = false,
@@ -264,13 +260,8 @@ namespace UCMS.ImportController
                     RejectedNote = ""
                 });
             }
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(IMIP.UniversalScan.Data.UniBatch));
-            XmlDocument doc = new XmlDocument();
-            StringWriter sww = new StringWriter();
-            XmlWriter writer = XmlWriter.Create(sww);
-            xsSubmit.Serialize(writer, oBatch);
-            var xml = sww.ToString(); // Your xml
-            return xml;
+
+            return Common.SerializeObjectToString(typeof(IMIP.UniversalScan.Data.UniBatch), oBatch);
         }
 
         private String Naming(){

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Batch xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Invoice20190423104757" ID="75564f44-d850-45fb-94d3-6f7a75f0a56d" FormTypeName="Invoice" CreationDate="2019-04-23T10:48:13.8837564+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="GenData" ProcessName="GenaralProcess" ProcessStepName="UniversalScan" Priority="1" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
+<Batch xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Invoice20190423142225" ID="0a25232c-c16c-4216-bd20-84d37bfb3429" FormTypeName="Invoice" CreationDate="2019-04-23T14:22:41.7640383+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="GenData" ProcessName="GenaralProcess" ProcessStepName="UniversalScan" Priority="1" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
   <CustomProperties xsi:type="xsd:string" />
   <Media />
   <Pages>
-    <UniPage ID="4b96f23f-4ae9-4748-be3c-73e2ea4afca8" FullFileName="C:\\IMIP.UCMS\\IMIP.WebScanApplication\\CurrentBatch\\75564f44-d850-45fb-94d3-6f7a75f0a56d\\4b96f23f-4ae9-4748-be3c-73e2ea4afca8.JPG" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
+    <UniPage ID="9c81d80c-c07d-44bc-b5cc-d93905e72981" FullFileName="C:\\IMIP.UCMS\\IMIP.WebScanApplication\\CurrentBatch\\0a25232c-c16c-4216-bd20-84d37bfb3429\\9c81d80c-c07d-44bc-b5cc-d93905e72981.JPG" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
       <Barcodes />
     </UniPage>
   </Pages>
@@ -22,7 +22,7 @@
     </UniField>
   </Fields>
   <UniParameterSet>
-    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-04-23T10:48:14.0038363+07:00" Description="" Creator="" Enabled="false">
+    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-04-23T14:22:41.8291919+07:00" Description="" Creator="" Enabled="false">
       <ProfileProperties Name="ImageMode" Shared="false">
         <Value xsi:type="xsd:int">0</Value>
       </ProfileProperties>

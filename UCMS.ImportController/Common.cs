@@ -18,7 +18,6 @@ namespace UCMS.ImportController
         public static String Password = ConfigurationSettings.AppSettings["Password"].ToString();
         public static String UCMSWebAPIEndPoint = ConfigurationSettings.AppSettings["UCMSWebAPIEndPoint"].ToString();
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
-        public static String PathUpload = ConfigurationSettings.AppSettings["PathUpload"].ToString();
         
         public enum SourceFieldType
         {
@@ -29,6 +28,24 @@ namespace UCMS.ImportController
             System = 4,
             StepHistory = 5,
             SubDocIndexField = 6
+        }
+
+        public static string SerializeObjectToString(System.Type oType, object objectToSerialize)
+        {
+            TextWriter textWriter = null;
+            MemoryStream oMemoryStream = new MemoryStream();
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(oType);
+                textWriter = new StreamWriter(oMemoryStream);
+                serializer.Serialize(textWriter, objectToSerialize);
+                return System.Text.Encoding.UTF8.GetString(oMemoryStream.ToArray());
+            }
+            finally
+            {
+                if (textWriter != null)
+                    textWriter.Close();
+            }
         }
 
         public static object DeSerializeObjectFromString(string value, System.Type oType)
