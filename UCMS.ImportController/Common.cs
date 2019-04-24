@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace UCMS.ImportController
 {
@@ -30,6 +31,8 @@ namespace UCMS.ImportController
             SubDocIndexField = 6
         }
 
+        public enum UniFieldDataType { StringType = 1, IntegerType = 2, DateTimeType = 3, LookupType = 4, BoolType = 5, FloatType = 6, BarcodeLookup = 7, Table = 8 };
+
         public static string SerializeObjectToString(System.Type oType, object objectToSerialize)
         {
             TextWriter textWriter = null;
@@ -46,6 +49,26 @@ namespace UCMS.ImportController
                 if (textWriter != null)
                     textWriter.Close();
             }
+        }
+
+        public static object DeSerializeObject(string filename, System.Type oType)
+        {
+            TextReader textReader = null;
+            object oBatch;
+            try
+            {
+                XmlSerializer deserializer = new XmlSerializer(oType);
+                textReader = new StreamReader(filename);
+
+                oBatch = deserializer.Deserialize(textReader);
+            }
+            finally
+            {
+                if (textReader != null)
+                    textReader.Close();
+            }
+
+            return oBatch;
         }
 
         public static object DeSerializeObjectFromString(string value, System.Type oType)
@@ -66,6 +89,23 @@ namespace UCMS.ImportController
             }
 
             return oBatch;
+        }
+
+        public static T DeserializeNode<T>(XmlNode node) where T : class
+        {
+            TextReader textReader = null;
+            try
+            {
+                XmlSerializer deserializer = new XmlSerializer(typeof(T));
+                textReader = new StringReader(node.OuterXml);
+                return deserializer.Deserialize(textReader) as T;
+            }
+            finally
+            {
+                if (textReader != null)
+                    textReader.Close();
+            }
+            
         }
 
         public static T DeserializeXML<T>(string input) where T : class

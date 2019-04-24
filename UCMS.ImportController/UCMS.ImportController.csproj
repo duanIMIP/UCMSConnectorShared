@@ -67,27 +67,48 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="Data\StepList.cs" />
+    <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\DocumentTypeProfileSetting.cs" />
+    <Compile Include="Data\FieldDefs.cs" />
+    <Compile Include="Data\PreDefineFieldList.cs" />
+    <Compile Include="Data\ReferenceField.cs" />
+    <Compile Include="Data\UniBoolProperty.cs" />
+    <Compile Include="Data\UniColumn.cs" />
+    <Compile Include="Data\UniFieldDefinition.cs" />
+    <Compile Include="Data\UniFormType.cs" />
+    <Compile Include="Data\UniFormtypeList.cs" />
+    <Compile Include="Data\UniPreDefineField.cs" />
+    <Compile Include="Data\UniProperty.cs" />
+    <Compile Include="Data\UniZone.cs" />
     <Compile Include="frmChildren.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmChildren.Designer.cs">
       <DependentUpon>frmChildren.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\BatchNamingProfileSetting.cs" />
-    <Compile Include="Data\BatchNamingSetting.cs" />
-    <Compile Include="Data\SourceField.cs" />
+    <Compile Include="Data\BatchNamingProfileSetting\BatchNamingProfileSetting.cs" />
+    <Compile Include="Data\BatchNamingProfileSetting\BatchNamingSetting.cs" />
+    <Compile Include="Data\BatchNamingProfileSetting\SourceField.cs" />
+    <Compile Include="frmWatchFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWatchFolder.Designer.cs">
+      <DependentUpon>frmWatchFolder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenCache.cs" />
-    <Compile Include="WatchFolder.cs">
+    <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WatchFolder.Designer.cs">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="frmChildren.resx">
       <DependentUpon>frmChildren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWatchFolder.resx">
+      <DependentUpon>frmWatchFolder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,8 +119,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="WatchFolder.resx">
-      <DependentUpon>WatchFolder.cs</DependentUpon>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -133,6 +154,8 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\DocumentTypeProfileSetting\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

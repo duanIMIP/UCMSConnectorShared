@@ -16,7 +16,7 @@ namespace UCMS.ImportController
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WatchFolder());
+            Application.Run(new frmMain());
         }
     }
 }

@@ -1,7 +1,6 @@
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.exe.config
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.frmChildren.resources
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.Properties.Resources.resources
-D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.WatchFolder.resources
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.csproj.GenerateResource.cache
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.csproj.CoreCompileInputs.cache
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.exe.config
@@ -35,3 +34,5 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Deb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.SharedComponent.CustomMapping.pdb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\de\IMIP.UniversalScan.resources.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\vi\IMIP.UniversalScan.resources.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.frmWatchFolder.resources
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.frmMain.resources
