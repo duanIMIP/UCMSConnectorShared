@@ -45,6 +45,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabContentField = new System.Windows.Forms.TabPage();
+            this.grdContentField = new System.Windows.Forms.DataGridView();
+            this.txtNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabLibraryField = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ctmWatchFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -56,11 +61,23 @@
             this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.machineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctmFieldRight = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grdLibraryField = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabContentField.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdContentField)).BeginInit();
+            this.tabLibraryField.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctmWatchFolder.SuspendLayout();
             this.ctmDetails.SuspendLayout();
+            this.ctmFieldRight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibraryField)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -207,6 +224,7 @@
             // tabContentField
             // 
             this.tabContentField.BackColor = System.Drawing.SystemColors.Control;
+            this.tabContentField.Controls.Add(this.grdContentField);
             this.tabContentField.Location = new System.Drawing.Point(4, 22);
             this.tabContentField.Name = "tabContentField";
             this.tabContentField.Padding = new System.Windows.Forms.Padding(3);
@@ -214,8 +232,56 @@
             this.tabContentField.TabIndex = 0;
             this.tabContentField.Text = "Content Field";
             // 
+            // grdContentField
+            // 
+            this.grdContentField.BackgroundColor = System.Drawing.Color.White;
+            this.grdContentField.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdContentField.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.txtNo,
+            this.txtName,
+            this.txtValue,
+            this.NameId});
+            this.grdContentField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdContentField.Location = new System.Drawing.Point(3, 3);
+            this.grdContentField.MultiSelect = false;
+            this.grdContentField.Name = "grdContentField";
+            this.grdContentField.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdContentField.Size = new System.Drawing.Size(673, 208);
+            this.grdContentField.TabIndex = 0;
+            this.grdContentField.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseClick);
+            this.grdContentField.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseDoubleClick);
+            // 
+            // txtNo
+            // 
+            this.txtNo.HeaderText = "No";
+            this.txtNo.Name = "txtNo";
+            this.txtNo.ReadOnly = true;
+            // 
+            // txtName
+            // 
+            this.txtName.FillWeight = 300F;
+            this.txtName.HeaderText = "Name";
+            this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
+            this.txtName.Width = 200;
+            // 
+            // txtValue
+            // 
+            this.txtValue.FillWeight = 400F;
+            this.txtValue.HeaderText = "Value";
+            this.txtValue.Name = "txtValue";
+            this.txtValue.ReadOnly = true;
+            this.txtValue.Width = 300;
+            // 
+            // NameId
+            // 
+            this.NameId.HeaderText = "NameId";
+            this.NameId.Name = "NameId";
+            this.NameId.Visible = false;
+            // 
             // tabLibraryField
             // 
+            this.tabLibraryField.Controls.Add(this.grdLibraryField);
             this.tabLibraryField.Location = new System.Drawing.Point(4, 22);
             this.tabLibraryField.Name = "tabLibraryField";
             this.tabLibraryField.Padding = new System.Windows.Forms.Padding(3);
@@ -277,42 +343,101 @@
             this.machineToolStripMenuItem,
             this.userNameToolStripMenuItem});
             this.ctmDetails.Name = "ctmDetails";
-            this.ctmDetails.Size = new System.Drawing.Size(181, 136);
+            this.ctmDetails.Size = new System.Drawing.Size(159, 114);
             // 
             // ctmiDocumentType
             // 
             this.ctmiDocumentType.Name = "ctmiDocumentType";
-            this.ctmiDocumentType.Size = new System.Drawing.Size(180, 22);
+            this.ctmiDocumentType.Size = new System.Drawing.Size(158, 22);
             this.ctmiDocumentType.Text = "Document Type";
             this.ctmiDocumentType.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // ctmiDate
             // 
             this.ctmiDate.Name = "ctmiDate";
-            this.ctmiDate.Size = new System.Drawing.Size(180, 22);
+            this.ctmiDate.Size = new System.Drawing.Size(158, 22);
             this.ctmiDate.Text = "Date";
             this.ctmiDate.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // timeToolStripMenuItem
             // 
             this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
-            this.timeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.timeToolStripMenuItem.Text = "Time";
             this.timeToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // machineToolStripMenuItem
             // 
             this.machineToolStripMenuItem.Name = "machineToolStripMenuItem";
-            this.machineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.machineToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.machineToolStripMenuItem.Text = "Machine";
             this.machineToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // userNameToolStripMenuItem
             // 
             this.userNameToolStripMenuItem.Name = "userNameToolStripMenuItem";
-            this.userNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.userNameToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.userNameToolStripMenuItem.Text = "UserName";
             this.userNameToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
+            // 
+            // ctmFieldRight
+            // 
+            this.ctmFieldRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearStripMenuItem});
+            this.ctmFieldRight.Name = "ctmFieldRight";
+            this.ctmFieldRight.Size = new System.Drawing.Size(133, 26);
+            // 
+            // clearStripMenuItem
+            // 
+            this.clearStripMenuItem.Name = "clearStripMenuItem";
+            this.clearStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.clearStripMenuItem.Text = "Clear value";
+            this.clearStripMenuItem.Click += new System.EventHandler(this.clearStripMenuItem_Click);
+            // 
+            // grdLibraryField
+            // 
+            this.grdLibraryField.BackgroundColor = System.Drawing.Color.White;
+            this.grdLibraryField.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdLibraryField.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.grdLibraryField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdLibraryField.Location = new System.Drawing.Point(3, 3);
+            this.grdLibraryField.MultiSelect = false;
+            this.grdLibraryField.Name = "grdLibraryField";
+            this.grdLibraryField.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdLibraryField.Size = new System.Drawing.Size(673, 208);
+            this.grdLibraryField.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "No";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 300F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.FillWeight = 400F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "NameId";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
             // 
             // frmMain
             // 
@@ -327,10 +452,15 @@
             this.Load += new System.EventHandler(this.WatchFolder_Load);
             this.groupBox1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabContentField.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdContentField)).EndInit();
+            this.tabLibraryField.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ctmWatchFolder.ResumeLayout(false);
             this.ctmDetails.ResumeLayout(false);
+            this.ctmFieldRight.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibraryField)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -364,5 +494,17 @@
         private System.Windows.Forms.ToolStripMenuItem timeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem machineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userNameToolStripMenuItem;
+        private System.Windows.Forms.DataGridView grdContentField;
+        private System.Windows.Forms.DataGridViewTextBoxColumn txtNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn txtName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn txtValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameId;
+        private System.Windows.Forms.ContextMenuStrip ctmFieldRight;
+        private System.Windows.Forms.ToolStripMenuItem clearStripMenuItem;
+        private System.Windows.Forms.DataGridView grdLibraryField;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }

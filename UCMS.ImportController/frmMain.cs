@@ -18,8 +18,6 @@ namespace UCMS.ImportController
     public partial class frmMain : Form
     {
         public UCMSApiClient oUCMSApiClient = null;
-        public Dictionary<string, object> LibraryField = new Dictionary<string, object>();
-        private String oControlName;
         public String _ReName { get; set; }
         public String _MoveTo { get; set; }
         public String _Type { get; set; }
@@ -30,6 +28,7 @@ namespace UCMS.ImportController
             _ReName = "";
             _MoveTo = "";
             _Type = "";
+            grdContentField.ContextMenuStrip = new ContextMenuStrip();
         }
 
         private void WatchFolder_Load(object sender, EventArgs e)
@@ -153,48 +152,19 @@ namespace UCMS.ImportController
         {
             if (cboContentType.SelectedItem != null)
             {
+                grdContentField.Rows.Clear();
                 var oUniFormType = cboContentType.SelectedItem as UniFormType;
-                tabContentField.Controls.Clear();
                 for (int i = 0; i < oUniFormType.UniFieldDefinitions.Count; i++)
                 {
-                    Label lblnew = new System.Windows.Forms.Label();
-                    lblnew.Location = new Point(10, 19 + i * 26);
-                    lblnew.Text = oUniFormType.UniFieldDefinitions[i].DisplayName;
-                    lblnew.AutoSize = true;
-                    lblnew.BackColor = System.Drawing.Color.LightGray;
-                    lblnew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    tabContentField.Controls.Add(lblnew);
-
-                    TextBox txtnew = new System.Windows.Forms.TextBox();
-                    txtnew.Location = new Point(134, 12 + i * 26);
-                    txtnew.ReadOnly = true;
-                    txtnew.Text = "";
-                    txtnew.Name = "txtConfig" + oUniFormType.UniFieldDefinitions[i].Name;
-                    txtnew.Size = new Size(374, 20);
-                    txtnew.BackColor = System.Drawing.Color.LightGray;
-                    txtnew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    tabContentField.Controls.Add(txtnew);
-
-                    Button btnSubmit = new System.Windows.Forms.Button();
-                    btnSubmit.Location = new System.Drawing.Point(509, 12 + i * 26);
-                    btnSubmit.Name = "btnConfig" + oUniFormType.UniFieldDefinitions[i].Name;
-                    btnSubmit.Size = new System.Drawing.Size(32, 20);
-                    btnSubmit.TabIndex = 0;
-                    btnSubmit.Text = "...";
-                    btnSubmit.UseVisualStyleBackColor = true;
-                    btnSubmit.Click += new System.EventHandler(this.btnConfig_Click);
-                    if (oUniFormType.UniFieldDefinitions[i].ReadOnly)
-                    {
-                        btnSubmit.Enabled = false;
-                    }
-                    tabContentField.Controls.Add(btnSubmit);
+                    string[] row = new string[] { (i + 1).ToString(), oUniFormType.UniFieldDefinitions[i].DisplayName, "", oUniFormType.UniFieldDefinitions[i].Name };
+                    grdContentField.Rows.Add(row);
                 }
                 groupBox1.Visible = true;
             }
             else
             {
                 groupBox1.Visible = false;
-                tabContentField.Controls.Clear();
+                grdContentField.Rows.Clear();
                 tabLibraryField.Controls.Clear();
             }
         }
@@ -221,11 +191,11 @@ namespace UCMS.ImportController
                 //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
                 //-----------------------------------------------------------
                 oContent.Values = new Dictionary<string, object>();
-                foreach (Control item in tabContentField.Controls)
+                foreach (DataGridViewRow item in grdContentField.Rows)
                 {
-                    if (item.GetType().Name.Equals("TextBox") && (item as TextBox).Name.IndexOf("txtConfig") >= 0)
+                    if (!item.IsNewRow)
                     {
-                        oContent.Values.Add((item as TextBox).Name.Replace("txtConfig", ""), convertValueField((item as TextBox).Text));
+                        oContent.Values.Add(item.Cells["NameId"].Value.ToString(), convertValueField(item.Cells["txtValue"].Value.ToString()));
                     }
                 }
                 oContent.Values.Add("BranchId", cboBrank.Text);
@@ -287,13 +257,15 @@ namespace UCMS.ImportController
             oBatch.ProcessStepName = cboWorkflowStep.Text;
             oBatch.FormTypeName = content.ContentType.Name;
             oBatch.Fields = new List<IMIP.UniversalScan.Data.UniField>();
-            foreach (Control item in tabContentField.Controls)
+
+            foreach (DataGridViewRow item in grdContentField.Rows)
             {
-                if (item.GetType().Name.Equals("TextBox") && (item as TextBox).Name.Contains("txtConfig"))
+                if (!item.IsNewRow)
                 {
-                    oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = (item as TextBox).Name.Replace("txtConfig", ""), Value = convertValueField((item as TextBox).Text) });
+                    oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Cells["NameId"].Value.ToString(), Value = convertValueField(item.Cells["txtValue"].Value.ToString()) });
                 }
             }
+
             oBatch.Pages = new List<IMIP.UniversalScan.Data.UniPage>();
 
             for (int i = 0; i < content.Attachments.Count; i++)
@@ -407,60 +379,7 @@ namespace UCMS.ImportController
                 return false;
             }
             return true;
-        }
-
-        private void btnUpload_Click(object sender, EventArgs e)
-        {
-            var tempNameFolders = "";
-            OpenFileDialog opnfd = new OpenFileDialog();
-            opnfd.CheckFileExists = true;
-            opnfd.AddExtension = true;
-            opnfd.Multiselect = true;
-            opnfd.Filter = "Image Files (*.jfif;*.jpg;*.jpeg;.*.gif;*.png;*.doc;*.docx;*.xls;*.xlsx;*.pdf;)|*.jfif;*.jpg;*.jpeg;.*.gif;*.png;*.doc;*.docx;*.xls;*.xlsx;*.pdf;";
-            if (opnfd.ShowDialog() == DialogResult.OK)
-            {
-                foreach (string fileName in opnfd.FileNames)
-                {
-                    if (fileName.Replace(@"\" + Path.GetFileName(fileName), "") == txtFolder.Text)
-                    {
-                        MessageBox.Show("File có đường dẫn trùng với Upload Folder");
-                        return;
-                    }
-                    tempNameFolders = tempNameFolders.Replace(fileName + ";" + Environment.NewLine, "") + fileName + ";" + Environment.NewLine;
-                }
-            }
-        }
-
-        private void btlLibraryField_Click(object sender, EventArgs e)
-        {
-            frmChildren frm = new frmChildren();
-            LibraryField = new Dictionary<string, object>();
-            frm.oLibrary = oUCMSApiClient.Folder.GetLibrary(cboLibrary.SelectedValue.ToString());
-            //var listContent = oUCMSApiClient.Content. GetContents(cboLibrary.SelectedValue.ToString());
-            //foreach (Model.Content item in listContent.Items)
-            //{
-            //    if(item.ContentType.Id == cboContentType.SelectedValue.ToString())
-            //    {
-            //        frm.oContent = item;
-            //        break;
-            //    }
-            //}
-            frm.oFromChild = "btlLibraryField";
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                for (int i = 0; i < frm.Controls.Count; i++)
-                {
-                    if (frm.Controls[i].GetType().Name == "TextBox")
-                    {
-                        LibraryField.Add(frm.Controls[i].Name, frm.Controls[i].Text);
-                    }
-                    else if (frm.Controls[i].GetType().Name == "ComboBox")
-                    {
-                        LibraryField.Add(frm.Controls[i].Name, frm.Controls[i].Text);
-                    }
-                }
-            }
-        }
+        }        
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -565,46 +484,60 @@ namespace UCMS.ImportController
         #endregion UploadFolder
 
         #region ConfigField
-        private void btnConfig_Click(object sender, EventArgs e)
-        {
-            Button btnSender = (Button)sender;
-            Point ptLowerLeft = new Point(0, btnSender.Height);
-            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            oControlName = btnSender.Name.Replace("btnConfig", "txtConfig");
-            ctmDetails.Show(ptLowerLeft);
-        }
-
         private void ConfigContentField_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem btnConfig = sender as ToolStripMenuItem;
-            foreach (Control item in tabContentField.Controls)
+            switch (btnConfig.Name)
             {
-                if (item.GetType().Name.Equals("TextBox") && (item as TextBox).Name == oControlName)
-                {
-                    switch (btnConfig.Name)
-                    {
-                        case "ctmiDocumentType":
-                            (item as TextBox).Text += "{$Type}";
-                            break;
-                        case "ctmiDate":
-                            (item as TextBox).Text += "{$Date}";
-                            break;
-                        case "timeToolStripMenuItem":
-                            (item as TextBox).Text += "{$Time}";
-                            break;
-                        case "machineToolStripMenuItem":
-                            (item as TextBox).Text += "{$MachineName}";
-                            break;
-                        case "userNameToolStripMenuItem":
-                            (item as TextBox).Text += "{$UserName}";
-                            break;
-                    }
+                case "ctmiDocumentType":
+                    grdContentField.CurrentCell.Value += "{$Type}";
                     break;
+                case "ctmiDate":
+                    grdContentField.CurrentCell.Value += "{$Date}";
+                    break;
+                case "timeToolStripMenuItem":
+                    grdContentField.CurrentCell.Value += "{$Time}";
+                    break;
+                case "machineToolStripMenuItem":
+                    grdContentField.CurrentCell.Value += "{$MachineName}";
+                    break;
+                case "userNameToolStripMenuItem":
+                    grdContentField.CurrentCell.Value += "{$UserName}";
+                    break;
+            }
+        }
+        private void grdContentField_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (grdContentField.CurrentCell != null && grdContentField.CurrentCell.Value != null && e.RowIndex != -1)
+                {
+                    if (grdContentField.CurrentCell is DataGridViewTextBoxCell && grdContentField.CurrentCell.ColumnIndex.Equals(2))
+                    {
+                        DataGridViewTextBoxCell btnSender = (DataGridViewTextBoxCell)grdContentField.CurrentCell;
+                        Point ptLowerLeft = new Point(btnSender.Size.Width, btnSender.Size.Height);
+                        ptLowerLeft = grdContentField.PointToScreen(ptLowerLeft);
+                        ctmFieldRight.Show(ptLowerLeft);
+                    }
                 }
             }
-
         }
-
+        private void grdContentField_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (grdContentField.CurrentCell != null && grdContentField.CurrentCell.Value != null && e.RowIndex != -1)
+                {
+                    if (grdContentField.CurrentCell is DataGridViewTextBoxCell && grdContentField.CurrentCell.ColumnIndex.Equals(2))
+                    {
+                        DataGridViewTextBoxCell btnSender = (DataGridViewTextBoxCell)grdContentField.CurrentCell;
+                        Point ptLowerLeft = new Point(btnSender.Size.Width, btnSender.Size.Height);
+                        ptLowerLeft = grdContentField.PointToScreen(ptLowerLeft);
+                        ctmDetails.Show(ptLowerLeft);
+                    }
+                }
+            }
+        }
         private string convertValueField(string config)
         {
             string documentType = cboContentType.Text;
@@ -619,6 +552,11 @@ namespace UCMS.ImportController
             config = config.Replace("{$MachineName}", cfMachineName);
             config = config.Replace("{$UserName}", cfUsername);
             return config;
+        }
+
+        private void clearStripMenuItem_Click(object sender, EventArgs e)
+        {
+            grdContentField.CurrentCell.Value = "";
         }
 
         #endregion ConfigField
@@ -643,6 +581,6 @@ namespace UCMS.ImportController
             return list;
         }
 
-
+        
     }
 }
