@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.chkJPG = new System.Windows.Forms.CheckBox();
             this.chkJPEG = new System.Windows.Forms.CheckBox();
             this.chkGIJ = new System.Windows.Forms.CheckBox();
@@ -43,11 +44,24 @@
             this.chkRename = new System.Windows.Forms.CheckBox();
             this.chkMoveTo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkTIFF = new System.Windows.Forms.CheckBox();
+            this.chkTIF = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblMoveTo = new System.Windows.Forms.Label();
+            this.txtExtension = new System.Windows.Forms.TextBox();
+            this.txtMoveTo = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.ctmRRenameExtension = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jpgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRenameExtension = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.ctmRRenameExtension.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkJPG
@@ -103,6 +117,8 @@
             // chkPDF
             // 
             this.chkPDF.AutoSize = true;
+            this.chkPDF.Checked = true;
+            this.chkPDF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPDF.Location = new System.Drawing.Point(118, 120);
             this.chkPDF.Name = "chkPDF";
             this.chkPDF.Size = new System.Drawing.Size(48, 17);
@@ -154,7 +170,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(207, 116);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 20);
+            this.textBox1.Size = new System.Drawing.Size(220, 20);
             this.textBox1.TabIndex = 11;
             // 
             // label1
@@ -168,13 +184,11 @@
             // chkRename
             // 
             this.chkRename.AutoSize = true;
-            this.chkRename.Checked = true;
-            this.chkRename.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRename.Location = new System.Drawing.Point(40, 23);
             this.chkRename.Name = "chkRename";
-            this.chkRename.Size = new System.Drawing.Size(66, 17);
+            this.chkRename.Size = new System.Drawing.Size(115, 17);
             this.chkRename.TabIndex = 16;
-            this.chkRename.Text = "Rename";
+            this.chkRename.Text = "Rename Extension";
             this.chkRename.UseVisualStyleBackColor = true;
             // 
             // chkMoveTo
@@ -191,6 +205,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkTIFF);
+            this.groupBox1.Controls.Add(this.chkTIF);
             this.groupBox1.Controls.Add(this.chkDOCX);
             this.groupBox1.Controls.Add(this.chkJPG);
             this.groupBox1.Controls.Add(this.chkJPEG);
@@ -208,11 +224,37 @@
             this.groupBox1.Size = new System.Drawing.Size(444, 162);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Attach Type";
+            this.groupBox1.Text = "Attach";
+            // 
+            // chkTIFF
+            // 
+            this.chkTIFF.AutoSize = true;
+            this.chkTIFF.Checked = true;
+            this.chkTIFF.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTIFF.Location = new System.Drawing.Point(207, 51);
+            this.chkTIFF.Name = "chkTIFF";
+            this.chkTIFF.Size = new System.Drawing.Size(44, 17);
+            this.chkTIFF.TabIndex = 14;
+            this.chkTIFF.Text = "*.tiff";
+            this.chkTIFF.UseVisualStyleBackColor = true;
+            // 
+            // chkTIF
+            // 
+            this.chkTIF.AutoSize = true;
+            this.chkTIF.Checked = true;
+            this.chkTIF.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTIF.Location = new System.Drawing.Point(207, 28);
+            this.chkTIF.Name = "chkTIF";
+            this.chkTIF.Size = new System.Drawing.Size(41, 17);
+            this.chkTIF.TabIndex = 13;
+            this.chkTIF.Text = "*.tif";
+            this.chkTIF.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lblMoveTo);
+            this.groupBox2.Controls.Add(this.btnRenameExtension);
+            this.groupBox2.Controls.Add(this.txtExtension);
+            this.groupBox2.Controls.Add(this.txtMoveTo);
             this.groupBox2.Controls.Add(this.chkRename);
             this.groupBox2.Controls.Add(this.chkMoveTo);
             this.groupBox2.Location = new System.Drawing.Point(13, 180);
@@ -220,16 +262,29 @@
             this.groupBox2.Size = new System.Drawing.Size(444, 81);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Format";
+            this.groupBox2.Text = "File Type";
             // 
-            // lblMoveTo
+            // txtExtension
             // 
-            this.lblMoveTo.AutoSize = true;
-            this.lblMoveTo.Location = new System.Drawing.Point(153, 51);
-            this.lblMoveTo.Name = "lblMoveTo";
-            this.lblMoveTo.Size = new System.Drawing.Size(0, 13);
-            this.lblMoveTo.TabIndex = 18;
-            this.lblMoveTo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtExtension.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtExtension.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txtExtension.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtExtension.Location = new System.Drawing.Point(172, 20);
+            this.txtExtension.Name = "txtExtension";
+            this.txtExtension.ReadOnly = true;
+            this.txtExtension.Size = new System.Drawing.Size(220, 20);
+            this.txtExtension.TabIndex = 20;
+            this.txtExtension.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtExtension_MouseDoubleClick);
+            this.txtExtension.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtExtension_MouseDown);
+            // 
+            // txtMoveTo
+            // 
+            this.txtMoveTo.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtMoveTo.Location = new System.Drawing.Point(172, 44);
+            this.txtMoveTo.Name = "txtMoveTo";
+            this.txtMoveTo.ReadOnly = true;
+            this.txtMoveTo.Size = new System.Drawing.Size(254, 20);
+            this.txtMoveTo.TabIndex = 19;
             // 
             // btnSave
             // 
@@ -241,6 +296,78 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // ctmRRenameExtension
+            // 
+            this.ctmRRenameExtension.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tifToolStripMenuItem,
+            this.tiffToolStripMenuItem,
+            this.jpgToolStripMenuItem,
+            this.gifToolStripMenuItem,
+            this.pngToolStripMenuItem,
+            this.pdfToolStripMenuItem,
+            this.otherToolStripMenuItem});
+            this.ctmRRenameExtension.Name = "ctmRRenameExtension";
+            this.ctmRRenameExtension.Size = new System.Drawing.Size(114, 158);
+            // 
+            // tifToolStripMenuItem
+            // 
+            this.tifToolStripMenuItem.Name = "tifToolStripMenuItem";
+            this.tifToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.tifToolStripMenuItem.Text = ".tif";
+            this.tifToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // tiffToolStripMenuItem
+            // 
+            this.tiffToolStripMenuItem.Name = "tiffToolStripMenuItem";
+            this.tiffToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.tiffToolStripMenuItem.Text = ".tiff";
+            this.tiffToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // jpgToolStripMenuItem
+            // 
+            this.jpgToolStripMenuItem.Name = "jpgToolStripMenuItem";
+            this.jpgToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.jpgToolStripMenuItem.Text = ".jpg";
+            this.jpgToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // gifToolStripMenuItem
+            // 
+            this.gifToolStripMenuItem.Name = "gifToolStripMenuItem";
+            this.gifToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.gifToolStripMenuItem.Text = ".gif";
+            this.gifToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // pngToolStripMenuItem
+            // 
+            this.pngToolStripMenuItem.Name = "pngToolStripMenuItem";
+            this.pngToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.pngToolStripMenuItem.Text = ".png";
+            this.pngToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // otherToolStripMenuItem
+            // 
+            this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.otherToolStripMenuItem.Text = "Other...";
+            this.otherToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // pdfToolStripMenuItem
+            // 
+            this.pdfToolStripMenuItem.Name = "pdfToolStripMenuItem";
+            this.pdfToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.pdfToolStripMenuItem.Text = ".pdf";
+            this.pdfToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // btnRenameExtension
+            // 
+            this.btnRenameExtension.Location = new System.Drawing.Point(398, 20);
+            this.btnRenameExtension.Name = "btnRenameExtension";
+            this.btnRenameExtension.Size = new System.Drawing.Size(27, 20);
+            this.btnRenameExtension.TabIndex = 21;
+            this.btnRenameExtension.Text = "...";
+            this.btnRenameExtension.UseVisualStyleBackColor = true;
+            this.btnRenameExtension.Click += new System.EventHandler(this.btnRenameExtension_Click);
+            // 
             // frmWatchFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,12 +378,13 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmWatchFolder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Config Attachment";
+            this.Text = "Post Processing";
             this.Load += new System.EventHandler(this.frmWatchFolder_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.ctmRRenameExtension.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -280,6 +408,18 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblMoveTo;
+        private System.Windows.Forms.CheckBox chkTIFF;
+        private System.Windows.Forms.CheckBox chkTIF;
+        private System.Windows.Forms.TextBox txtExtension;
+        private System.Windows.Forms.TextBox txtMoveTo;
+        private System.Windows.Forms.ContextMenuStrip ctmRRenameExtension;
+        private System.Windows.Forms.ToolStripMenuItem tifToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tiffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jpgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gifToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otherToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pdfToolStripMenuItem;
+        private System.Windows.Forms.Button btnRenameExtension;
     }
 }

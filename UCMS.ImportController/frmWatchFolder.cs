@@ -12,7 +12,7 @@ namespace UCMS.ImportController
 {
     public partial class frmWatchFolder : Form
     {
-        public Boolean _ReName;
+        public String _ReName;
         public String _MoveTo;
         public String _Type;
 
@@ -23,12 +23,12 @@ namespace UCMS.ImportController
 
         private void frmWatchFolder_Load(object sender, EventArgs e)
         {
-            chkRename.Checked = _ReName;
-            if (!string.IsNullOrEmpty(_MoveTo))
-            {
-                chkMoveTo.Checked = true;
-                lblMoveTo.Text = _MoveTo;
-            }
+            chkRename.Checked = !string.IsNullOrEmpty(_ReName);
+            txtExtension.Text = _ReName;
+            txtExtension.ContextMenu = new ContextMenu();
+            chkMoveTo.Checked = !string.IsNullOrEmpty(_MoveTo);
+            txtMoveTo.Text = _MoveTo;
+            txtMoveTo.ContextMenu = new ContextMenu();
             if (!string.IsNullOrEmpty(_Type))
             {
                 foreach (var item in groupBox1.Controls)//groupBox1
@@ -43,6 +43,7 @@ namespace UCMS.ImportController
                     }
                 }
             }
+            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,8 +60,8 @@ namespace UCMS.ImportController
                     }
                 }
             }
-            _Type = "Image Files(" + _Type + ")|" + _Type;
-            _ReName = chkRename.Checked;
+            //_Type = "Image Files(" + _Type + ")|" + _Type;
+            _ReName = txtExtension.Text;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -71,21 +72,66 @@ namespace UCMS.ImportController
                 FolderBrowserDialog fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    lblMoveTo.Text = fbd.SelectedPath;
+                    txtMoveTo.Text = fbd.SelectedPath;
                     _MoveTo = fbd.SelectedPath;
                 }
                 else
                 {
                     chkMoveTo.Checked = false;
-                    lblMoveTo.Text = "";
+                    txtMoveTo.Text = "";
                     _MoveTo = "";
                 }
             }
             else
             {
-                lblMoveTo.Text = "";
+                txtMoveTo.Text = "";
                 _MoveTo = "";
             }
+        }
+
+        private void txtExtension_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            TextBox txtSender = (TextBox)sender;
+            Point ptLowerLeft = new Point(0, txtSender.Height);
+            ptLowerLeft = txtSender.PointToScreen(ptLowerLeft);
+            ctmRRenameExtension.Show(ptLowerLeft);
+        }
+
+        private void txtExtension_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                TextBox txtSender = (TextBox)sender;
+                Point ptLowerLeft = new Point(0, txtSender.Height);
+                ptLowerLeft = txtSender.PointToScreen(ptLowerLeft);
+                ctmRRenameExtension.Show(ptLowerLeft);
+            }
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem stripObj = sender as ToolStripMenuItem;
+            if(stripObj.Text == "Other...")
+            {
+                txtExtension.ReadOnly = false;
+                txtExtension.BackColor = System.Drawing.Color.White;
+                txtExtension.ContextMenu = null;
+            }
+            else
+            {
+                txtExtension.Text = stripObj.Text;
+                txtExtension.ReadOnly = true;
+                txtExtension.BackColor = System.Drawing.SystemColors.Menu;
+                txtExtension.ContextMenu = new ContextMenu();
+            }
+        }
+
+        private void btnRenameExtension_Click(object sender, EventArgs e)
+        {
+            Button txtSender = (Button)sender;
+            Point ptLowerLeft = new Point(0, txtSender.Height);
+            ptLowerLeft = txtSender.PointToScreen(ptLowerLeft);
+            ctmRRenameExtension.Show(ptLowerLeft);
         }
     }
 }

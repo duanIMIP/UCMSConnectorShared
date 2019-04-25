@@ -19,16 +19,15 @@ namespace UCMS.ImportController
     {
         public UCMSApiClient oUCMSApiClient = null;
         public Dictionary<string, object> LibraryField = new Dictionary<string, object>();
-        public Dictionary<string, object> ContentTypes = new Dictionary<string, object>();
         private String oControlName;
-        public Boolean _ReName { get; set; }
+        public String _ReName { get; set; }
         public String _MoveTo { get; set; }
         public String _Type { get; set; }
         public frmMain()
         {
             InitializeComponent();
             oUCMSApiClient = new UCMSApiClient(Common.Username, Common.Password, Common.UCMSWebAPIEndPoint, Common.UCMSAuthorizationServer);
-            _ReName = false;
+            _ReName = "";
             _MoveTo = "";
             _Type = "";
         }
@@ -155,6 +154,7 @@ namespace UCMS.ImportController
             if (cboContentType.SelectedItem != null)
             {
                 var oUniFormType = cboContentType.SelectedItem as UniFormType;
+                tabContentField.Controls.Clear();
                 for (int i = 0; i < oUniFormType.UniFieldDefinitions.Count; i++)
                 {
                     Label lblnew = new System.Windows.Forms.Label();
@@ -169,7 +169,7 @@ namespace UCMS.ImportController
                     txtnew.Location = new Point(134, 12 + i * 26);
                     txtnew.ReadOnly = true;
                     txtnew.Text = "";
-                    txtnew.Name = "txtConfig" + oUniFormType.UniFieldDefinitions[i].ExternalID;
+                    txtnew.Name = "txtConfig" + oUniFormType.UniFieldDefinitions[i].Name;
                     txtnew.Size = new Size(374, 20);
                     txtnew.BackColor = System.Drawing.Color.LightGray;
                     txtnew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -177,7 +177,7 @@ namespace UCMS.ImportController
 
                     Button btnSubmit = new System.Windows.Forms.Button();
                     btnSubmit.Location = new System.Drawing.Point(509, 12 + i * 26);
-                    btnSubmit.Name = "btnConfig" + oUniFormType.UniFieldDefinitions[i].ExternalID;
+                    btnSubmit.Name = "btnConfig" + oUniFormType.UniFieldDefinitions[i].Name;
                     btnSubmit.Size = new System.Drawing.Size(32, 20);
                     btnSubmit.TabIndex = 0;
                     btnSubmit.Text = "...";
@@ -189,6 +189,13 @@ namespace UCMS.ImportController
                     }
                     tabContentField.Controls.Add(btnSubmit);
                 }
+                groupBox1.Visible = true;
+            }
+            else
+            {
+                groupBox1.Visible = false;
+                tabContentField.Controls.Clear();
+                tabLibraryField.Controls.Clear();
             }
         }
 
@@ -213,66 +220,37 @@ namespace UCMS.ImportController
                 }
                 //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
                 //-----------------------------------------------------------
-
-                //Update Field Library content values
-                if (LibraryField.Count == 0 || ContentTypes.Count == 0)
+                oContent.Values = new Dictionary<string, object>();
+                foreach (Control item in tabContentField.Controls)
                 {
-                    var library = oUCMSApiClient.Folder.GetLibrary(oContent.Folder.Id);
-                    if (LibraryField.Count == 0)
+                    if (item.GetType().Name.Equals("TextBox") && (item as TextBox).Name.IndexOf("txtConfig") >= 0)
                     {
-                        LibraryField = new Dictionary<string, object>();
-                        foreach (var item in library.Fields)
-                        {
-                            LibraryField.Add(item.Id, item.DefaultValue);
-                        }
+                        oContent.Values.Add((item as TextBox).Name.Replace("txtConfig", ""), convertValueField((item as TextBox).Text));
                     }
+                }
+                oContent.Values.Add("BranchId", cboBrank.Text);
 
-                    if (ContentTypes.Count == 0 && library.ContentTypes.Count > 0)
+                oContent.LibraryFieldValues = new Dictionary<string, object>();
+                foreach (Control item in tabLibraryField.Controls)
+                {
+                    if (item.GetType().Name.Equals("TextBox"))
                     {
-                        var contentType = oUCMSApiClient.ContentType.GetById(cboContentType.SelectedValue.ToString());
-                        ContentTypes = new Dictionary<string, object>();
-                        foreach (var item in contentType.Fields) //Chon gia tri cho contentType
-                        {
-                            ContentTypes.Add(item.Name, item.DefaultValue);
-                        }
+                        oContent.LibraryFieldValues.Add((item as TextBox).Name, (item as TextBox).Text);
                     }
                 }
 
                 oContent.ContentType = new Model.ContentType() { Id = cboContentType.SelectedValue.ToString() };
-                oContent.LibraryFieldValues = LibraryField;
-                ContentTypes.Add("BranchId", cboBrank.Text);
-                oContent.Values = ContentTypes;
                 var oContentMd = oUCMSApiClient.Content.Create(oContent);
 
-                // ---------Attachment-----------------------------------------------------------------
-                var strPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-                Directory.CreateDirectory(strPath);
-                oUCMSApiClient.Content.Checkout(oContentMd.Id);//Checkout content
-                if (txtFolder.Text.Trim() != "")
+                if(!UploadSave(oContentMd.Id))
                 {
-                    if (Directory.Exists(txtFolder.Text.Trim()))
-                    {
-                        String[] fileEntries = Directory.GetFiles(txtFolder.Text.Trim());
-                        foreach (string item in fileEntries)
-                        {
-                            oUCMSApiClient.Attachment.Upload(new Model.Attachment
-                            {
-                                ContentId = oContentMd.Id,
-                                Data = File.ReadAllBytes(item.Trim()),
-                                MIME = "image/universalscan",
-                                Type = UCMS.Model.Enum.AttachmentType.Public,
-                                Name = Guid.NewGuid() + Path.GetExtension(item.Trim())
-                            });
-                        }
-                    }
+                    return;
                 }
-                oUCMSApiClient.Content.Checkin(oContentMd.Id);// Checkint content
-                //-----------------------------------------------------------------------------------------
 
                 oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData()
                 {
                     Key = "USCBatch",
-                    Value = PrivateData(oContentMd.Id, strPath + "\\")
+                    Value = PrivateData(oContentMd.Id, _MoveTo)
                 });
 
                 //---Insert content in workflow------------------------------------------------------------
@@ -287,8 +265,9 @@ namespace UCMS.ImportController
 
                 MessageBox.Show("Cập nhật thành công");
                 txtFolder.Text = "";
-                ContentTypes = new Dictionary<string, object>();
-                LibraryField = new Dictionary<string, object>();
+                cboContentType.SelectedValue = "";
+                cboContentType.Text = "";
+                cboContentType_SelectedIndexChanged(null, null);
             }
             catch (Exception ex)
             {
@@ -308,10 +287,12 @@ namespace UCMS.ImportController
             oBatch.ProcessStepName = cboWorkflowStep.Text;
             oBatch.FormTypeName = content.ContentType.Name;
             oBatch.Fields = new List<IMIP.UniversalScan.Data.UniField>();
-            foreach (var item in ContentTypes)
+            foreach (Control item in tabContentField.Controls)
             {
-                if (!item.Key.Equals("BranchId"))
-                    oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = item.Key, Value = item.Value.ToString(), });
+                if (item.GetType().Name.Equals("TextBox") && (item as TextBox).Name.Contains("txtConfig"))
+                {
+                    oBatch.Fields.Add(new IMIP.UniversalScan.Data.UniField() { Name = (item as TextBox).Name.Replace("txtConfig", ""), Value = convertValueField((item as TextBox).Text) });
+                }
             }
             oBatch.Pages = new List<IMIP.UniversalScan.Data.UniPage>();
 
@@ -320,7 +301,7 @@ namespace UCMS.ImportController
                 oBatch.Pages.Add(new IMIP.UniversalScan.Data.UniPage()
                 {
                     ID = Path.GetFileNameWithoutExtension(content.Attachments[i].Name),
-                    FullFileName = pathClient + content.Attachments[i].Name,
+                    FullFileName = (string.IsNullOrEmpty(pathClient)? txtFolder.Text: pathClient) + @"\" + content.Attachments[i].Name,
                     Rejected = false,
                     IsRescan = false,
                     IsNew = false,
@@ -420,7 +401,7 @@ namespace UCMS.ImportController
                 MessageBox.Show("WorkflowStep không được để trống");
                 return false;
             }
-            if (cboContentType.SelectedItem == null || (cboContentType.SelectedItem as Model.ContentType).Id == "")
+            if (cboContentType.SelectedItem == null || (cboContentType.SelectedItem as UniFormType).ExternalID == "")
             {
                 MessageBox.Show("ContentType không được để trống");
                 return false;
@@ -481,29 +462,14 @@ namespace UCMS.ImportController
             }
         }
 
-        private void btlContentType_Click(object sender, EventArgs e)
-        {
-            frmChildren frm = new frmChildren();
-            ContentTypes = new Dictionary<string, object>();
-            frm.oContentType = oUCMSApiClient.ContentType.GetById(cboContentType.SelectedValue.ToString());
-            frm.oFromChild = "btlContentType";
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                for (int i = 0; i < frm.Controls.Count; i++)
-                {
-                    if (frm.Controls[i].GetType().Name == "TextBox")
-                    {
-                        ContentTypes.Add(frm.Controls[i].Name, frm.Controls[i].Text);
-                    }
-                }
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             txtFolder.Text = "";
-            ContentTypes = new Dictionary<string, object>();
-            LibraryField = new Dictionary<string, object>();
+            cboContentType.SelectedValue = "";
+            cboContentType.Text = "";
+            groupBox1.Visible = false;
+            tabContentField.Controls.Clear();
+            tabLibraryField.Controls.Clear();
         }
 
         #region UploadFolder
@@ -542,6 +508,60 @@ namespace UCMS.ImportController
             }
         }
 
+        private Boolean UploadSave(string contentId)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(_MoveTo))
+                {
+                    Path.Combine(_MoveTo);
+                    Directory.CreateDirectory(_MoveTo);
+                }                
+                
+                var folderPath = txtFolder.Text.Trim();
+
+                if (!string.IsNullOrEmpty(folderPath) && Directory.Exists(folderPath))
+                {
+                    DirectoryInfo directInfo = new DirectoryInfo(folderPath);                    
+
+                    oUCMSApiClient.Content.Checkout(contentId);//Checkout content
+                    foreach (var item in directInfo.GetFiles())
+                    {
+                        if (String.IsNullOrEmpty(_Type) || _Type.Contains(item.Extension + ";"))
+                        {
+                            var attachment = new Model.Attachment
+                            {
+                                ContentId = contentId,
+                                Data = File.ReadAllBytes(item.FullName),
+                                MIME = "image/universalscan",
+                                Type = UCMS.Model.Enum.AttachmentType.Public,
+                                Name = string.IsNullOrEmpty(_ReName) ? item.Name: (item.Name.Replace(item.Extension, "") + _ReName)
+                            };
+
+                            oUCMSApiClient.Attachment.Upload(attachment);
+
+                            if (!String.IsNullOrEmpty(_MoveTo))
+                            {
+                                item.MoveTo(_MoveTo + @"\\" + item.Name);
+                            }
+                            if (!string.IsNullOrEmpty(_ReName))
+                            {
+                                item.CopyTo((String.IsNullOrEmpty(_MoveTo)?item.DirectoryName: _MoveTo) + @"\\" + attachment.Name);
+                                item.Delete();
+                            }
+                        }
+                    }
+                    oUCMSApiClient.Content.Checkin(contentId);// Checkint content
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.Message);
+                return false;
+            }
+            return true;
+        }
+
         #endregion UploadFolder
 
         #region ConfigField
@@ -578,12 +598,29 @@ namespace UCMS.ImportController
                         case "userNameToolStripMenuItem":
                             (item as TextBox).Text += "{$UserName}";
                             break;
-                    }                    
+                    }
                     break;
                 }
             }
-            
+
         }
+
+        private string convertValueField(string config)
+        {
+            string documentType = cboContentType.Text;
+            string cfDate = DateTime.Now.ToString("ddMMyyyy");
+            string cfTime = DateTime.Now.ToString("HHmmss");
+            string cfMachineName = Environment.MachineName.ToString();
+            string cfUsername = Common.Username;
+
+            config = config.Replace("{$Type}", documentType);
+            config = config.Replace("{$Date}", cfDate);
+            config = config.Replace("{$Time}", cfTime);
+            config = config.Replace("{$MachineName}", cfMachineName);
+            config = config.Replace("{$UserName}", cfUsername);
+            return config;
+        }
+
         #endregion ConfigField
 
 
@@ -606,6 +643,6 @@ namespace UCMS.ImportController
             return list;
         }
 
-        
+
     }
 }
