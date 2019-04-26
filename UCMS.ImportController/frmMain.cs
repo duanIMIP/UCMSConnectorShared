@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -171,12 +172,47 @@ namespace UCMS.ImportController
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            var check = SubmitUpload();
+            while (check)
+            {
+                Thread.Sleep(3600 * 1000);
+                check = RoundSubmitUpload();
+            }
+        }
+
+        private bool RoundSubmitUpload()
+        {
+            if (!string.IsNullOrEmpty(txtFolder.Text) && (!string.IsNullOrEmpty(_MoveTo) || !string.IsNullOrEmpty(_ReName)) && Directory.Exists(txtFolder.Text))
+            {
+                if(String.IsNullOrEmpty(_Type))
+                {
+                    if (Directory.GetFiles(txtFolder.Text).Length > 0)
+                    {
+                        return SubmitUpload();
+                    }
+                }
+                else
+                {
+                    foreach (string item in _Type.Split(';'))
+                    {
+                        if(Directory.GetFiles(txtFolder.Text, item).Length > 0)
+                        {
+                            return SubmitUpload();
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool SubmitUpload()
+        {
             try
             {
                 Model.Content oContent = new Model.Content();
                 if (!CheckSubmit())
                 {
-                    return;
+                    return false;
                 }
                 oContent.Folder = cboLibrary.SelectedItem as Model.Folder;
 
@@ -186,7 +222,7 @@ namespace UCMS.ImportController
                 if (oContent.Name == "")
                 {
                     MessageBox.Show("Setting naming cho content");
-                    return;
+                    return false;
                 }
                 //oContent.Tags.Add(oContent.Name.Replace(" ", "_"));
                 //-----------------------------------------------------------
@@ -212,9 +248,9 @@ namespace UCMS.ImportController
                 oContent.ContentType = new Model.ContentType() { Id = cboContentType.SelectedValue.ToString() };
                 var oContentMd = oUCMSApiClient.Content.Create(oContent);
 
-                if(!UploadSave(oContentMd.Id))
+                if (!UploadSave(oContentMd.Id))
                 {
-                    return;
+                    return false;
                 }
 
                 oUCMSApiClient.Content.SetPrivateData(oContentMd.Id, new Model.ContentPrivateData()
@@ -234,15 +270,13 @@ namespace UCMS.ImportController
                 //-----------------------------------------------------------------------------------------
 
                 MessageBox.Show("Cập nhật thành công");
-                txtFolder.Text = "";
-                cboContentType.SelectedValue = "";
-                cboContentType.Text = "";
-                cboContentType_SelectedIndexChanged(null, null);
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Có lỗi trong quá trình cập nhật");
                 Common.LogToFile(ex.Message);
+                return false;
             }
         }
 
