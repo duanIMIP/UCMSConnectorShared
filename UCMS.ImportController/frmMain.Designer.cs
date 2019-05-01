@@ -216,7 +216,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(6, 52);
+            this.btnRefresh.Location = new System.Drawing.Point(6, 137);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(76, 29);
             this.btnRefresh.TabIndex = 20;
@@ -576,7 +576,7 @@
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(6, 136);
+            this.btnRandom.Location = new System.Drawing.Point(6, 54);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(76, 29);
             this.btnRandom.TabIndex = 21;
