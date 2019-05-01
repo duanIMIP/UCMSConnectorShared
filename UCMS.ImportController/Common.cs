@@ -20,20 +20,7 @@ namespace UCMS.ImportController
         public static String UCMSWebAPIEndPoint = ConfigurationSettings.AppSettings["UCMSWebAPIEndPoint"].ToString();
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
         
-        public enum SourceFieldType
-        {
-            TextConstant = 0,
-            BatchValue = 1,
-            DocVariable = 2,
-            DocIndexField = 3,
-            System = 4,
-            StepHistory = 5,
-            SubDocIndexField = 6
-        }
-
-        public enum UniFieldDataType { StringType = 1, IntegerType = 2, DateTimeType = 3, LookupType = 4, BoolType = 5, FloatType = 6, BarcodeLookup = 7, Table = 8 };
-
-        public static string SerializeObjectToString(System.Type oType, object objectToSerialize)
+        public static string SerializeToString(System.Type oType, object objectToSerialize)
         {
             TextWriter textWriter = null;
             MemoryStream oMemoryStream = new MemoryStream();
@@ -51,7 +38,20 @@ namespace UCMS.ImportController
             }
         }
 
-        public static object DeSerializeObject(string filename, System.Type oType)
+        public static object DeSerializeFromByte(byte[] arrByte, System.Type oType)
+        {
+            object oReturn = null;
+            using (MemoryStream stream = new MemoryStream(arrByte))
+            {
+                XmlSerializer serializer = new XmlSerializer(oType);
+                oReturn = serializer.Deserialize(stream);
+                stream.Close();
+            }
+
+            return oReturn;
+        }
+
+        public static object DeSerializeFromFile(string filename, System.Type oType)
         {
             TextReader textReader = null;
             object oBatch;
@@ -67,31 +67,34 @@ namespace UCMS.ImportController
                 if (textReader != null)
                     textReader.Close();
             }
-
             return oBatch;
         }
 
-        public static object DeSerializeObjectFromString(string value, System.Type oType)
+        public static T DeSerializeFromString<T>(string value, string ElementName) where T : class
         {
             TextReader textReader = null;
-            object oBatch;
             try
             {
-                XmlSerializer deserializer = new XmlSerializer(oType);
+                XmlRootAttribute xRoot = new XmlRootAttribute();
+                xRoot.ElementName = ElementName;
+                xRoot.IsNullable = true;
+                XmlSerializer deserializer = new XmlSerializer(typeof(T), xRoot);
                 textReader = new StringReader(value);
-
-                oBatch = deserializer.Deserialize(textReader);
+                return deserializer.Deserialize(textReader) as T;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.GetBaseException());
+                return null;
             }
             finally
             {
                 if (textReader != null)
                     textReader.Close();
             }
-
-            return oBatch;
         }
 
-        public static T DeserializeNode<T>(XmlNode node) where T : class
+        public static T DeserializeFromNode<T>(XmlNode node) where T : class
         {
             TextReader textReader = null;
             try
@@ -100,34 +103,16 @@ namespace UCMS.ImportController
                 textReader = new StringReader(node.OuterXml);
                 return deserializer.Deserialize(textReader) as T;
             }
+            catch
+            {
+                return null;
+            }
             finally
             {
                 if (textReader != null)
                     textReader.Close();
-            }
-            
-        }
-
-        public static T DeserializeXML<T>(string input) where T : class
-        {
-            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(T));
-
-            using (StringReader sr = new StringReader(input))
-            {
-                return (T)ser.Deserialize(sr);
-            }
-        }
-
-        public static string SerializeXML<T>(T ObjectToSerialize)
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(ObjectToSerialize.GetType());
-
-            using (StringWriter textWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(textWriter, ObjectToSerialize);
-                return textWriter.ToString();
-            }
-        }
+            }            
+        }        
 
         public static void LogToFile(string message)
         {

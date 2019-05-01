@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace UCMS.ImportController.Data
 {
-    public class UniZone
+    public class DataValue
     {
-        public int Top;
-        public int Left;
-        public int Width;
-        public int Height;
-        public int PageNo;
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

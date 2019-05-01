@@ -1,201 +1,168 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ActivityConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ScanProfileSetting ProfileName="Admin Scan Profile" CreationDate="2019-04-20T06:05:31.2402393+07:00" Description="4/24/2019 10:07:45 AM" Creator="" Enabled="false">
-    <ProfileProperties Name="ImageMode" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Resolution" Shared="false">
-      <Value xsi:type="xsd:int">200</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="PageSize" Shared="false">
-      <Value xsi:type="xsd:int">4</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="ScanType" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Contrast" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Brightness" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="AutoBrightness" Shared="false">
-      <Value xsi:type="xsd:boolean">true</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Duplex" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="AutoDeskew" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="AutoDespecle" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="RemoveBlackBorder" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="ShowTwainUI" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Compression" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="ExtractBarcodes" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Rotate" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
-    </ProfileProperties>
-  </ScanProfileSetting>
-  <BatchNamingProfileSetting>
-    <Enabled>true</Enabled>
-    <BatchNamingSettings>
-      <BatchNamingSetting>
-        <DocumentTypeName>Invoice</DocumentTypeName>
-        <DateFormat>yyyyMMdd</DateFormat>
-        <TimeFormat>HHmmss</TimeFormat>
-        <BatchNamingTemplate>
-          <SourceField>
-            <Type>DocVariable</Type>
-            <StaticName>Type</StaticName>
-            <DisplayName>Type</DisplayName>
-          </SourceField>
-          <SourceField>
-            <Type>System</Type>
-            <StaticName>Date</StaticName>
-            <DisplayName>Date</DisplayName>
-          </SourceField>
-          <SourceField>
-            <Type>System</Type>
-            <StaticName>Time</StaticName>
-            <DisplayName>Time</DisplayName>
-          </SourceField>
-        </BatchNamingTemplate>
-      </BatchNamingSetting>
-      <BatchNamingSetting>
-        <DocumentTypeName>LC</DocumentTypeName>
-        <DateFormat>yyyyMMdd</DateFormat>
-        <TimeFormat>HHmmss</TimeFormat>
-        <BatchNamingTemplate>
-          <SourceField>
-            <Type>DocVariable</Type>
-            <StaticName>Type</StaticName>
-            <DisplayName>Type</DisplayName>
-          </SourceField>
-          <SourceField>
-            <Type>System</Type>
-            <StaticName>Date</StaticName>
-            <DisplayName>Date</DisplayName>
-          </SourceField>
-          <SourceField>
-            <Type>System</Type>
-            <StaticName>Time</StaticName>
-            <DisplayName>Time</DisplayName>
-          </SourceField>
-        </BatchNamingTemplate>
-      </BatchNamingSetting>
-    </BatchNamingSettings>
-    <ReplaceIllegalChar />
-  </BatchNamingProfileSetting>
-  <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
-    <FixPageSeparationSetting>
-      <PageCount>1</PageCount>
-      <FormType>Invoice</FormType>
-    </FixPageSeparationSetting>
-    <BlankPageSeparationSetting>
-      <DiregardPage>false</DiregardPage>
-      <Threshold>99</Threshold>
-    </BlankPageSeparationSetting>
-    <CustomSeparationSetting />
-    <BarcodeSeparationSettings />
-  </SeparationProfileSetting>
-  <ValidationProfileSetting>
-    <EnforceDefaultValidation>false</EnforceDefaultValidation>
-    <EnforceCustomValidation>false</EnforceCustomValidation>
-    <BatchStructureProfiles />
-  </ValidationProfileSetting>
-  <DocumentTypeProfileSetting>
-    <PreDefineFieldList />
-    <UniFormtypeList>
-      <UniFormType Name="Invoice" Visible="true" ExternalID="pcTF3qFnNNrFrhpWpLmU" Root="true">
-        <FieldDefs>
-          <UniFieldDefinition DisplayName="InvoiceNumber" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="iNbGTWkHYOrjIZDLrJkH" ValueFromBarcode="false" Name="InvoiceNumber" Index="0">
-            <Columns />
-            <ReferenceFields />
-            <Visible Name="">
-              <Privilege>
-                <Account>
-                  <Name>Everyone</Name>
-                  <UPN />
-                  <Class />
-                </Account>
-              </Privilege>
-              <Value>true</Value>
-            </Visible>
-            <Editable Name="">
-              <Privilege>
-                <Account>
-                  <Name>Everyone</Name>
-                  <UPN />
-                  <Class />
-                </Account>
-              </Privilege>
-              <Value>true</Value>
-            </Editable>
-            <FieldZone>
-              <Top>0</Top>
-              <Left>0</Left>
-              <Width>0</Width>
-              <Height>0</Height>
-              <PageNo>0</PageNo>
-            </FieldZone>
-          </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="InvoiceDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="VV1xJTtWiymheW28M623" ValueFromBarcode="false" Name="InvoiceDate" Index="1">
-            <Columns />
-            <ReferenceFields />
-            <Visible Name="">
-              <Privilege>
-                <Account>
-                  <Name>Everyone</Name>
-                  <UPN />
-                  <Class />
-                </Account>
-              </Privilege>
-              <Value>true</Value>
-            </Visible>
-            <Editable Name="">
-              <Privilege>
-                <Account>
-                  <Name>Everyone</Name>
-                  <UPN />
-                  <Class />
-                </Account>
-              </Privilege>
-              <Value>true</Value>
-            </Editable>
-            <FieldZone>
-              <Top>0</Top>
-              <Left>0</Left>
-              <Width>0</Width>
-              <Height>0</Height>
-              <PageNo>0</PageNo>
-            </FieldZone>
-          </UniFieldDefinition>
-        </FieldDefs>
-        <DocumentNamingSetting>
-          <DateFormat>ddMMyyyy</DateFormat>
-          <TimeFormat>HHmmss</TimeFormat>
-          <BatchNamingTemplate />
-        </DocumentNamingSetting>
-      </UniFormType>
-    </UniFormtypeList>
-  </DocumentTypeProfileSetting>
-  <SettingReference>--- Own Setting --- </SettingReference>
-  <AllowCreateNewBatch>true</AllowCreateNewBatch>
-  <AllowEditBatch>true</AllowEditBatch>
-  <NeedPrint>false</NeedPrint>
-  <FilterRescanByUser>false</FilterRescanByUser>
-</ActivityConfiguration>
+<Batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="CTInvoice20190501183947" ID="a8e91094-60b6-4142-9e23-0ca90e344777" FormTypeName="CTDeliveryNote" CreationDate="2019-05-01T18:39:47.5549006+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="Credit" ProcessName="Moneyflow" ProcessStepName="Moneyflow" Priority="5" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
+  <Media />
+  <Pages />
+  <Fields>
+    <UniField Name="Birthday_Field" Value="01052019" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="Create_Filed" Value="183943" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="BranchId" Value="All" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="Invoice" Value="01052019" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="DeliveryNote" Value="183943" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="Advices" Value="DESKTOP-VLJPKF5" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+  </Fields>
+  <UniParameterSet>
+    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-05-01T18:39:47.556902+07:00" Description="" Creator="" Enabled="false">
+      <ProfileProperties Name="ImageMode" Shared="false">
+        <Value xsi:type="xsd:int">0</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Resolution" Shared="false">
+        <Value xsi:type="xsd:int">200</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="PageSize" Shared="false">
+        <Value xsi:type="xsd:int">4</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="ScanType" Shared="false">
+        <Value xsi:type="xsd:int">0</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Contrast" Shared="false">
+        <Value xsi:type="xsd:int">0</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Brightness" Shared="false">
+        <Value xsi:type="xsd:int">0</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="AutoBrightness" Shared="false">
+        <Value xsi:type="xsd:boolean">true</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Duplex" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="AutoDeskew" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="AutoDespecle" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="RemoveBlackBorder" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="ShowTwainUI" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Compression" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="ExtractBarcodes" Shared="false">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </ProfileProperties>
+      <ProfileProperties Name="Rotate" Shared="false">
+        <Value xsi:type="xsd:int">0</Value>
+      </ProfileProperties>
+    </ScanProfileSetting>
+    <BatchNamingProfileSetting>
+      <Enabled>false</Enabled>
+      <BatchNamingSettings />
+      <ReplaceIllegalChar />
+    </BatchNamingProfileSetting>
+    <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
+      <FixPageSeparationSetting>
+        <PageCount>1</PageCount>
+      </FixPageSeparationSetting>
+      <BlankPageSeparationSetting>
+        <DiregardPage>false</DiregardPage>
+        <Threshold>99</Threshold>
+      </BlankPageSeparationSetting>
+      <CustomSeparationSetting />
+      <BarcodeSeparationSettings />
+    </SeparationProfileSetting>
+    <ValidationProfileSetting>
+      <EnforceDefaultValidation>false</EnforceDefaultValidation>
+      <EnforceCustomValidation>false</EnforceCustomValidation>
+      <BatchStructureProfiles />
+    </ValidationProfileSetting>
+    <DocumentTypeProfileSetting>
+      <PreDefineFieldList />
+      <UniFormtypeList />
+    </DocumentTypeProfileSetting>
+    <SettingReference />
+    <AllowCreateNewBatch>true</AllowCreateNewBatch>
+    <AllowEditBatch>true</AllowEditBatch>
+    <NeedPrint>false</NeedPrint>
+    <FilterRescanByUser>false</FilterRescanByUser>
+  </UniParameterSet>
+  <Docs>
+    <UniDocument Name="CTInvoice" ID="" FormTypeName="[No Form Type]" CreationDate="0001-01-01T00:00:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="">
+      <Media />
+      <Pages>
+        <UniPage ID="a1" FullFileName="a1.png" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
+          <Barcodes />
+        </UniPage>
+      </Pages>
+      <Fields>
+        <UniField Name="Number_Field" Value="01052019" ValidationStatus="false">
+          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+            <Chars />
+          </CustomData>
+          <Rows />
+        </UniField>
+        <UniField Name="Date_Field" Value="183943" ValidationStatus="false">
+          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+            <Chars />
+          </CustomData>
+          <Rows />
+        </UniField>
+        <UniField Name="Invoice" Value="01052019" ValidationStatus="false">
+          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+            <Chars />
+          </CustomData>
+          <Rows />
+        </UniField>
+        <UniField Name="DeliveryNote" Value="183943" ValidationStatus="false">
+          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+            <Chars />
+          </CustomData>
+          <Rows />
+        </UniField>
+        <UniField Name="Advices" Value="183943" ValidationStatus="false">
+          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+            <Chars />
+          </CustomData>
+          <Rows />
+        </UniField>
+      </Fields>
+    </UniDocument>
+  </Docs>
+  <FormTypes />
+</Batch>

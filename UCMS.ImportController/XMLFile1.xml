@@ -1,77 +1,483 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DocumentTypeProfileSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <PreDefineFieldList />
-  <UniFormtypeList>
-    <UniFormType Name="Invoice" Visible="true" ExternalID="pcTF3qFnNNrFrhpWpLmU" Root="true">
-      <FieldDefs>
-        <UniFieldDefinition DisplayName="InvoiceNumber" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="iNbGTWkHYOrjIZDLrJkH" ValueFromBarcode="false" Name="InvoiceNumber" Index="0">
-          <Columns />
-          <ReferenceFields />
-          <Visible Name="">
-            <Privilege>
-              <Account>
-                <Name>Everyone</Name>
-                <UPN />
-                <Class />
-              </Account>
-            </Privilege>
-            <Value>true</Value>
-          </Visible>
-          <Editable Name="">
-            <Privilege>
-              <Account>
-                <Name>Everyone</Name>
-                <UPN />
-                <Class />
-              </Account>
-            </Privilege>
-            <Value>true</Value>
-          </Editable>
-          <FieldZone>
-            <Top>0</Top>
-            <Left>0</Left>
-            <Width>0</Width>
-            <Height>0</Height>
-            <PageNo>0</PageNo>
-          </FieldZone>
-        </UniFieldDefinition>
-        <UniFieldDefinition DisplayName="InvoiceDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="VV1xJTtWiymheW28M623" ValueFromBarcode="false" Name="InvoiceDate" Index="1">
-          <Columns />
-          <ReferenceFields />
-          <Visible Name="">
-            <Privilege>
-              <Account>
-                <Name>Everyone</Name>
-                <UPN />
-                <Class />
-              </Account>
-            </Privilege>
-            <Value>true</Value>
-          </Visible>
-          <Editable Name="">
-            <Privilege>
-              <Account>
-                <Name>Everyone</Name>
-                <UPN />
-                <Class />
-              </Account>
-            </Privilege>
-            <Value>true</Value>
-          </Editable>
-          <FieldZone>
-            <Top>0</Top>
-            <Left>0</Left>
-            <Width>0</Width>
-            <Height>0</Height>
-            <PageNo>0</PageNo>
-          </FieldZone>
-        </UniFieldDefinition>
-      </FieldDefs>
-      <DocumentNamingSetting>
-        <DateFormat>ddMMyyyy</DateFormat>
+<ActivityConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ScanProfileSetting ProfileName="Admin Scan Profile" CreationDate="2019-04-26T17:59:38.1831204+07:00" Description="5/1/2019 7:06:47 AM" Creator="" Enabled="false">
+    <ProfileProperties Name="ImageMode" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Resolution" Shared="false">
+      <Value xsi:type="xsd:int">200</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="PageSize" Shared="false">
+      <Value xsi:type="xsd:int">4</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ScanType" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Contrast" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Brightness" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoBrightness" Shared="false">
+      <Value xsi:type="xsd:boolean">true</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Duplex" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoDeskew" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="AutoDespecle" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="RemoveBlackBorder" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ShowTwainUI" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Compression" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="ExtractBarcodes" Shared="false">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
+    <ProfileProperties Name="Rotate" Shared="false">
+      <Value xsi:type="xsd:int">0</Value>
+    </ProfileProperties>
+  </ScanProfileSetting>
+  <BatchNamingProfileSetting>
+    <Enabled>true</Enabled>
+    <BatchNamingSettings>
+      <BatchNamingSetting>
+        <DocumentTypeName>CTInvoice</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
         <TimeFormat>HHmmss</TimeFormat>
-        <BatchNamingTemplate />
-      </DocumentNamingSetting>
-    </UniFormType>
-  </UniFormtypeList>
-</DocumentTypeProfileSetting>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>DocVariable</Type>
+            <StaticName>Type</StaticName>
+            <DisplayName>Type</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Machine Name</StaticName>
+            <DisplayName>Machine Name</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>User Name</StaticName>
+            <DisplayName>User Name</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>123456</StaticName>
+            <DisplayName>123456</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>DocIndexField</Type>
+            <StaticName>Invoice</StaticName>
+            <DisplayName>Invoice</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>CTDeliveryNote</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>DocVariable</Type>
+            <StaticName>Type</StaticName>
+            <DisplayName>Type</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+    </BatchNamingSettings>
+    <ReplaceIllegalChar />
+  </BatchNamingProfileSetting>
+  <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
+    <FixPageSeparationSetting>
+      <PageCount>1</PageCount>
+      <FormType>CTInvoice</FormType>
+    </FixPageSeparationSetting>
+    <BlankPageSeparationSetting>
+      <DiregardPage>false</DiregardPage>
+      <Threshold>99</Threshold>
+    </BlankPageSeparationSetting>
+    <CustomSeparationSetting />
+    <BarcodeSeparationSettings />
+  </SeparationProfileSetting>
+  <ValidationProfileSetting>
+    <EnforceDefaultValidation>false</EnforceDefaultValidation>
+    <EnforceCustomValidation>false</EnforceCustomValidation>
+    <BatchStructureProfiles />
+  </ValidationProfileSetting>
+  <DocumentTypeProfileSetting>
+    <PreDefineFieldList />
+    <UniFormtypeList>
+      <UniFormType Name="CTInvoice" Visible="true" ExternalID="DtJVBAqVUtgdnbvLe7rE" Root="false">
+        <FieldDefs>
+          <UniFieldDefinition DisplayName="Invoice" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="xUIKJrB52rIWDbTezdMs" ValueFromBarcode="false" Name="Invoice" Index="0">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="DeliveryNote" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="BMNPHf6Dzc2eX0CMwr7c" ValueFromBarcode="false" Name="DeliveryNote" Index="1">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Advices" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="XpIoyA3Z42BbuLxhxTlD" ValueFromBarcode="false" Name="Advices" Index="2">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Number Field" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="MIuknEhsyfEiKW0E6bvm" ValueFromBarcode="false" Name="Number_Field" Index="3">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Date Field" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="cuL7SrDUHCfwm7HNfIP3" ValueFromBarcode="false" Name="Date_Field" Index="4">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+        </FieldDefs>
+        <DocumentNamingSetting>
+          <DateFormat>ddMMyyyy</DateFormat>
+          <TimeFormat>HHmmss</TimeFormat>
+          <BatchNamingTemplate />
+        </DocumentNamingSetting>
+      </UniFormType>
+      <UniFormType Name="CTDeliveryNote" Visible="true" ExternalID="xWlfhXMKnJTUJYQ2WiLo" Root="true">
+        <FieldDefs>
+          <UniFieldDefinition DisplayName="Invoice" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="xUIKJrB52rIWDbTezdMs" ValueFromBarcode="false" Name="Invoice" Index="0">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="DeliveryNote" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="BMNPHf6Dzc2eX0CMwr7c" ValueFromBarcode="false" Name="DeliveryNote" Index="1">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Advices" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="XpIoyA3Z42BbuLxhxTlD" ValueFromBarcode="false" Name="Advices" Index="2">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Birthday Field" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="hSohhvk0osrbWgM8rGdd" ValueFromBarcode="false" Name="Birthday_Field" Index="3">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Create Filed" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="d47kt18cXr5dMhsgX8SW" ValueFromBarcode="false" Name="Create_Filed" Index="4">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+        </FieldDefs>
+        <DocumentNamingSetting>
+          <DateFormat>ddMMyyyy</DateFormat>
+          <TimeFormat>HHmmss</TimeFormat>
+          <BatchNamingTemplate />
+        </DocumentNamingSetting>
+      </UniFormType>
+    </UniFormtypeList>
+  </DocumentTypeProfileSetting>
+  <SettingReference>--- Own Setting --- </SettingReference>
+  <AllowCreateNewBatch>true</AllowCreateNewBatch>
+  <AllowEditBatch>true</AllowEditBatch>
+  <NeedPrint>false</NeedPrint>
+  <FilterRescanByUser>false</FilterRescanByUser>
+</ActivityConfiguration>
