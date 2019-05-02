@@ -836,7 +836,7 @@ namespace UCMS.ImportController
                 while (true)
                 {
                     AddRanDomProfile(folderPath, false, _ReName, _MoveTo);
-                    Thread.Sleep(60*60*1000);
+                    Thread.Sleep(Common.ThreadSleep);
                 }
             });
             newThread.Start();
