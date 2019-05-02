@@ -74,7 +74,6 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\Newtonsoft.Json.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.dll
-D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\System.Net.Http.Formatting.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.UniversalScan.pdb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\IMIP.SharedComponent.CustomMapping.pdb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMSConnectorShared\obj\Debug\de\IMIP.UniversalScan.resources.dll
