@@ -46,8 +46,16 @@
             this.tabContent = new System.Windows.Forms.TabControl();
             this.tabContentField = new System.Windows.Forms.TabPage();
             this.grdContentField = new System.Windows.Forms.DataGridView();
+            this.txtNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtNameId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabLibraryField = new System.Windows.Forms.TabPage();
             this.grdLibraryField = new System.Windows.Forms.DataGridView();
+            this.txtlcNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtlcName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtlcValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtlcNameId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabContentParent = new System.Windows.Forms.TabPage();
             this.grdContentParent = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,14 +86,13 @@
             this.clearStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grAction = new System.Windows.Forms.GroupBox();
             this.btnRandom = new System.Windows.Forms.Button();
-            this.txtNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtNameId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtlcNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtlcName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtlcValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtlcNameId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.txtRandomFolder = new System.Windows.Forms.TextBox();
+            this.btnConfigRandom = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -101,6 +108,9 @@
             this.ctmDetails.SuspendLayout();
             this.ctmFieldRight.SuspendLayout();
             this.grAction.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -216,7 +226,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(6, 137);
+            this.btnRefresh.Location = new System.Drawing.Point(6, 54);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(76, 29);
             this.btnRefresh.TabIndex = 20;
@@ -227,7 +237,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tabContent);
-            this.groupBox1.Location = new System.Drawing.Point(9, 190);
+            this.groupBox1.Location = new System.Drawing.Point(6, 181);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(713, 265);
             this.groupBox1.TabIndex = 21;
@@ -276,6 +286,34 @@
             this.grdContentField.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseClick);
             this.grdContentField.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseDoubleClick);
             // 
+            // txtNo
+            // 
+            this.txtNo.HeaderText = "No";
+            this.txtNo.Name = "txtNo";
+            this.txtNo.ReadOnly = true;
+            // 
+            // txtName
+            // 
+            this.txtName.FillWeight = 300F;
+            this.txtName.HeaderText = "Name";
+            this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
+            this.txtName.Width = 200;
+            // 
+            // txtValue
+            // 
+            this.txtValue.FillWeight = 400F;
+            this.txtValue.HeaderText = "Value";
+            this.txtValue.Name = "txtValue";
+            this.txtValue.ReadOnly = true;
+            this.txtValue.Width = 300;
+            // 
+            // txtNameId
+            // 
+            this.txtNameId.HeaderText = "NameId";
+            this.txtNameId.Name = "txtNameId";
+            this.txtNameId.Visible = false;
+            // 
             // tabLibraryField
             // 
             this.tabLibraryField.Controls.Add(this.grdLibraryField);
@@ -305,6 +343,34 @@
             this.grdLibraryField.TabIndex = 1;
             this.grdLibraryField.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseClick);
             this.grdLibraryField.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdContentField_CellMouseDoubleClick);
+            // 
+            // txtlcNo
+            // 
+            this.txtlcNo.HeaderText = "No";
+            this.txtlcNo.Name = "txtlcNo";
+            this.txtlcNo.ReadOnly = true;
+            // 
+            // txtlcName
+            // 
+            this.txtlcName.FillWeight = 300F;
+            this.txtlcName.HeaderText = "Name";
+            this.txtlcName.Name = "txtlcName";
+            this.txtlcName.ReadOnly = true;
+            this.txtlcName.Width = 200;
+            // 
+            // txtlcValue
+            // 
+            this.txtlcValue.FillWeight = 400F;
+            this.txtlcValue.HeaderText = "Value";
+            this.txtlcValue.Name = "txtlcValue";
+            this.txtlcValue.ReadOnly = true;
+            this.txtlcValue.Width = 300;
+            // 
+            // txtlcNameId
+            // 
+            this.txtlcNameId.HeaderText = "NameId";
+            this.txtlcNameId.Name = "txtlcNameId";
+            this.txtlcNameId.Visible = false;
             // 
             // tabContentParent
             // 
@@ -437,7 +503,7 @@
             this.grUpdate.Controls.Add(this.cboContentType);
             this.grUpdate.Controls.Add(this.cboWorkflow);
             this.grUpdate.Controls.Add(this.cboWorkflowStep);
-            this.grUpdate.Location = new System.Drawing.Point(9, 12);
+            this.grUpdate.Location = new System.Drawing.Point(6, 3);
             this.grUpdate.Name = "grUpdate";
             this.grUpdate.Size = new System.Drawing.Size(619, 172);
             this.grUpdate.TabIndex = 22;
@@ -564,10 +630,9 @@
             // 
             // grAction
             // 
-            this.grAction.Controls.Add(this.btnRandom);
             this.grAction.Controls.Add(this.btnSubmit);
             this.grAction.Controls.Add(this.btnRefresh);
-            this.grAction.Location = new System.Drawing.Point(634, 12);
+            this.grAction.Location = new System.Drawing.Point(631, 3);
             this.grAction.Name = "grAction";
             this.grAction.Size = new System.Drawing.Size(88, 172);
             this.grAction.TabIndex = 23;
@@ -576,7 +641,7 @@
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(6, 54);
+            this.btnRandom.Location = new System.Drawing.Point(184, 138);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(76, 29);
             this.btnRandom.TabIndex = 21;
@@ -584,73 +649,94 @@
             this.btnRandom.UseVisualStyleBackColor = true;
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
-            // txtNo
+            // tabControl1
             // 
-            this.txtNo.HeaderText = "No";
-            this.txtNo.Name = "txtNo";
-            this.txtNo.ReadOnly = true;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(737, 479);
+            this.tabControl1.TabIndex = 24;
             // 
-            // txtName
+            // tabPage1
             // 
-            this.txtName.FillWeight = 300F;
-            this.txtName.HeaderText = "Name";
-            this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
-            this.txtName.Width = 200;
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.grUpdate);
+            this.tabPage1.Controls.Add(this.grAction);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(729, 453);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Importer Submit";
             // 
-            // txtValue
+            // tabPage2
             // 
-            this.txtValue.FillWeight = 400F;
-            this.txtValue.HeaderText = "Value";
-            this.txtValue.Name = "txtValue";
-            this.txtValue.ReadOnly = true;
-            this.txtValue.Width = 300;
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.txtRandomFolder);
+            this.tabPage2.Controls.Add(this.btnConfigRandom);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.btnStop);
+            this.tabPage2.Controls.Add(this.btnRandom);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(729, 453);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Importer Random";
             // 
-            // txtNameId
+            // btnStop
             // 
-            this.txtNameId.HeaderText = "NameId";
-            this.txtNameId.Name = "txtNameId";
-            this.txtNameId.Visible = false;
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(423, 138);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(76, 29);
+            this.btnStop.TabIndex = 22;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // txtlcNo
+            // txtRandomFolder
             // 
-            this.txtlcNo.HeaderText = "No";
-            this.txtlcNo.Name = "txtlcNo";
-            this.txtlcNo.ReadOnly = true;
+            this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.txtRandomFolder.Location = new System.Drawing.Point(132, 66);
+            this.txtRandomFolder.Multiline = true;
+            this.txtRandomFolder.Name = "txtRandomFolder";
+            this.txtRandomFolder.ReadOnly = true;
+            this.txtRandomFolder.Size = new System.Drawing.Size(479, 21);
+            this.txtRandomFolder.TabIndex = 25;
             // 
-            // txtlcName
+            // btnConfigRandom
             // 
-            this.txtlcName.FillWeight = 300F;
-            this.txtlcName.HeaderText = "Name";
-            this.txtlcName.Name = "txtlcName";
-            this.txtlcName.ReadOnly = true;
-            this.txtlcName.Width = 200;
+            this.btnConfigRandom.Location = new System.Drawing.Point(611, 66);
+            this.btnConfigRandom.Name = "btnConfigRandom";
+            this.btnConfigRandom.Size = new System.Drawing.Size(31, 21);
+            this.btnConfigRandom.TabIndex = 24;
+            this.btnConfigRandom.Text = "...";
+            this.btnConfigRandom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfigRandom.UseVisualStyleBackColor = true;
+            this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
             // 
-            // txtlcValue
+            // label6
             // 
-            this.txtlcValue.FillWeight = 400F;
-            this.txtlcValue.HeaderText = "Value";
-            this.txtlcValue.Name = "txtlcValue";
-            this.txtlcValue.ReadOnly = true;
-            this.txtlcValue.Width = 300;
-            // 
-            // txtlcNameId
-            // 
-            this.txtlcNameId.HeaderText = "NameId";
-            this.txtlcNameId.Name = "txtlcNameId";
-            this.txtlcNameId.Visible = false;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(46, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Watch Folder";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 464);
-            this.Controls.Add(this.grAction);
-            this.Controls.Add(this.grUpdate);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(756, 498);
+            this.Controls.Add(this.tabControl1);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WatchFolder";
+            this.Text = "Load Importer";
             this.Load += new System.EventHandler(this.WatchFolder_Load);
             this.groupBox1.ResumeLayout(false);
             this.tabContent.ResumeLayout(false);
@@ -668,6 +754,10 @@
             this.ctmDetails.ResumeLayout(false);
             this.ctmFieldRight.ResumeLayout(false);
             this.grAction.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -731,5 +821,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn txtlcName;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtlcValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtlcNameId;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox txtRandomFolder;
+        private System.Windows.Forms.Button btnConfigRandom;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnStop;
     }
 }
