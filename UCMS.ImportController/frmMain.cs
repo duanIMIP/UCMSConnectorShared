@@ -496,7 +496,7 @@ namespace UCMS.ImportController
             return true;
         }       
 
-        private void AddRanDomProfile(string folderPath, string Extension = ".png", string MoveTo = "")
+        private void AddRanDomProfile(string folderPath, string Extension = "", string MoveTo = "")
         {
             try
             {
