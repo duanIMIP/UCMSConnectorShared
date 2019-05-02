@@ -19,7 +19,7 @@ namespace UCMS.ImportController
         public static String Password = ConfigurationSettings.AppSettings["Password"].ToString();
         public static String UCMSWebAPIEndPoint = ConfigurationSettings.AppSettings["UCMSWebAPIEndPoint"].ToString();
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
-        public static Int32 ThreadSleep = Convert.ToInt32(ConfigurationSettings.AppSettings["ThreadSleep"]);
+        public static Int32 PoolTime = Convert.ToInt32(ConfigurationSettings.AppSettings["PoolTime"]);
 
         public static string SerializeToString(System.Type oType, object objectToSerialize)
         {

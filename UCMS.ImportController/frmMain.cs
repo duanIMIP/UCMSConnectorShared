@@ -719,11 +719,6 @@ namespace UCMS.ImportController
         {
             try
             {
-                if (string.IsNullOrEmpty(folderPath))
-                {
-                    MessageBox.Show("Đường dẫn upload file không chính xác");
-                    return;
-                }
                 Random rdUpload = new Random();
                 Boolean checkUpload = false;
                 DirectoryInfo directInfo = new DirectoryInfo(folderPath);
@@ -831,20 +826,22 @@ namespace UCMS.ImportController
             btnRandom.Enabled = false;
             btnStop.Enabled = true;
             var folderPath = txtRandomFolder.Text;
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                MessageBox.Show("Đường dẫn upload file không chính xác");
+                btnRandom.Enabled = true;
+                btnStop.Enabled = false;
+                return;
+            }
             newThread = new Thread(() =>
             {
                 while (true)
                 {
                     AddRanDomProfile(folderPath, false, _ReName, _MoveTo);
-                    Thread.Sleep(Common.ThreadSleep);
+                    Thread.Sleep(Common.PoolTime);
                 }
             });
             newThread.Start();
-            //while (true)
-            //{
-            //    AddRanDomProfile(folderPath, false, _ReName, _MoveTo);
-            //    Thread.Sleep(5000);
-            //}            
         }
 
         #endregion RandomUpload

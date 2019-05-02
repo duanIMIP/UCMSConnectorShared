@@ -603,7 +603,7 @@ namespace IMIP.UniversalScan.Connector.UCMSConnectorShared
 
                 return  new UniParameterSet();
             }
-            catch(Exception ex)
+            catch
             {
                 return new UniParameterSet();
             }

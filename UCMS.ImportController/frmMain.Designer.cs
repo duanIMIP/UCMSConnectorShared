@@ -17,6 +17,11 @@
             {
                 components.Dispose();
             }
+
+            if (newThread!= null && newThread.IsAlive)
+            {
+                newThread.Abort();
+            }
             base.Dispose(disposing);
         }
 
@@ -89,10 +94,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnStop = new System.Windows.Forms.Button();
             this.txtRandomFolder = new System.Windows.Forms.TextBox();
             this.btnConfigRandom = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -645,7 +650,7 @@
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(76, 29);
             this.btnRandom.TabIndex = 21;
-            this.btnRandom.Text = "Random";
+            this.btnRandom.Text = "Run";
             this.btnRandom.UseVisualStyleBackColor = true;
             this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
@@ -670,7 +675,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(729, 453);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Importer Submit";
+            this.tabPage1.Text = "Importer";
             // 
             // tabPage2
             // 
@@ -685,18 +690,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(729, 453);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Importer Random";
-            // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(423, 138);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(76, 29);
-            this.btnStop.TabIndex = 22;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.tabPage2.Text = "Batch Importer";
             // 
             // txtRandomFolder
             // 
@@ -727,6 +721,17 @@
             this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 23;
             this.label6.Text = "Watch Folder";
+            // 
+            // btnStop
+            // 
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(423, 138);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(76, 29);
+            this.btnStop.TabIndex = 22;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // frmMain
             // 

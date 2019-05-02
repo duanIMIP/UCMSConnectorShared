@@ -1,11 +1,13 @@
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.exe.config
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.exe
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.UniversalScan.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\MultipartDataMediaFormatter.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Newtonsoft.Json.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\System.Net.Http.Formatting.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.Core.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.Model.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.RestClient.dll
-D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.UniversalScan.dll
-D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\MultipartDataMediaFormatter.dll
-D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\System.Net.Http.Formatting.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\NLog.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Oracle.ManagedDataAccess.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Hashids.net.dll
@@ -29,5 +31,6 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Deb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.frmMain.resources
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.csproj.GenerateResource.cache
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.csproj.CoreCompileInputs.cache
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.csproj.CopyComplete
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.exe
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\obj\Debug\UCMS.ImportController.pdb
