@@ -46,6 +46,7 @@
             this.chkTIFF = new System.Windows.Forms.CheckBox();
             this.chkTIF = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblRenameExtension = new System.Windows.Forms.Label();
             this.btnRenameExtension = new System.Windows.Forms.Button();
             this.txtExtension = new System.Windows.Forms.TextBox();
             this.txtMoveTo = new System.Windows.Forms.TextBox();
@@ -58,7 +59,6 @@
             this.pngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblRenameExtension = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctmRRenameExtension.SuspendLayout();
@@ -69,9 +69,9 @@
             this.chkJPG.AutoSize = true;
             this.chkJPG.Location = new System.Drawing.Point(41, 28);
             this.chkJPG.Name = "chkJPG";
-            this.chkJPG.Size = new System.Drawing.Size(47, 17);
+            this.chkJPG.Size = new System.Drawing.Size(43, 17);
             this.chkJPG.TabIndex = 0;
-            this.chkJPG.Text = "*.jpg";
+            this.chkJPG.Text = ".jpg";
             this.chkJPG.UseVisualStyleBackColor = true;
             // 
             // chkJPEG
@@ -79,9 +79,9 @@
             this.chkJPEG.AutoSize = true;
             this.chkJPEG.Location = new System.Drawing.Point(41, 51);
             this.chkJPEG.Name = "chkJPEG";
-            this.chkJPEG.Size = new System.Drawing.Size(53, 17);
+            this.chkJPEG.Size = new System.Drawing.Size(49, 17);
             this.chkJPEG.TabIndex = 1;
-            this.chkJPEG.Text = "*.jpeg";
+            this.chkJPEG.Text = ".jpeg";
             this.chkJPEG.UseVisualStyleBackColor = true;
             // 
             // chkGIJ
@@ -89,9 +89,9 @@
             this.chkGIJ.AutoSize = true;
             this.chkGIJ.Location = new System.Drawing.Point(41, 74);
             this.chkGIJ.Name = "chkGIJ";
-            this.chkGIJ.Size = new System.Drawing.Size(44, 17);
+            this.chkGIJ.Size = new System.Drawing.Size(40, 17);
             this.chkGIJ.TabIndex = 2;
-            this.chkGIJ.Text = "*.gif";
+            this.chkGIJ.Text = ".gif";
             this.chkGIJ.UseVisualStyleBackColor = true;
             // 
             // chkPNG
@@ -99,9 +99,9 @@
             this.chkPNG.AutoSize = true;
             this.chkPNG.Location = new System.Drawing.Point(41, 97);
             this.chkPNG.Name = "chkPNG";
-            this.chkPNG.Size = new System.Drawing.Size(51, 17);
+            this.chkPNG.Size = new System.Drawing.Size(47, 17);
             this.chkPNG.TabIndex = 3;
-            this.chkPNG.Text = "*.png";
+            this.chkPNG.Text = ".png";
             this.chkPNG.UseVisualStyleBackColor = true;
             // 
             // chkJFIF
@@ -109,21 +109,19 @@
             this.chkJFIF.AutoSize = true;
             this.chkJFIF.Location = new System.Drawing.Point(41, 120);
             this.chkJFIF.Name = "chkJFIF";
-            this.chkJFIF.Size = new System.Drawing.Size(43, 17);
+            this.chkJFIF.Size = new System.Drawing.Size(39, 17);
             this.chkJFIF.TabIndex = 4;
-            this.chkJFIF.Text = "*.jfif";
+            this.chkJFIF.Text = ".jfif";
             this.chkJFIF.UseVisualStyleBackColor = true;
             // 
             // chkPDF
             // 
             this.chkPDF.AutoSize = true;
-            this.chkPDF.Checked = true;
-            this.chkPDF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPDF.Location = new System.Drawing.Point(118, 120);
             this.chkPDF.Name = "chkPDF";
-            this.chkPDF.Size = new System.Drawing.Size(48, 17);
+            this.chkPDF.Size = new System.Drawing.Size(44, 17);
             this.chkPDF.TabIndex = 10;
-            this.chkPDF.Text = "*.pdf";
+            this.chkPDF.Text = ".pdf";
             this.chkPDF.UseVisualStyleBackColor = true;
             // 
             // chkXLSX
@@ -131,9 +129,9 @@
             this.chkXLSX.AutoSize = true;
             this.chkXLSX.Location = new System.Drawing.Point(118, 97);
             this.chkXLSX.Name = "chkXLSX";
-            this.chkXLSX.Size = new System.Drawing.Size(50, 17);
+            this.chkXLSX.Size = new System.Drawing.Size(46, 17);
             this.chkXLSX.TabIndex = 9;
-            this.chkXLSX.Text = "*.xlsx";
+            this.chkXLSX.Text = ".xlsx";
             this.chkXLSX.UseVisualStyleBackColor = true;
             // 
             // chkDOCX
@@ -141,9 +139,9 @@
             this.chkDOCX.AutoSize = true;
             this.chkDOCX.Location = new System.Drawing.Point(118, 74);
             this.chkDOCX.Name = "chkDOCX";
-            this.chkDOCX.Size = new System.Drawing.Size(56, 17);
+            this.chkDOCX.Size = new System.Drawing.Size(52, 17);
             this.chkDOCX.TabIndex = 8;
-            this.chkDOCX.Text = "*.docx";
+            this.chkDOCX.Text = ".docx";
             this.chkDOCX.UseVisualStyleBackColor = true;
             // 
             // chkXLS
@@ -151,9 +149,9 @@
             this.chkXLS.AutoSize = true;
             this.chkXLS.Location = new System.Drawing.Point(118, 51);
             this.chkXLS.Name = "chkXLS";
-            this.chkXLS.Size = new System.Drawing.Size(45, 17);
+            this.chkXLS.Size = new System.Drawing.Size(41, 17);
             this.chkXLS.TabIndex = 7;
-            this.chkXLS.Text = "*.xls";
+            this.chkXLS.Text = ".xls";
             this.chkXLS.UseVisualStyleBackColor = true;
             // 
             // chkDOC
@@ -161,9 +159,9 @@
             this.chkDOC.AutoSize = true;
             this.chkDOC.Location = new System.Drawing.Point(118, 28);
             this.chkDOC.Name = "chkDOC";
-            this.chkDOC.Size = new System.Drawing.Size(51, 17);
+            this.chkDOC.Size = new System.Drawing.Size(47, 17);
             this.chkDOC.TabIndex = 6;
-            this.chkDOC.Text = "*.doc";
+            this.chkDOC.Text = ".doc";
             this.chkDOC.UseVisualStyleBackColor = true;
             // 
             // textBox1
@@ -219,25 +217,21 @@
             // chkTIFF
             // 
             this.chkTIFF.AutoSize = true;
-            this.chkTIFF.Checked = true;
-            this.chkTIFF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTIFF.Location = new System.Drawing.Point(207, 51);
             this.chkTIFF.Name = "chkTIFF";
-            this.chkTIFF.Size = new System.Drawing.Size(44, 17);
+            this.chkTIFF.Size = new System.Drawing.Size(40, 17);
             this.chkTIFF.TabIndex = 14;
-            this.chkTIFF.Text = "*.tiff";
+            this.chkTIFF.Text = ".tiff";
             this.chkTIFF.UseVisualStyleBackColor = true;
             // 
             // chkTIF
             // 
             this.chkTIF.AutoSize = true;
-            this.chkTIF.Checked = true;
-            this.chkTIF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTIF.Location = new System.Drawing.Point(207, 28);
             this.chkTIF.Name = "chkTIF";
-            this.chkTIF.Size = new System.Drawing.Size(41, 17);
+            this.chkTIF.Size = new System.Drawing.Size(37, 17);
             this.chkTIF.TabIndex = 13;
-            this.chkTIF.Text = "*.tif";
+            this.chkTIF.Text = ".tif";
             this.chkTIF.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -253,6 +247,15 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Type";
+            // 
+            // lblRenameExtension
+            // 
+            this.lblRenameExtension.AutoSize = true;
+            this.lblRenameExtension.Location = new System.Drawing.Point(40, 20);
+            this.lblRenameExtension.Name = "lblRenameExtension";
+            this.lblRenameExtension.Size = new System.Drawing.Size(96, 13);
+            this.lblRenameExtension.TabIndex = 22;
+            this.lblRenameExtension.Text = "Rename Extension";
             // 
             // btnRenameExtension
             // 
@@ -357,15 +360,6 @@
             this.otherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.otherToolStripMenuItem.Text = "Other...";
             this.otherToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
-            // 
-            // lblRenameExtension
-            // 
-            this.lblRenameExtension.AutoSize = true;
-            this.lblRenameExtension.Location = new System.Drawing.Point(40, 20);
-            this.lblRenameExtension.Name = "lblRenameExtension";
-            this.lblRenameExtension.Size = new System.Drawing.Size(96, 13);
-            this.lblRenameExtension.TabIndex = 22;
-            this.lblRenameExtension.Text = "Rename Extension";
             // 
             // frmWatchFolder
             // 

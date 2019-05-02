@@ -35,7 +35,7 @@ namespace UCMS.ImportController
             oUCMSApiClient = new UCMSApiClient(Common.Username, Common.Password, Common.UCMSWebAPIEndPoint, Common.UCMSAuthorizationServer);
             _ReName = "";
             _MoveTo = "";
-            _Type = "";
+            _Type = ".tif;.tiff;.pdf";
             grdContentField.ContextMenuStrip = new ContextMenuStrip();
         }
 
