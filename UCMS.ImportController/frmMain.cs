@@ -183,7 +183,7 @@ namespace UCMS.ImportController
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 var folderPath = fbd.SelectedPath;
-                AddRanDomProfile(folderPath, ".duanvc");
+                AddRanDomProfile(folderPath);
             }
             btnRandom.Enabled = true;
         }
