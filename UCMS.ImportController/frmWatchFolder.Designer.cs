@@ -41,12 +41,12 @@
             this.chkDOC = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkRename = new System.Windows.Forms.CheckBox();
             this.chkMoveTo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkTIFF = new System.Windows.Forms.CheckBox();
             this.chkTIF = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnRenameExtension = new System.Windows.Forms.Button();
             this.txtExtension = new System.Windows.Forms.TextBox();
             this.txtMoveTo = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -56,9 +56,9 @@
             this.jpgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRenameExtension = new System.Windows.Forms.Button();
+            this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblRenameExtension = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctmRRenameExtension.SuspendLayout();
@@ -181,16 +181,6 @@
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 12;
             // 
-            // chkRename
-            // 
-            this.chkRename.AutoSize = true;
-            this.chkRename.Location = new System.Drawing.Point(40, 23);
-            this.chkRename.Name = "chkRename";
-            this.chkRename.Size = new System.Drawing.Size(115, 17);
-            this.chkRename.TabIndex = 16;
-            this.chkRename.Text = "Rename Extension";
-            this.chkRename.UseVisualStyleBackColor = true;
-            // 
             // chkMoveTo
             // 
             this.chkMoveTo.AutoSize = true;
@@ -252,10 +242,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblRenameExtension);
             this.groupBox2.Controls.Add(this.btnRenameExtension);
             this.groupBox2.Controls.Add(this.txtExtension);
             this.groupBox2.Controls.Add(this.txtMoveTo);
-            this.groupBox2.Controls.Add(this.chkRename);
             this.groupBox2.Controls.Add(this.chkMoveTo);
             this.groupBox2.Location = new System.Drawing.Point(13, 180);
             this.groupBox2.Name = "groupBox2";
@@ -263,6 +253,16 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Type";
+            // 
+            // btnRenameExtension
+            // 
+            this.btnRenameExtension.Location = new System.Drawing.Point(398, 20);
+            this.btnRenameExtension.Name = "btnRenameExtension";
+            this.btnRenameExtension.Size = new System.Drawing.Size(27, 20);
+            this.btnRenameExtension.TabIndex = 21;
+            this.btnRenameExtension.Text = "...";
+            this.btnRenameExtension.UseVisualStyleBackColor = true;
+            this.btnRenameExtension.Click += new System.EventHandler(this.btnRenameExtension_Click);
             // 
             // txtExtension
             // 
@@ -344,13 +344,6 @@
             this.pngToolStripMenuItem.Text = ".png";
             this.pngToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
-            // otherToolStripMenuItem
-            // 
-            this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.otherToolStripMenuItem.Text = "Other...";
-            this.otherToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
-            // 
             // pdfToolStripMenuItem
             // 
             this.pdfToolStripMenuItem.Name = "pdfToolStripMenuItem";
@@ -358,15 +351,21 @@
             this.pdfToolStripMenuItem.Text = ".pdf";
             this.pdfToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
-            // btnRenameExtension
+            // otherToolStripMenuItem
             // 
-            this.btnRenameExtension.Location = new System.Drawing.Point(398, 20);
-            this.btnRenameExtension.Name = "btnRenameExtension";
-            this.btnRenameExtension.Size = new System.Drawing.Size(27, 20);
-            this.btnRenameExtension.TabIndex = 21;
-            this.btnRenameExtension.Text = "...";
-            this.btnRenameExtension.UseVisualStyleBackColor = true;
-            this.btnRenameExtension.Click += new System.EventHandler(this.btnRenameExtension_Click);
+            this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.otherToolStripMenuItem.Text = "Other...";
+            this.otherToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            // 
+            // lblRenameExtension
+            // 
+            this.lblRenameExtension.AutoSize = true;
+            this.lblRenameExtension.Location = new System.Drawing.Point(40, 20);
+            this.lblRenameExtension.Name = "lblRenameExtension";
+            this.lblRenameExtension.Size = new System.Drawing.Size(96, 13);
+            this.lblRenameExtension.TabIndex = 22;
+            this.lblRenameExtension.Text = "Rename Extension";
             // 
             // frmWatchFolder
             // 
@@ -403,7 +402,6 @@
         private System.Windows.Forms.CheckBox chkDOC;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chkRename;
         private System.Windows.Forms.CheckBox chkMoveTo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -421,5 +419,6 @@
         private System.Windows.Forms.ToolStripMenuItem otherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdfToolStripMenuItem;
         private System.Windows.Forms.Button btnRenameExtension;
+        private System.Windows.Forms.Label lblRenameExtension;
     }
 }

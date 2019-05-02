@@ -23,7 +23,6 @@ namespace UCMS.ImportController
 
         private void frmWatchFolder_Load(object sender, EventArgs e)
         {
-            chkRename.Checked = !string.IsNullOrEmpty(_ReName);
             txtExtension.Text = _ReName;
             txtExtension.ContextMenu = new ContextMenu();
             chkMoveTo.Checked = !string.IsNullOrEmpty(_MoveTo);
