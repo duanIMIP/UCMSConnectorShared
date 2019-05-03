@@ -98,6 +98,10 @@
             this.btnConfigRandom = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
+            this.grdLibrary = new System.Windows.Forms.DataGridView();
+            this.grdChkLibraryName = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.grdtxtLibraryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -116,6 +120,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -207,7 +212,6 @@
             this.txtFolder.Location = new System.Drawing.Point(103, 128);
             this.txtFolder.Multiline = true;
             this.txtFolder.Name = "txtFolder";
-            this.txtFolder.ReadOnly = true;
             this.txtFolder.Size = new System.Drawing.Size(479, 21);
             this.txtFolder.TabIndex = 17;
             // 
@@ -646,7 +650,7 @@
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(184, 138);
+            this.btnRandom.Location = new System.Drawing.Point(184, 356);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(76, 29);
             this.btnRandom.TabIndex = 21;
@@ -680,6 +684,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.grdLibrary);
             this.tabPage2.Controls.Add(this.txtRandomFolder);
             this.tabPage2.Controls.Add(this.btnConfigRandom);
             this.tabPage2.Controls.Add(this.label6);
@@ -695,16 +700,15 @@
             // txtRandomFolder
             // 
             this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtRandomFolder.Location = new System.Drawing.Point(132, 66);
+            this.txtRandomFolder.Location = new System.Drawing.Point(132, 17);
             this.txtRandomFolder.Multiline = true;
             this.txtRandomFolder.Name = "txtRandomFolder";
-            this.txtRandomFolder.ReadOnly = true;
             this.txtRandomFolder.Size = new System.Drawing.Size(479, 21);
             this.txtRandomFolder.TabIndex = 25;
             // 
             // btnConfigRandom
             // 
-            this.btnConfigRandom.Location = new System.Drawing.Point(611, 66);
+            this.btnConfigRandom.Location = new System.Drawing.Point(611, 17);
             this.btnConfigRandom.Name = "btnConfigRandom";
             this.btnConfigRandom.Size = new System.Drawing.Size(31, 21);
             this.btnConfigRandom.TabIndex = 24;
@@ -716,7 +720,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 74);
+            this.label6.Location = new System.Drawing.Point(46, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 23;
@@ -725,13 +729,48 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(423, 138);
+            this.btnStop.Location = new System.Drawing.Point(423, 356);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(76, 29);
             this.btnStop.TabIndex = 22;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // grdLibrary
+            // 
+            this.grdLibrary.AllowUserToAddRows = false;
+            this.grdLibrary.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grdLibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdLibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grdChkLibraryName,
+            this.grdtxtLibraryName,
+            this.grdLibraryId});
+            this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
+            this.grdLibrary.Location = new System.Drawing.Point(49, 58);
+            this.grdLibrary.Name = "grdLibrary";
+            this.grdLibrary.Size = new System.Drawing.Size(593, 275);
+            this.grdLibrary.TabIndex = 26;
+            // 
+            // grdChkLibraryName
+            // 
+            this.grdChkLibraryName.HeaderText = "";
+            this.grdChkLibraryName.Name = "grdChkLibraryName";
+            // 
+            // grdtxtLibraryName
+            // 
+            this.grdtxtLibraryName.DataPropertyName = "Name";
+            this.grdtxtLibraryName.HeaderText = "Library Name";
+            this.grdtxtLibraryName.Name = "grdtxtLibraryName";
+            this.grdtxtLibraryName.ReadOnly = true;
+            this.grdtxtLibraryName.Width = 300;
+            // 
+            // grdLibraryId
+            // 
+            this.grdLibraryId.DataPropertyName = "Id";
+            this.grdLibraryId.HeaderText = "LIbraryId";
+            this.grdLibraryId.Name = "grdLibraryId";
+            this.grdLibraryId.ReadOnly = true;
             // 
             // frmMain
             // 
@@ -763,6 +802,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -833,5 +873,9 @@
         private System.Windows.Forms.Button btnConfigRandom;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.DataGridView grdLibrary;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn grdChkLibraryName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn grdtxtLibraryName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn grdLibraryId;
     }
 }

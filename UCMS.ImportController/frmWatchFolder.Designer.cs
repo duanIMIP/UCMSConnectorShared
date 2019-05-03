@@ -285,7 +285,6 @@
             this.txtMoveTo.BackColor = System.Drawing.SystemColors.Menu;
             this.txtMoveTo.Location = new System.Drawing.Point(172, 44);
             this.txtMoveTo.Name = "txtMoveTo";
-            this.txtMoveTo.ReadOnly = true;
             this.txtMoveTo.Size = new System.Drawing.Size(254, 20);
             this.txtMoveTo.TabIndex = 19;
             // 

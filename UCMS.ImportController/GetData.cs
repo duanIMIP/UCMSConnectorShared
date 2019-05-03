@@ -55,7 +55,7 @@ namespace UCMS.ImportController
             return ListFlow;
         }
 
-        public static ActivityConfiguration GetContentType(UCMSApiClient oUCMSApiClient, string WorkflowStepId)
+        public static ActivityConfiguration GetActivityConfiguration(UCMSApiClient oUCMSApiClient, string WorkflowStepId)
         {
             Model.WorkflowStepSetting workFlowStep = oUCMSApiClient.Workflow.GetStepSetting(WorkflowStepId);
             ActivityConfiguration UniFormType = new ActivityConfiguration();
@@ -66,16 +66,40 @@ namespace UCMS.ImportController
             return UniFormType==null? new ActivityConfiguration(): UniFormType;
         }
 
+        public static List<UniFormType> GetContentType(UCMSApiClient oUCMSApiClient, String FolderId, List<UniFormType> UniFormTypeList)// config Root = true;
+        {
+            List<Model.ContentType> contentTypeList = oUCMSApiClient.ContentType.GetByFolderId(FolderId);
+            List<UniFormType> Listfield = new List<UniFormType>();
+            foreach (UniFormType item in UniFormTypeList)
+            {
+                foreach (var itemField in contentTypeList)
+                {
+                    if (itemField.Name.Equals(item.Name) && item.Root) // Hiện tại làm với Root = true;
+                    {
+                        item.ExternalID = itemField.Id;
+                        Listfield.Add(item);
+                        break;
+                    }
+                }
+            }
+            return Listfield;
+        }
+
         public static List<UniFieldDefinition> GetListContentField(UCMSApiClient oUCMSApiClient, UniFormType oUniFormType)
         {
             Model.ContentType contentType = oUCMSApiClient.ContentType.GetById(oUniFormType.ExternalID);
             List<UniFieldDefinition> Listfield = new List<UniFieldDefinition>();
             foreach (UniFieldDefinition item in oUniFormType.FieldDefs)
             {
-                if(contentType.Fields.SingleOrDefault(x=>x.Name.Equals(item.Name)) != null)
+                foreach (var itemField in contentType.Fields)
                 {
-                    Listfield.Add(item);
-                }
+                    if (itemField.Name.Equals(item.Name))
+                    {
+                        item.ExternalID = itemField.Id;
+                        Listfield.Add(item);
+                        break;
+                    }
+                }                
             }
             return Listfield;
         }
@@ -86,9 +110,14 @@ namespace UCMS.ImportController
             List<UniFieldDefinition> Listfield = new List<UniFieldDefinition>();
             foreach (UniFieldDefinition item in oUniFormType.FieldDefs)
             {
-                if (library.Fields.SingleOrDefault(x => x.Name.Equals(item.Name)) != null)
+                foreach (var itemField in library.Fields)
                 {
-                    Listfield.Add(item);
+                    if (itemField.Name.Equals(item.Name))
+                    {
+                        item.ExternalID = itemField.Id;
+                        Listfield.Add(item);
+                        break;
+                    }
                 }
             }
             return Listfield;

@@ -61,6 +61,7 @@ namespace UCMS.ImportController
             }
             //_Type = "Image Files(" + _Type + ")|" + _Type;
             _ReName = txtExtension.Text;
+            _MoveTo = txtMoveTo.Text;
             this.DialogResult = DialogResult.OK;
         }
 
