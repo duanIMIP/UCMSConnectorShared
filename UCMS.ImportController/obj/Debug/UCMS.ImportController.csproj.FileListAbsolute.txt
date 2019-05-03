@@ -1,6 +1,8 @@
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.exe.config
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.exe
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\UCMS.ImportController.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\GdPicture.NET.12.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.SharedComponent.GdPictureWrapper12.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.UniversalScan.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\MultipartDataMediaFormatter.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Newtonsoft.Json.dll
@@ -12,6 +14,7 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Deb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Oracle.ManagedDataAccess.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Hashids.net.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.UniversalScan.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\IMIP.SharedComponent.GdPictureWrapper12.pdb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Newtonsoft.Json.pdb
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\Newtonsoft.Json.xml
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UCMS.ImportController\bin\Debug\System.Net.Http.Formatting.xml

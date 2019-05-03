@@ -49,9 +49,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GdPicture.NET.12, Version=12.0.0.57, Culture=neutral, PublicKeyToken=7425795337ab7910, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\ImageProcessing\GdPicture.NET.12.dll</HintPath>
+    </Reference>
     <Reference Include="IMIP.SharedComponent.CustomMapping, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\IMIP.SharedComponent.CustomMapping.dll</HintPath>
+    </Reference>
+    <Reference Include="IMIP.SharedComponent.GdPictureWrapper12, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\ImageProcessing\IMIP.SharedComponent.GdPictureWrapper12.dll</HintPath>
     </Reference>
     <Reference Include="MultipartDataMediaFormatter">
       <HintPath>..\..\..\UCMS_DLL_Config\CoreDll_2\MultipartDataMediaFormatter.dll</HintPath>
@@ -152,6 +160,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lib\ImageProcessing\GdPicture.NET.12.dll" />
+    <Content Include="Lib\ImageProcessing\GdPicture.NET.12.document.analyzer.dll" />
+    <Content Include="Lib\ImageProcessing\GdPicture.NET.12.filters.dll" />
+    <Content Include="Lib\ImageProcessing\GdPicture.NET.12.image.gdimgplug.dll" />
+    <Content Include="Lib\ImageProcessing\IMIP.SharedComponent.GdPictureWrapper12.dll" />
+    <Content Include="Lib\ImageProcessing\IMIP.SharedComponent.GdPictureWrapper12.pdb" />
     <Content Include="XMLFile1.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -1,4 +1,5 @@
-﻿using IMIP.UniversalScan.Data;
+﻿using IMIP.SharedComponent.GdPictureWrapper;
+using IMIP.UniversalScan.Data;
 using IMIP.UniversalScan.Def;
 using IMIP.UniversalScan.Profile;
 using System;
@@ -185,7 +186,7 @@ namespace UCMS.ImportController
             AddEachAttachProfile();
             btnSubmit.Enabled = true;
         }
-        
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             btnRefresh.Enabled = false;
@@ -225,6 +226,7 @@ namespace UCMS.ImportController
             try
             {
                 String pathClient = "";
+                List<String> pathItemPdf = new List<string>();
                 Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
                 oWorkflowItem.Content = new Model.Content();
                 oWorkflowItem.Content.Folder = oFolder;
@@ -259,16 +261,42 @@ namespace UCMS.ImportController
                 foreach (var oFileInfor in arrayFileInfor)
                 {
                     pathClient = oFileInfor.DirectoryName;
-                    var attachment = new Model.Attachment()
+                    if (oFileInfor.Extension == ".pdf")
                     {
-                        ContentId = oWorkflowItem.Content.Id,
-                        Data = File.ReadAllBytes(oFileInfor.FullName),
-                        MIME = "image/universalscan",
-                        Type = UCMS.Model.Enum.AttachmentType.Public,
-                        Name = Guid.NewGuid() + oFileInfor.Extension
-                    };
+                        String tempFileSplit = Guid.NewGuid().ToString();
+                        var PathDirect = Path.Combine(tempFileSplit);
+                        pathItemPdf.Add(PathDirect);
+                        Directory.CreateDirectory(PathDirect);
+                        //Common.LogToFile(PathDirect);
+                        ImageProcessing.SplitPDF2Tiff(oFileInfor.FullName, tempFileSplit, 300);
+                        foreach (var itemSplitFile in Directory.GetFiles(PathDirect))
+                        {
+                            var attachment = new Model.Attachment()
+                            {
+                                ContentId = oWorkflowItem.Content.Id,
+                                Data = File.ReadAllBytes(itemSplitFile),
+                                MIME = "image/universalscan",
+                                Type = UCMS.Model.Enum.AttachmentType.Public,
+                                Name = Path.GetFileName(itemSplitFile)
+                            };
+                            oUCMSApiClient.Attachment.Upload(attachment);
+                            File.Delete(itemSplitFile);
+                        }
+                        Directory.Delete(PathDirect);
+                    }
+                    else
+                    {
+                        var attachment = new Model.Attachment()
+                        {
+                            ContentId = oWorkflowItem.Content.Id,
+                            Data = File.ReadAllBytes(oFileInfor.FullName),
+                            MIME = "image/universalscan",
+                            Type = UCMS.Model.Enum.AttachmentType.Public,
+                            Name = Guid.NewGuid() + oFileInfor.Extension
+                        };
+                        oUCMSApiClient.Attachment.Upload(attachment);
+                    }
 
-                    oUCMSApiClient.Attachment.Upload(attachment);
                     if (!String.IsNullOrEmpty(RemoveFile) && !File.Exists(RemoveFile + @"\\" + oFileInfor.Name))
                     {
                         oFileInfor.MoveTo(RemoveFile + @"\\" + oFileInfor.Name);
@@ -365,6 +393,16 @@ namespace UCMS.ImportController
 
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
                 oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, true);
+
+                //Remove temp file
+                foreach (var PathDirect in pathItemPdf)
+                {
+                    foreach (var itemSplitFile in Directory.GetFiles(PathDirect))
+                    {
+                        File.Delete(itemSplitFile);
+                    }
+                    Directory.Delete(PathDirect);
+                }
                 return true;
             }
             catch (Exception ex)
@@ -435,7 +473,7 @@ namespace UCMS.ImportController
                     DirectoryInfo directInfo = new DirectoryInfo(folderPath);
                     foreach (var item in directInfo.GetFiles())
                     {
-                        if((String.IsNullOrEmpty(_Type) || _Type.Contains(item.Extension + ";")) && !item.Extension.Equals(_ReName))
+                        if ((String.IsNullOrEmpty(_Type) || _Type.Contains(item.Extension + ";")) && !item.Extension.Equals(_ReName))
                         {
                             arrayFileInfor.Add(item);
                         }
@@ -495,7 +533,7 @@ namespace UCMS.ImportController
                         folderPath = _MoveTo;
                     }
 
-                    FileInfo[] fileInfo = directInfo.GetFiles();                                        
+                    FileInfo[] fileInfo = directInfo.GetFiles();
                     foreach (var itemInfo in directInfo.GetFiles())
                     {
                         if ((String.IsNullOrEmpty(_Type) || _Type.Contains(itemInfo.Extension + ";")) && !itemInfo.Extension.Equals(_ReName))
@@ -607,7 +645,7 @@ namespace UCMS.ImportController
             }
             return true;
         }
-        
+
         #endregion AddProfile
 
         #region UploadFolder
@@ -948,7 +986,7 @@ namespace UCMS.ImportController
             List<Model.Folder> FolderList = new List<Model.Folder>();
             foreach (DataGridViewRow item in grdLibrary.Rows)
             {
-                if (Convert.ToBoolean (item.Cells["grdChkLibraryName"].Value))
+                if (Convert.ToBoolean(item.Cells["grdChkLibraryName"].Value))
                 {
                     FolderList.Add(FolderTemp.SingleOrDefault(x => x.Id.Equals(item.Cells["grdLibraryId"].Value)));
                 }

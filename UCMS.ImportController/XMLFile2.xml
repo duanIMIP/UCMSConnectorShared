@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="BranchID20190503110037" ID="a246cadf-647d-439f-be27-9a37689ff325" FormTypeName="BG OTHERS" CreationDate="2019-05-03T11:00:39.0581759+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="BGProcess" ProcessName="BGProcess" ProcessStepName="BGProcess" Priority="5" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
+<Batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="HaiPhong36O20190503174630" ID="f6675f7d-415d-4394-aa2f-940a2703a30c" FormTypeName="BG OTHERS" CreationDate="2019-05-03T17:46:31.3234291+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="HaiPhong" SessionID="" ExternalID="" UserID="" ClientName="BGProcess" ProcessName="BGProcess" ProcessStepName="BGProcess" Priority="5" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
   <Media />
   <Pages>
-    <UniPage ID="Screenshot (3)" FullFileName="C:\\Users\\ADMIN\\Desktop\\Screenshot (3).png" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
+    <UniPage ID="b7ef4aa1-4dd0-499a-b5be-a9a64e7b7272" FullFileName="C:\\Users\\ADMIN\\Pictures\\Internet\\b7ef4aa1-4dd0-499a-b5be-a9a64e7b7272.tif" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
       <Barcodes />
     </UniPage>
   </Pages>
   <Fields>
-    <UniField Name="Amount" Value="Amount" ValidationStatus="false">
+    <UniField Name="Amount" Value="" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="CaseType" Value="CaseType" ValidationStatus="false">
+    <UniField Name="CaseType" Value="" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="CIFNo" Value="CIFNo" ValidationStatus="false">
+    <UniField Name="CIFNo" Value="" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="Currency" Value="Currency" ValidationStatus="false">
+    <UniField Name="Currency" Value="" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="RefLC" Value="RefLC" ValidationStatus="false">
+    <UniField Name="RefLC" Value="" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="BranchId" Value="All" ValidationStatus="false">
+    <UniField Name="BranchId" Value="HaiPhong" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
@@ -45,7 +45,7 @@
     </UniField>
   </Fields>
   <UniParameterSet>
-    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-05-03T11:00:39.0656827+07:00" Description="" Creator="" Enabled="false">
+    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-05-03T17:46:31.3234291+07:00" Description="" Creator="" Enabled="false">
       <ProfileProperties Name="ImageMode" Shared="false">
         <Value xsi:type="xsd:int">0</Value>
       </ProfileProperties>
