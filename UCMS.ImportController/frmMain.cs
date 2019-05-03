@@ -317,7 +317,7 @@ namespace UCMS.ImportController
                 oBatch.Name = oWorkflowItem.Content.Name;
                 oBatch.ClientName = oFolder.Name;
                 oBatch.ProcessName = oWorkflow.Value;
-                oBatch.ProcessStepName = oWorkflow.Value;
+                oBatch.ProcessStepName = oWorkflowStep.Value;
                 oBatch.FormTypeName = oWorkflowItem.Content.ContentType.Name;
                 oBatch.Fields = new List<UniField>();
                 oBatch.Pages = new List<UniPage>();
