@@ -1,34 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Batch xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="CTDeliveryNote20190501183645" ID="d21fa399-0e92-4762-a708-de25cdcf896c" FormTypeName="CTDeliveryNote" CreationDate="2019-05-01T18:37:32.2610299+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="Credit" ProcessName="Moneyflow" ProcessStepName="UniversalScan" Priority="1" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
-  <CustomProperties xsi:type="xsd:string" />
+<Batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="BranchID20190503110037" ID="a246cadf-647d-439f-be27-9a37689ff325" FormTypeName="BG OTHERS" CreationDate="2019-05-03T11:00:39.0581759+07:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="" BranchID="All" SessionID="" ExternalID="" UserID="" ClientName="BGProcess" ProcessName="BGProcess" ProcessStepName="BGProcess" Priority="5" ImageCompression="false" ScanUser="" ScanStation="" SupportDocumentStructure="true" PublishDate="0001-01-01T00:00:00" ErrorMessage="" IgnoreBatch="false" AllowDocumentNaming="false" CreationUser="">
   <Media />
-  <Pages />
+  <Pages>
+    <UniPage ID="Screenshot (3)" FullFileName="C:\\Users\\ADMIN\\Desktop\\Screenshot (3).png" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
+      <Barcodes />
+    </UniPage>
+  </Pages>
   <Fields>
-    <UniField Name="Invoice" Value="Delivery" ValidationStatus="false">
+    <UniField Name="Amount" Value="Amount" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="DeliveryNote" Value="Delivery" ValidationStatus="false">
+    <UniField Name="CaseType" Value="CaseType" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="Advices" Value="Delivery" ValidationStatus="false">
+    <UniField Name="CIFNo" Value="CIFNo" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="Birthday_Field" Value="Delivery" ValidationStatus="false">
+    <UniField Name="Currency" Value="Currency" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
       <Rows />
     </UniField>
-    <UniField Name="Create_Filed" Value="Delivery" ValidationStatus="false">
+    <UniField Name="RefLC" Value="RefLC" ValidationStatus="false">
+      <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
+        <Chars />
+      </CustomData>
+      <Rows />
+    </UniField>
+    <UniField Name="BranchId" Value="All" ValidationStatus="false">
       <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
         <Chars />
       </CustomData>
@@ -36,7 +45,7 @@
     </UniField>
   </Fields>
   <UniParameterSet>
-    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-05-01T18:37:32.2621053+07:00" Description="" Creator="" Enabled="false">
+    <ScanProfileSetting ProfileName="[Default]" CreationDate="2019-05-03T11:00:39.0656827+07:00" Description="" Creator="" Enabled="false">
       <ProfileProperties Name="ImageMode" Shared="false">
         <Value xsi:type="xsd:int">0</Value>
       </ProfileProperties>
@@ -117,47 +126,6 @@
     <NeedPrint>false</NeedPrint>
     <FilterRescanByUser>false</FilterRescanByUser>
   </UniParameterSet>
-  <Docs>
-    <UniDocument Name="" ID="8c451f90-59f3-471d-96d8-6374dfede355" FormTypeName="CTInvoice" CreationDate="0001-01-01T00:00:00" IsRescan="false" Rejected="false" RejectedNote="" Index="0" USC_Barcode="">
-      <Media />
-      <Pages>
-        <UniPage ID="497a7159-49b4-4f31-a005-80eb3e0fa36b" FullFileName="C:\\IMIP.UCMS\\IMIP.WebScanApplication\\CurrentBatch\\d21fa399-0e92-4762-a708-de25cdcf896c\\497a7159-49b4-4f31-a005-80eb3e0fa36b.TIF" Rejected="false" IsRescan="false" IsNew="false" SheetID="" RejectedNote="">
-          <Barcodes />
-        </UniPage>
-      </Pages>
-      <Fields>
-        <UniField Name="Invoice" Value="Invoice" ValidationStatus="false">
-          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
-            <Chars />
-          </CustomData>
-          <Rows />
-        </UniField>
-        <UniField Name="DeliveryNote" Value="Invoice" ValidationStatus="false">
-          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
-            <Chars />
-          </CustomData>
-          <Rows />
-        </UniField>
-        <UniField Name="Advices" Value="Invoice" ValidationStatus="false">
-          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
-            <Chars />
-          </CustomData>
-          <Rows />
-        </UniField>
-        <UniField Name="Number_Field" Value="Invoice" ValidationStatus="false">
-          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
-            <Chars />
-          </CustomData>
-          <Rows />
-        </UniField>
-        <UniField Name="Date_Field" Value="Invoice" ValidationStatus="false">
-          <CustomData Left="0" Top="0" Width="0" Height="0" PageNo="0">
-            <Chars />
-          </CustomData>
-          <Rows />
-        </UniField>
-      </Fields>
-    </UniDocument>
-  </Docs>
+  <Docs />
   <FormTypes />
 </Batch>

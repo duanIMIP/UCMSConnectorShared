@@ -43,3 +43,4 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csproj.CopyComplete
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.pdb
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csprojAssemblyReference.cache

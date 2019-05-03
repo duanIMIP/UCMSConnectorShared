@@ -230,6 +230,7 @@ namespace UCMS.ImportController
         {
             try
             {
+                String pathClient = "";
                 Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
                 oWorkflowItem.Content = new Model.Content();
                 oWorkflowItem.Content.Folder = oFolder;
@@ -240,7 +241,7 @@ namespace UCMS.ImportController
                 oWorkflowItem.Priority = Model.Enum.WorkflowItemPriority.Normal;
                 if (!String.IsNullOrEmpty(oContenTypeParent.Key))//Branch or Document
                 {
-                    oWorkflowItem.Content.Name = GetData.Naming(oContenTypeParent.Value, oBatchNamingProfile);
+                    oWorkflowItem.Content.Name = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
                     var temp = oContentParent;
                     temp.Add("BranchId", oBranch.Value);
@@ -249,7 +250,7 @@ namespace UCMS.ImportController
                 }
                 else
                 {
-                    oWorkflowItem.Content.Name = GetData.Naming(oContenType.Value, oBatchNamingProfile);
+                    oWorkflowItem.Content.Name = GetData.Naming(oContenType.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
                     var temp = oContentField;
                     temp.Add("BranchId", oBranch.Value);
@@ -263,13 +264,14 @@ namespace UCMS.ImportController
 
                 foreach (var oFileInfor in arrayFileInfor)
                 {
+                    pathClient = oFileInfor.DirectoryName;
                     var attachment = new Model.Attachment()
                     {
                         ContentId = oWorkflowItem.Content.Id,
                         Data = File.ReadAllBytes(oFileInfor.FullName),
                         MIME = "image/universalscan",
                         Type = UCMS.Model.Enum.AttachmentType.Public,
-                        Name = string.IsNullOrEmpty(RenameFile) ? oFileInfor.Name : (oFileInfor.Name.Replace(oFileInfor.Extension, "") + RenameFile)
+                        Name = Guid.NewGuid() + oFileInfor.Extension
                     };
 
                     oUCMSApiClient.Attachment.Upload(attachment);
@@ -299,18 +301,19 @@ namespace UCMS.ImportController
                 oBatch.Pages = new List<UniPage>();
                 if (String.IsNullOrEmpty(oContenTypeParent.Key))
                 {
-                    foreach (var oFileInfor in arrayFileInfor)
+                    oWorkflowItem.Content = oUCMSApiClient.Content.GetById(oWorkflowItem.Content.Id);
+                    for (int i = 0; i < oWorkflowItem.Content.Attachments.Count; i++)
                     {
                         oBatch.Pages.Add(new UniPage()
                         {
-                            ID = Path.GetFileNameWithoutExtension(oFileInfor.Name),
-                            FullFileName = (String.IsNullOrEmpty(RemoveFile) ? oFileInfor.DirectoryName : RemoveFile) + @"\\" + (string.IsNullOrEmpty(RenameFile) ? oFileInfor.Name : (oFileInfor.Name.Replace(oFileInfor.Extension, "") + RenameFile)),
+                            ID = Path.GetFileNameWithoutExtension(oWorkflowItem.Content.Attachments[i].Name),
+                            FullFileName = (string.IsNullOrEmpty(RemoveFile) ? pathClient : RemoveFile) + @"\" + oWorkflowItem.Content.Attachments[i].Name,
                             Rejected = false,
                             IsRescan = false,
                             IsNew = false,
                             SheetID = "",
                             RejectedNote = ""
-                        });                        
+                        });
                     }
 
                     foreach (var item in oContentField)
@@ -339,12 +342,12 @@ namespace UCMS.ImportController
                     oUniDocument.Pages = new List<UniPage>();
                     oUniDocument.FormTypeName = oContenType.Value;
 
-                    foreach (var oFileInfor in arrayFileInfor)
+                    for (int i = 0; i < oWorkflowItem.Content.Attachments.Count; i++)
                     {
                         oUniDocument.Pages.Add(new UniPage()
                         {
-                            ID = Path.GetFileNameWithoutExtension(oFileInfor.Name),
-                            FullFileName = string.IsNullOrEmpty(RenameFile) ? Path.GetFullPath(oFileInfor.Name) : (oFileInfor.Name.Replace(oFileInfor.Extension, "") + RenameFile),
+                            ID = Path.GetFileNameWithoutExtension(oWorkflowItem.Content.Attachments[i].Name),
+                            FullFileName = (string.IsNullOrEmpty(RemoveFile) ? pathClient : RemoveFile) + @"\" + oWorkflowItem.Content.Attachments[i].Name,
                             Rejected = false,
                             IsRescan = false,
                             IsNew = false,
@@ -474,7 +477,7 @@ namespace UCMS.ImportController
                 {
                     return false;
                 }
-
+                int CoutNumber = 0;
                 DataValue oBranch = new DataValue() { Key = cboBrank.SelectedValue.ToString(), Value = cboBrank.Text };
                 Model.Folder oFolder = cboLibrary.SelectedItem as Model.Folder;
                 DataValue oWorkflow = new DataValue() { Key = cboWorkflow.SelectedValue.ToString(), Value = cboWorkflow.Text };
@@ -497,6 +500,8 @@ namespace UCMS.ImportController
                         Directory.CreateDirectory(_MoveTo);
                         folderPath = _MoveTo;
                     }
+
+                    FileInfo[] fileInfo = directInfo.GetFiles();                                        
                     foreach (var itemInfo in directInfo.GetFiles())
                     {
                         if ((String.IsNullOrEmpty(_Type) || _Type.Contains(itemInfo.Extension + ";")) && !itemInfo.Extension.Equals(_ReName))
@@ -538,14 +543,22 @@ namespace UCMS.ImportController
                             }
 
                             Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new FileInfo[] { itemInfo }, _ReName, _MoveTo, "USCBatch");
+                            CoutNumber++;
                         }
                     }
+                    if (CoutNumber == 0)
+                    {
+                        MessageBox.Show("Not contains attachment");
+                        btnUploadFolder.Focus();
+                        return false;
+                    }
                 }
+                MessageBox.Show("Update successfully");
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi trong quá trình cập nhật");
+                MessageBox.Show("Update error");
                 Common.LogToFile("AddControllProfile_" + ex.Message);
                 return false;
             }

@@ -96,6 +96,7 @@ namespace UCMS.ImportController
                     if (itemField.Name.Equals(item.Name))
                     {
                         item.ExternalID = itemField.Id;
+                        item.DisplayName = string.IsNullOrEmpty(item.DisplayName) ? item.Name : item.DisplayName;
                         Listfield.Add(item);
                         break;
                     }
@@ -115,6 +116,7 @@ namespace UCMS.ImportController
                     if (itemField.Name.Equals(item.Name))
                     {
                         item.ExternalID = itemField.Id;
+                        item.DisplayName = string.IsNullOrEmpty(item.DisplayName) ? item.Name : item.DisplayName;
                         Listfield.Add(item);
                         break;
                     }
@@ -123,7 +125,7 @@ namespace UCMS.ImportController
             return Listfield;
         }
 
-        public static String Naming(string ContentTypeName, BatchNamingProfile oBatchNamingProfile)
+        public static String Naming(string ContentTypeName, string BranchName, string LibraryName, BatchNamingProfile oBatchNamingProfile)
         {
             String tempName = "";
             if (oBatchNamingProfile != null && oBatchNamingProfile.Enabled && oBatchNamingProfile.BatchNamingSettings != null)
@@ -155,10 +157,17 @@ namespace UCMS.ImportController
                                 {
                                     tempName += DateTime.Now.ToString(Common.Username);
                                 }
+                                else if (oSourceField.StaticName.Equals("BranchID"))
+                                {
+                                    tempName += BranchName;
+                                }
                                 else
                                 {
                                     tempName += oSourceField.DisplayName;
                                 }
+                                break;
+                            case SourceFieldType.TextConstant:
+                                tempName += oSourceField.DisplayName;
                                 break;
                             default:
                                 break;
