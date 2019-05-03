@@ -1,4 +1,5 @@
 ﻿using IMIP.SharedComponent.CustomMapping;
+using IMIP.UniversalScan.Common;
 using IMIP.UniversalScan.Data;
 using IMIP.UniversalScan.Def;
 using IMIP.UniversalScan.Profile;
@@ -128,6 +129,7 @@ namespace UCMS.ImportController
         public static String Naming(string ContentTypeName, string BranchName, string LibraryName, BatchNamingProfile oBatchNamingProfile)
         {
             String tempName = "";
+            int indexBatch = 0;
             if (oBatchNamingProfile != null && oBatchNamingProfile.Enabled && oBatchNamingProfile.BatchNamingSettings != null)
             {
                 BatchNamingSetting oNaming = oBatchNamingProfile.BatchNamingSettings.SingleOrDefault(x => x.DocumentTypeName.Equals(ContentTypeName));
@@ -135,27 +137,39 @@ namespace UCMS.ImportController
                 {
                     foreach (SourceField oSourceField in oNaming.BatchNamingTemplate)
                     {
+                        indexBatch++;
                         switch (oSourceField.Type)
                         {
                             case SourceFieldType.DocVariable:
-                                tempName += ContentTypeName;
+                                if (oSourceField.StaticName == ScanCommon.ConstantString.DocType)
+                                {
+                                    tempName += oSourceField.Type;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.DocName)
+                                {
+                                    tempName += ContentTypeName;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.DocSequence)
+                                {
+                                    tempName += indexBatch.ToString();
+                                }
                                 break;
                             case SourceFieldType.System:
-                                if (oSourceField.StaticName.Equals("Date"))
+                                if (oSourceField.StaticName == ScanCommon.ConstantString.SystemMachineName)
+                                {
+                                    tempName += System.Environment.MachineName;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemUserName)
+                                {
+                                    tempName += Common.Username; //System.Environment.UserName
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemDate)
                                 {
                                     tempName += DateTime.Now.ToString(oNaming.DateFormat);
                                 }
-                                else if (oSourceField.StaticName.Equals("Time"))
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemTime)
                                 {
                                     tempName += DateTime.Now.ToString(oNaming.TimeFormat);
-                                }
-                                else if (oSourceField.StaticName.Equals("Machine Name"))
-                                {
-                                    tempName += DateTime.Now.ToString(Environment.MachineName.ToString());
-                                }
-                                else if (oSourceField.StaticName.Equals("User Name"))
-                                {
-                                    tempName += DateTime.Now.ToString(Common.Username);
                                 }
                                 else if (oSourceField.StaticName.Equals("BranchID"))
                                 {
@@ -177,5 +191,6 @@ namespace UCMS.ImportController
             }
             return tempName!=""? tempName:ContentTypeName + DateTime.Now.ToString("yyMMddHHmmssff");
         }
+        
     }
 }

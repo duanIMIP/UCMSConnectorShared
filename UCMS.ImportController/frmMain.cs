@@ -54,12 +54,6 @@ namespace UCMS.ImportController
             cboLibrary.ValueMember = "Id";
 
             grdLibrary.DataSource = floderList;
-
-            //for (int i = 0; i < floderList.Count; i++)
-            //{
-            //    string[] row = new string[] { (i + 1).ToString(), UniFieldList[i].DisplayName, "", UniFieldList[i].Name };
-            //    grdLibraryField.Rows.Add(row);
-            //}
         }
 
         private void cboLibrary_SelectedIndexChanged(object sender, EventArgs e)
