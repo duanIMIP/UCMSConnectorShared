@@ -88,6 +88,22 @@ namespace UCMS.ImportController
             {
                 Model.WorkflowStep obj = (sender as ComboBox).SelectedItem as Model.WorkflowStep;
                 ActivityConfiguration oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, obj.Id);
+
+                if (!oActivityConfiguration.SettingReference.Trim().Equals(Common.SettingReferenceDefault))
+                {
+                    Model.WorkflowStep oWorkflowStepRoot = ((sender as ComboBox).DataSource as List<Model.WorkflowStep>).SingleOrDefault(x => x.Name.Equals(oActivityConfiguration.SettingReference));
+                    if (oWorkflowStepRoot == null || string.IsNullOrEmpty(oWorkflowStepRoot.Id))
+                    {
+                        cboContentType.DataSource = new List<UniFormType>();
+                        cboContentType.Text = "";
+                        return;
+                    }
+                    else
+                    {
+                        oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStepRoot.Id);
+                    }
+                }
+
                 if (oActivityConfiguration.DocumentTypeProfile != null)
                 {
                     if (oActivityConfiguration.DocumentTypeProfile.UniFormtypeList != null && oActivityConfiguration.DocumentTypeProfile.UniFormtypeList.Count > 0)
@@ -929,6 +945,14 @@ namespace UCMS.ImportController
                             oWorkflowStep = oWorkflow.Steps[rdUpload.Next(0, oWorkflow.Steps.Count - 1)];
 
                             oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStep.Id);
+
+                            if (!oActivityConfiguration.SettingReference.Trim().Equals(Common.SettingReferenceDefault))
+                            {
+                                Model.WorkflowStep oWorkflowStepRoot = oWorkflow.Steps.SingleOrDefault(x=>x.Name.Equals(oActivityConfiguration.SettingReference));
+                                if (oWorkflowStepRoot == null || string.IsNullOrEmpty(oWorkflowStepRoot.Id)) continue;
+                                oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStepRoot.Id);
+                            }
+
 
                             if (oActivityConfiguration.DocumentTypeProfile != null)
                             {

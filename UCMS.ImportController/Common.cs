@@ -21,6 +21,8 @@ namespace UCMS.ImportController
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
         public static Int32 PoolTime = Convert.ToInt32(ConfigurationSettings.AppSettings["PoolTime"]);
 
+        public static String SettingReferenceDefault = "--- Own Setting ---";
+
         public static string SerializeToString(System.Type oType, object objectToSerialize)
         {
             TextWriter textWriter = null;

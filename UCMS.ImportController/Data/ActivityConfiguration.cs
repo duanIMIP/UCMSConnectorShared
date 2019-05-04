@@ -14,6 +14,8 @@ namespace UCMS.ImportController.Data
         [XmlElement("BatchNamingProfileSetting")]
         public IMIP.UniversalScan.Profile.BatchNamingProfile BatchNamingProfile { get; set; }
         [XmlElement("DocumentTypeProfileSetting")]
-        public IMIP.UniversalScan.Profile.DocumentTypeProfile DocumentTypeProfile { get; set; }        
+        public IMIP.UniversalScan.Profile.DocumentTypeProfile DocumentTypeProfile { get; set; }
+        [XmlElement("SettingReference")]
+        public String SettingReference { get; set; }
     }    
 }
