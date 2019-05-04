@@ -102,6 +102,7 @@
             this.btnRandom = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblNumberTotalContents = new System.Windows.Forms.Label();
             this.lblTotalContens = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grdLibrary = new System.Windows.Forms.DataGridView();
@@ -112,7 +113,12 @@
             this.btnConfigRandom = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
-            this.lblNumberTotalContents = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblContentLastest = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblPrgBarTotalAdd = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -132,6 +138,8 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -528,7 +536,7 @@
             this.grUpdate.Size = new System.Drawing.Size(619, 157);
             this.grUpdate.TabIndex = 22;
             this.grUpdate.TabStop = false;
-            this.grUpdate.Text = "Update attributes of content";
+            this.grUpdate.Text = "Update attributes of contents";
             // 
             // lblParentContent
             // 
@@ -669,9 +677,9 @@
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(184, 279);
+            this.btnRandom.Location = new System.Drawing.Point(8, 14);
             this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(76, 29);
+            this.btnRandom.Size = new System.Drawing.Size(83, 29);
             this.btnRandom.TabIndex = 21;
             this.btnRandom.Text = "Run";
             this.btnRandom.UseVisualStyleBackColor = true;
@@ -702,25 +710,35 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Importer";
             // 
+            // lblNumberTotalContents
+            // 
+            this.lblNumberTotalContents.AutoSize = true;
+            this.lblNumberTotalContents.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberTotalContents.Location = new System.Drawing.Point(582, 164);
+            this.lblNumberTotalContents.Name = "lblNumberTotalContents";
+            this.lblNumberTotalContents.Size = new System.Drawing.Size(27, 15);
+            this.lblNumberTotalContents.TabIndex = 25;
+            this.lblNumberTotalContents.Text = "0/0";
+            // 
             // lblTotalContens
             // 
             this.lblTotalContens.AutoSize = true;
             this.lblTotalContens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalContens.Location = new System.Drawing.Point(346, 164);
+            this.lblTotalContens.Location = new System.Drawing.Point(273, 164);
             this.lblTotalContens.Name = "lblTotalContens";
-            this.lblTotalContens.Size = new System.Drawing.Size(236, 15);
+            this.lblTotalContens.Size = new System.Drawing.Size(305, 15);
             this.lblTotalContens.TabIndex = 24;
-            this.lblTotalContens.Text = "The new contents add successfully: ";
+            this.lblTotalContens.Text = "The number of new contents add successfully: ";
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.grdLibrary);
-            this.tabPage2.Controls.Add(this.txtRandomFolder);
-            this.tabPage2.Controls.Add(this.btnConfigRandom);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.btnStop);
-            this.tabPage2.Controls.Add(this.btnRandom);
+            this.tabPage2.Controls.Add(this.lblPrgBarTotalAdd);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.lblContentLastest);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -737,11 +755,10 @@
             this.grdChkLibraryName,
             this.grdtxtLibraryName,
             this.grdLibraryId});
-            this.grdLibrary.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
-            this.grdLibrary.Location = new System.Drawing.Point(49, 58);
+            this.grdLibrary.Location = new System.Drawing.Point(11, 59);
             this.grdLibrary.Name = "grdLibrary";
-            this.grdLibrary.Size = new System.Drawing.Size(593, 212);
+            this.grdLibrary.Size = new System.Drawing.Size(593, 288);
             this.grdLibrary.TabIndex = 26;
             // 
             // grdChkLibraryName
@@ -767,15 +784,15 @@
             // txtRandomFolder
             // 
             this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtRandomFolder.Location = new System.Drawing.Point(132, 17);
+            this.txtRandomFolder.Location = new System.Drawing.Point(94, 19);
             this.txtRandomFolder.Multiline = true;
             this.txtRandomFolder.Name = "txtRandomFolder";
-            this.txtRandomFolder.Size = new System.Drawing.Size(479, 21);
+            this.txtRandomFolder.Size = new System.Drawing.Size(408, 21);
             this.txtRandomFolder.TabIndex = 25;
             // 
             // btnConfigRandom
             // 
-            this.btnConfigRandom.Location = new System.Drawing.Point(611, 17);
+            this.btnConfigRandom.Location = new System.Drawing.Point(508, 19);
             this.btnConfigRandom.Name = "btnConfigRandom";
             this.btnConfigRandom.Size = new System.Drawing.Size(31, 21);
             this.btnConfigRandom.TabIndex = 24;
@@ -787,7 +804,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 25);
+            this.label6.Location = new System.Drawing.Point(8, 27);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 23;
@@ -796,23 +813,76 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(423, 279);
+            this.btnStop.Location = new System.Drawing.Point(8, 55);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(76, 29);
+            this.btnStop.Size = new System.Drawing.Size(83, 29);
             this.btnStop.TabIndex = 22;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // lblNumberTotalContents
+            // groupBox2
             // 
-            this.lblNumberTotalContents.AutoSize = true;
-            this.lblNumberTotalContents.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberTotalContents.Location = new System.Drawing.Point(582, 164);
-            this.lblNumberTotalContents.Name = "lblNumberTotalContents";
-            this.lblNumberTotalContents.Size = new System.Drawing.Size(27, 15);
-            this.lblNumberTotalContents.TabIndex = 25;
-            this.lblNumberTotalContents.Text = "0/0";
+            this.groupBox2.Controls.Add(this.txtRandomFolder);
+            this.groupBox2.Controls.Add(this.grdLibrary);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.btnConfigRandom);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(612, 354);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Upload attributes of contents";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnRandom);
+            this.groupBox3.Controls.Add(this.btnStop);
+            this.groupBox3.Location = new System.Drawing.Point(626, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(97, 101);
+            this.groupBox3.TabIndex = 28;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Action";
+            // 
+            // lblContentLastest
+            // 
+            this.lblContentLastest.AutoSize = true;
+            this.lblContentLastest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContentLastest.Location = new System.Drawing.Point(449, 399);
+            this.lblContentLastest.Name = "lblContentLastest";
+            this.lblContentLastest.Size = new System.Drawing.Size(0, 15);
+            this.lblContentLastest.TabIndex = 32;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(228, 399);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(217, 15);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "The lastest content successfully: ";
+            // 
+            // lblPrgBarTotalAdd
+            // 
+            this.lblPrgBarTotalAdd.AutoSize = true;
+            this.lblPrgBarTotalAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrgBarTotalAdd.Location = new System.Drawing.Point(449, 420);
+            this.lblPrgBarTotalAdd.Name = "lblPrgBarTotalAdd";
+            this.lblPrgBarTotalAdd.Size = new System.Drawing.Size(15, 15);
+            this.lblPrgBarTotalAdd.TabIndex = 34;
+            this.lblPrgBarTotalAdd.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(140, 420);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(305, 15);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "The number of new contents add successfully: ";
             // 
             // frmMain
             // 
@@ -846,6 +916,9 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -923,5 +996,11 @@
         private System.Windows.Forms.ProgressBar prgBarAddControl;
         private System.Windows.Forms.Label lblTotalContens;
         private System.Windows.Forms.Label lblNumberTotalContents;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblPrgBarTotalAdd;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblContentLastest;
+        private System.Windows.Forms.Label label9;
     }
 }
