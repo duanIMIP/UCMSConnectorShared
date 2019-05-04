@@ -30,6 +30,7 @@ namespace UCMS.ImportController
         public BatchNamingProfile oBatchNamingProfile { get; set; }
         public String grdName { get; set; }
         private Thread newThread;
+        private Boolean StopThread = true;
         public frmMain()
         {
             InitializeComponent();
@@ -182,9 +183,16 @@ namespace UCMS.ImportController
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            btnSubmit.Enabled = false;
-            AddEachAttachProfile();
-            btnSubmit.Enabled = true;
+            if (!string.IsNullOrEmpty(txtFolder.Text) && Directory.Exists(txtFolder.Text))
+            {
+                btnSubmit.Enabled = false;
+                AddEachAttachProfile();
+                btnSubmit.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Not contains attachment");
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -217,6 +225,7 @@ namespace UCMS.ImportController
             cboLibrary.DisplayMember = "Name";
             cboLibrary.ValueMember = "Id";
             btnRefresh.Enabled = true;
+            prgBarAddControl.Value = 0;
         }
 
         #region AddProfile
@@ -240,7 +249,7 @@ namespace UCMS.ImportController
                     oWorkflowItem.Content.Name = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
                     var temp = oContentParent;
-                    temp.Add("BranchId", oBranch.Value);
+                    temp.Add("BranchID", oBranch.Value);
                     oWorkflowItem.Content.Values = temp;
                     oWorkflowItem.Content.LibraryFieldValues = oLibraryParent;
                 }
@@ -249,7 +258,7 @@ namespace UCMS.ImportController
                     oWorkflowItem.Content.Name = GetData.Naming(oContenType.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
                     var temp = oContentField;
-                    temp.Add("BranchId", oBranch.Value);
+                    temp.Add("BranchID", oBranch.Value);
                     oWorkflowItem.Content.Values = temp;
                     oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
                 }
@@ -509,6 +518,7 @@ namespace UCMS.ImportController
                 {
                     return false;
                 }
+                List<FileInfo> fileInfoList = new List<FileInfo>();
                 int CoutNumber = 0;
                 DataValue oBranch = new DataValue() { Key = cboBrank.SelectedValue.ToString(), Value = cboBrank.Text };
                 Model.Folder oFolder = cboLibrary.SelectedItem as Model.Folder;
@@ -538,52 +548,63 @@ namespace UCMS.ImportController
                     {
                         if ((String.IsNullOrEmpty(_Type) || _Type.Contains(itemInfo.Extension + ";")) && !itemInfo.Extension.Equals(_ReName))
                         {
-                            Dictionary<string, object> oContentField = new Dictionary<string, object>();
-                            Dictionary<string, object> oLibraryField = new Dictionary<string, object>();
-                            Dictionary<string, object> oContentParent = new Dictionary<string, object>();
-                            Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
-                            foreach (DataGridViewRow item in grdContentField.Rows)
-                            {
-                                if (!item.IsNewRow)
-                                {
-                                    oContentField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                                }
-                            }
-                            foreach (DataGridViewRow item in grdLibraryField.Rows)
-                            {
-                                if (!item.IsNewRow)
-                                {
-                                    oLibraryField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                                }
-                            }
-                            if (!String.IsNullOrEmpty(oContenTypeParent.Key))
-                            {
-                                foreach (DataGridViewRow item in grdContentParent.Rows)
-                                {
-                                    if (!item.IsNewRow)
-                                    {
-                                        oContentParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                                    }
-                                }
-                                foreach (DataGridViewRow item in grdLibraryParent.Rows)
-                                {
-                                    if (!item.IsNewRow)
-                                    {
-                                        oLibraryParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                                    }
-                                }
-                            }
-
-                            Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new FileInfo[] { itemInfo }, _ReName, _MoveTo, "USCBatch");
-                            CoutNumber++;
+                            fileInfoList.Add(itemInfo);
                         }
                     }
-                    if (CoutNumber == 0)
+
+                    if (fileInfoList.Count == 0)
                     {
                         MessageBox.Show("Not contains attachment");
                         btnUploadFolder.Focus();
                         return false;
                     }
+
+                    prgBarAddControl.Minimum = 0;
+                    prgBarAddControl.Maximum = fileInfoList.Count;
+
+                    foreach (var itemInfo in fileInfoList)
+                    {
+                        Dictionary<string, object> oContentField = new Dictionary<string, object>();
+                        Dictionary<string, object> oLibraryField = new Dictionary<string, object>();
+                        Dictionary<string, object> oContentParent = new Dictionary<string, object>();
+                        Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
+                        foreach (DataGridViewRow item in grdContentField.Rows)
+                        {
+                            if (!item.IsNewRow)
+                            {
+                                oContentField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                            }
+                        }
+                        foreach (DataGridViewRow item in grdLibraryField.Rows)
+                        {
+                            if (!item.IsNewRow)
+                            {
+                                oLibraryField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                            }
+                        }
+                        if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                        {
+                            foreach (DataGridViewRow item in grdContentParent.Rows)
+                            {
+                                if (!item.IsNewRow)
+                                {
+                                    oContentParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                }
+                            }
+                            foreach (DataGridViewRow item in grdLibraryParent.Rows)
+                            {
+                                if (!item.IsNewRow)
+                                {
+                                    oLibraryParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                }
+                            }
+                        }
+                        Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new FileInfo[] { itemInfo }, _ReName, _MoveTo, "USCBatch");
+                        CoutNumber++;
+                        prgBarAddControl.Value = CoutNumber;
+                        lblNumberTotalContents.Text = CoutNumber + "/" + fileInfoList.Count;
+                    }
+
                 }
                 MessageBox.Show("Update successfully");
                 return true;
@@ -852,8 +873,8 @@ namespace UCMS.ImportController
         #region RandomUpload
         private void btnStop_Click(object sender, EventArgs e)
         {
-            newThread.Abort();
             btnRandom.Enabled = true;
+            StopThread = true;
             btnStop.Enabled = false;
         }
 
@@ -972,12 +993,13 @@ namespace UCMS.ImportController
 
         private void btnRandom_Click(object sender, EventArgs e)
         {
+            StopThread = false;
             btnRandom.Enabled = false;
             btnStop.Enabled = true;
             var folderPath = txtRandomFolder.Text;
             if (string.IsNullOrEmpty(folderPath))
             {
-                MessageBox.Show("Đường dẫn upload file không chính xác");
+                MessageBox.Show("The path of upload file doesn't correct");
                 btnRandom.Enabled = true;
                 btnStop.Enabled = false;
                 return;
@@ -997,10 +1019,20 @@ namespace UCMS.ImportController
                 while (true)
                 {
                     AddRanDomProfile(FolderList, folderPath, false, _Type, _ReName, _MoveTo);
+                    if (StopThread)
+                    {                        
+                        newThread.Abort();                        
+                        return;
+                    }
                     Thread.Sleep(Common.PoolTime);
                 }
             });
             newThread.Start();
+        }
+
+        private void MessageThread()
+        {
+            MessageBox.Show("Please click button Stop before close app");
         }
 
         #endregion RandomUpload

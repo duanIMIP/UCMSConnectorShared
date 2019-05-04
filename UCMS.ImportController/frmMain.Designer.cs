@@ -20,7 +20,15 @@
 
             if (newThread!= null && newThread.IsAlive)
             {
-                newThread.Abort();
+                if(StopThread)
+                {
+                    newThread.Abort();
+                }
+                else
+                {
+                    MessageThread();
+                    return;
+                }
             }
             base.Dispose(disposing);
         }
@@ -90,18 +98,21 @@
             this.ctmFieldRight = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grAction = new System.Windows.Forms.GroupBox();
+            this.prgBarAddControl = new System.Windows.Forms.ProgressBar();
             this.btnRandom = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblTotalContens = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtRandomFolder = new System.Windows.Forms.TextBox();
-            this.btnConfigRandom = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
             this.grdLibrary = new System.Windows.Forms.DataGridView();
             this.grdChkLibraryName = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.grdtxtLibraryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtRandomFolder = new System.Windows.Forms.TextBox();
+            this.btnConfigRandom = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.lblNumberTotalContents = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -246,7 +257,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tabContent);
-            this.groupBox1.Location = new System.Drawing.Point(6, 181);
+            this.groupBox1.Location = new System.Drawing.Point(6, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(713, 265);
             this.groupBox1.TabIndex = 21;
@@ -514,7 +525,7 @@
             this.grUpdate.Controls.Add(this.cboWorkflowStep);
             this.grUpdate.Location = new System.Drawing.Point(6, 3);
             this.grUpdate.Name = "grUpdate";
-            this.grUpdate.Size = new System.Drawing.Size(619, 172);
+            this.grUpdate.Size = new System.Drawing.Size(619, 157);
             this.grUpdate.TabIndex = 22;
             this.grUpdate.TabStop = false;
             this.grUpdate.Text = "Update attributes of content";
@@ -639,18 +650,26 @@
             // 
             // grAction
             // 
+            this.grAction.Controls.Add(this.prgBarAddControl);
             this.grAction.Controls.Add(this.btnSubmit);
             this.grAction.Controls.Add(this.btnRefresh);
             this.grAction.Location = new System.Drawing.Point(631, 3);
             this.grAction.Name = "grAction";
-            this.grAction.Size = new System.Drawing.Size(88, 172);
+            this.grAction.Size = new System.Drawing.Size(88, 157);
             this.grAction.TabIndex = 23;
             this.grAction.TabStop = false;
             this.grAction.Text = "Action";
             // 
+            // prgBarAddControl
+            // 
+            this.prgBarAddControl.Location = new System.Drawing.Point(6, 138);
+            this.prgBarAddControl.Name = "prgBarAddControl";
+            this.prgBarAddControl.Size = new System.Drawing.Size(76, 13);
+            this.prgBarAddControl.TabIndex = 24;
+            // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(184, 356);
+            this.btnRandom.Location = new System.Drawing.Point(184, 279);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(76, 29);
             this.btnRandom.TabIndex = 21;
@@ -671,6 +690,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.lblNumberTotalContents);
+            this.tabPage1.Controls.Add(this.lblTotalContens);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.grUpdate);
             this.tabPage1.Controls.Add(this.grAction);
@@ -680,6 +701,16 @@
             this.tabPage1.Size = new System.Drawing.Size(729, 453);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Importer";
+            // 
+            // lblTotalContens
+            // 
+            this.lblTotalContens.AutoSize = true;
+            this.lblTotalContens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalContens.Location = new System.Drawing.Point(346, 164);
+            this.lblTotalContens.Name = "lblTotalContens";
+            this.lblTotalContens.Size = new System.Drawing.Size(236, 15);
+            this.lblTotalContens.TabIndex = 24;
+            this.lblTotalContens.Text = "The new contents add successfully: ";
             // 
             // tabPage2
             // 
@@ -696,6 +727,42 @@
             this.tabPage2.Size = new System.Drawing.Size(729, 453);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Batch Importer";
+            // 
+            // grdLibrary
+            // 
+            this.grdLibrary.AllowUserToAddRows = false;
+            this.grdLibrary.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grdLibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdLibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grdChkLibraryName,
+            this.grdtxtLibraryName,
+            this.grdLibraryId});
+            this.grdLibrary.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
+            this.grdLibrary.Location = new System.Drawing.Point(49, 58);
+            this.grdLibrary.Name = "grdLibrary";
+            this.grdLibrary.Size = new System.Drawing.Size(593, 212);
+            this.grdLibrary.TabIndex = 26;
+            // 
+            // grdChkLibraryName
+            // 
+            this.grdChkLibraryName.HeaderText = "";
+            this.grdChkLibraryName.Name = "grdChkLibraryName";
+            // 
+            // grdtxtLibraryName
+            // 
+            this.grdtxtLibraryName.DataPropertyName = "Name";
+            this.grdtxtLibraryName.HeaderText = "Library Name";
+            this.grdtxtLibraryName.Name = "grdtxtLibraryName";
+            this.grdtxtLibraryName.ReadOnly = true;
+            this.grdtxtLibraryName.Width = 300;
+            // 
+            // grdLibraryId
+            // 
+            this.grdLibraryId.DataPropertyName = "Id";
+            this.grdLibraryId.HeaderText = "LIbraryId";
+            this.grdLibraryId.Name = "grdLibraryId";
+            this.grdLibraryId.ReadOnly = true;
             // 
             // txtRandomFolder
             // 
@@ -729,7 +796,7 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(423, 356);
+            this.btnStop.Location = new System.Drawing.Point(423, 279);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(76, 29);
             this.btnStop.TabIndex = 22;
@@ -737,40 +804,15 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // grdLibrary
+            // lblNumberTotalContents
             // 
-            this.grdLibrary.AllowUserToAddRows = false;
-            this.grdLibrary.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.grdLibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdLibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.grdChkLibraryName,
-            this.grdtxtLibraryName,
-            this.grdLibraryId});
-            this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
-            this.grdLibrary.Location = new System.Drawing.Point(49, 58);
-            this.grdLibrary.Name = "grdLibrary";
-            this.grdLibrary.Size = new System.Drawing.Size(593, 275);
-            this.grdLibrary.TabIndex = 26;
-            // 
-            // grdChkLibraryName
-            // 
-            this.grdChkLibraryName.HeaderText = "";
-            this.grdChkLibraryName.Name = "grdChkLibraryName";
-            // 
-            // grdtxtLibraryName
-            // 
-            this.grdtxtLibraryName.DataPropertyName = "Name";
-            this.grdtxtLibraryName.HeaderText = "Library Name";
-            this.grdtxtLibraryName.Name = "grdtxtLibraryName";
-            this.grdtxtLibraryName.ReadOnly = true;
-            this.grdtxtLibraryName.Width = 300;
-            // 
-            // grdLibraryId
-            // 
-            this.grdLibraryId.DataPropertyName = "Id";
-            this.grdLibraryId.HeaderText = "LIbraryId";
-            this.grdLibraryId.Name = "grdLibraryId";
-            this.grdLibraryId.ReadOnly = true;
+            this.lblNumberTotalContents.AutoSize = true;
+            this.lblNumberTotalContents.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberTotalContents.Location = new System.Drawing.Point(582, 164);
+            this.lblNumberTotalContents.Name = "lblNumberTotalContents";
+            this.lblNumberTotalContents.Size = new System.Drawing.Size(27, 15);
+            this.lblNumberTotalContents.TabIndex = 25;
+            this.lblNumberTotalContents.Text = "0/0";
             // 
             // frmMain
             // 
@@ -800,6 +842,7 @@
             this.grAction.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).EndInit();
@@ -877,5 +920,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn grdChkLibraryName;
         private System.Windows.Forms.DataGridViewTextBoxColumn grdtxtLibraryName;
         private System.Windows.Forms.DataGridViewTextBoxColumn grdLibraryId;
+        private System.Windows.Forms.ProgressBar prgBarAddControl;
+        private System.Windows.Forms.Label lblTotalContens;
+        private System.Windows.Forms.Label lblNumberTotalContents;
     }
 }
