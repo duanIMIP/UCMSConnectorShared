@@ -915,6 +915,7 @@ namespace UCMS.ImportController
             try
             {
                 Random rdUpload = new Random();
+                int iUpload = 0;
                 Boolean checkUpload = false;
                 DirectoryInfo directInfo = new DirectoryInfo(folderPath);
                 List<Branch> BranchList = GetData.GetBranch(oUCMSApiClient);
@@ -942,15 +943,24 @@ namespace UCMS.ImportController
                             Dictionary<string, object> oContentParent = new Dictionary<string, object>();
                             Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
 
-                            oBranch = BranchList[rdUpload.Next(0, BranchList.Count - 1)];
-                            oFolder = FolderList[rdUpload.Next(0, FolderList.Count - 1)];
+                            iUpload = rdUpload.Next(0, BranchList.Count);
+                            if(iUpload > BranchList.Count - 1) iUpload =(BranchList.Count - 1);
+                            oBranch = BranchList[iUpload];
+
+                            iUpload = rdUpload.Next(0, FolderList.Count);
+                            if (iUpload > FolderList.Count - 1) iUpload = (FolderList.Count - 1);
+                            oFolder = FolderList[iUpload];
 
                             WorkflowList = GetData.GetWorkflow(oUCMSApiClient, oFolder.Id);
                             if (WorkflowList.Count == 0) continue;
-                            oWorkflow = WorkflowList[rdUpload.Next(0, WorkflowList.Count - 1)];
+                            iUpload = rdUpload.Next(0, WorkflowList.Count);
+                            if (iUpload > WorkflowList.Count - 1) iUpload = (WorkflowList.Count - 1);
+                            oWorkflow = WorkflowList[iUpload];
 
                             if (oWorkflow.Steps.Count == 0) continue;
-                            oWorkflowStep = oWorkflow.Steps[rdUpload.Next(0, oWorkflow.Steps.Count - 1)];
+                            iUpload = rdUpload.Next(0, oWorkflow.Steps.Count);
+                            if (iUpload > oWorkflow.Steps.Count - 1) iUpload = (oWorkflow.Steps.Count - 1);
+                            oWorkflowStep = oWorkflow.Steps[iUpload];
 
                             oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStep.Id);
 

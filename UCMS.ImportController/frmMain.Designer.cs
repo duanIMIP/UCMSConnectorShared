@@ -798,7 +798,6 @@
             // 
             // btnStop
             // 
-            this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(8, 55);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(83, 29);
