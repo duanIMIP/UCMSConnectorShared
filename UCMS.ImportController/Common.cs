@@ -23,7 +23,7 @@ namespace UCMS.ImportController
 
         public static String SettingReferenceDefault = "--- Own Setting ---";
 
-        public static String[] WFStepManchine = ConfigurationSettings.AppSettings["WFStepManchine"].Split(';');
+        public static String[] WFStepProcessAuto = ConfigurationSettings.AppSettings["WFStepProcessAuto"].Split(';');
 
         public static string SerializeToString(System.Type oType, object objectToSerialize)
         {

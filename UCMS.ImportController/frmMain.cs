@@ -30,7 +30,7 @@ namespace UCMS.ImportController
         public BatchNamingProfile oBatchNamingProfile { get; set; }
         public String grdName { get; set; }
         private Thread newThread;
-        private Boolean StopThread = true;
+        private int StopThread = 0;
         private int PrgBarBatchImporterValue = 0;
         public frmMain()
         {
@@ -415,7 +415,7 @@ namespace UCMS.ImportController
 
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
                 Boolean autoProcess = false;
-                foreach (var item in Common.WFStepManchine)
+                foreach (var item in Common.WFStepProcessAuto)
                 {
                     if(item.Equals(oFolder.Name + "_" + oWorkflowStep.Value))
                     {
@@ -895,7 +895,7 @@ namespace UCMS.ImportController
         private void btnStop_Click(object sender, EventArgs e)
         {
             btnRandom.Enabled = true;
-            StopThread = true;
+            StopThread = 2;
             btnStop.Enabled = false;
         }
 
@@ -1012,6 +1012,12 @@ namespace UCMS.ImportController
                             checkUpload = true;
                             PrgBarBatchImporterValue++;
                             WriteTextSafe(ContentNew, PrgBarBatchImporterValue);
+                            if (StopThread == 2)
+                            {
+                                StopThread = 0;
+                                newThread.Abort();
+                                return;
+                            }
                         }
                     }
                 }
@@ -1040,7 +1046,7 @@ namespace UCMS.ImportController
 
         private void btnRandom_Click(object sender, EventArgs e)
         {
-            StopThread = false;
+            StopThread = 1;
             btnRandom.Enabled = false;
             btnStop.Enabled = true;
             var folderPath = txtRandomFolder.Text;
@@ -1066,12 +1072,7 @@ namespace UCMS.ImportController
             {
                 while (true)
                 {
-                    AddRanDomProfile(FolderList, folderPath, false, _Type, _ReName, _MoveTo);                    
-                    if (StopThread)
-                    {                        
-                        newThread.Abort();                        
-                        return;
-                    }
+                    AddRanDomProfile(FolderList, folderPath, false, _Type, _ReName, _MoveTo);
                     Thread.Sleep(Common.PoolTime);
                 }
             });
@@ -1080,7 +1081,12 @@ namespace UCMS.ImportController
 
         private void MessageThread()
         {
-            MessageBox.Show("Please click button Stop before close app");
+            switch(StopThread)
+            {
+                case 1: MessageBox.Show("Please click button Stop before close app"); break;
+                case 2: MessageBox.Show("Please waitting app finished"); break;
+            }
+            
         }
 
         #endregion RandomUpload

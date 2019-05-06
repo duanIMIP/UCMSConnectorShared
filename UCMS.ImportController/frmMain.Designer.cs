@@ -20,7 +20,7 @@
 
             if (newThread!= null && newThread.IsAlive)
             {
-                if(StopThread)
+                if(StopThread == 0)
                 {
                     newThread.Abort();
                 }
@@ -105,20 +105,20 @@
             this.lblNumberTotalContents = new System.Windows.Forms.Label();
             this.lblTotalContens = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblPrgBarTotalAdd = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblContentLastest = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtRandomFolder = new System.Windows.Forms.TextBox();
             this.grdLibrary = new System.Windows.Forms.DataGridView();
             this.grdChkLibraryName = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.grdtxtLibraryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtRandomFolder = new System.Windows.Forms.TextBox();
-            this.btnConfigRandom = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblContentLastest = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblPrgBarTotalAdd = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.btnConfigRandom = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -137,9 +137,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -724,11 +724,11 @@
             // 
             this.lblTotalContens.AutoSize = true;
             this.lblTotalContens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalContens.Location = new System.Drawing.Point(273, 164);
+            this.lblTotalContens.Location = new System.Drawing.Point(438, 164);
             this.lblTotalContens.Name = "lblTotalContens";
-            this.lblTotalContens.Size = new System.Drawing.Size(305, 15);
+            this.lblTotalContens.Size = new System.Drawing.Size(140, 15);
             this.lblTotalContens.TabIndex = 24;
-            this.lblTotalContens.Text = "The number of new contents add successfully: ";
+            this.lblTotalContens.Text = "Number of contents: ";
             // 
             // tabPage2
             // 
@@ -745,6 +745,89 @@
             this.tabPage2.Size = new System.Drawing.Size(729, 453);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Batch Importer";
+            // 
+            // lblPrgBarTotalAdd
+            // 
+            this.lblPrgBarTotalAdd.AutoSize = true;
+            this.lblPrgBarTotalAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrgBarTotalAdd.Location = new System.Drawing.Point(449, 420);
+            this.lblPrgBarTotalAdd.Name = "lblPrgBarTotalAdd";
+            this.lblPrgBarTotalAdd.Size = new System.Drawing.Size(15, 15);
+            this.lblPrgBarTotalAdd.TabIndex = 34;
+            this.lblPrgBarTotalAdd.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(302, 420);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(140, 15);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "Number of contents: ";
+            // 
+            // lblContentLastest
+            // 
+            this.lblContentLastest.AutoSize = true;
+            this.lblContentLastest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContentLastest.Location = new System.Drawing.Point(449, 399);
+            this.lblContentLastest.Name = "lblContentLastest";
+            this.lblContentLastest.Size = new System.Drawing.Size(0, 15);
+            this.lblContentLastest.TabIndex = 32;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(290, 399);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(152, 15);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "Lastest content name: ";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnRandom);
+            this.groupBox3.Controls.Add(this.btnStop);
+            this.groupBox3.Location = new System.Drawing.Point(626, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(97, 101);
+            this.groupBox3.TabIndex = 28;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Action";
+            // 
+            // btnStop
+            // 
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(8, 55);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(83, 29);
+            this.btnStop.TabIndex = 22;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtRandomFolder);
+            this.groupBox2.Controls.Add(this.grdLibrary);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.btnConfigRandom);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(612, 354);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Upload attributes of contents";
+            // 
+            // txtRandomFolder
+            // 
+            this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.txtRandomFolder.Location = new System.Drawing.Point(94, 19);
+            this.txtRandomFolder.Multiline = true;
+            this.txtRandomFolder.Name = "txtRandomFolder";
+            this.txtRandomFolder.Size = new System.Drawing.Size(408, 21);
+            this.txtRandomFolder.TabIndex = 25;
             // 
             // grdLibrary
             // 
@@ -781,14 +864,14 @@
             this.grdLibraryId.Name = "grdLibraryId";
             this.grdLibraryId.ReadOnly = true;
             // 
-            // txtRandomFolder
+            // label6
             // 
-            this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtRandomFolder.Location = new System.Drawing.Point(94, 19);
-            this.txtRandomFolder.Multiline = true;
-            this.txtRandomFolder.Name = "txtRandomFolder";
-            this.txtRandomFolder.Size = new System.Drawing.Size(408, 21);
-            this.txtRandomFolder.TabIndex = 25;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Watch Folder";
             // 
             // btnConfigRandom
             // 
@@ -800,89 +883,6 @@
             this.btnConfigRandom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigRandom.UseVisualStyleBackColor = true;
             this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Watch Folder";
-            // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(8, 55);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(83, 29);
-            this.btnStop.TabIndex = 22;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtRandomFolder);
-            this.groupBox2.Controls.Add(this.grdLibrary);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.btnConfigRandom);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(612, 354);
-            this.groupBox2.TabIndex = 27;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Upload attributes of contents";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnRandom);
-            this.groupBox3.Controls.Add(this.btnStop);
-            this.groupBox3.Location = new System.Drawing.Point(626, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(97, 101);
-            this.groupBox3.TabIndex = 28;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Action";
-            // 
-            // lblContentLastest
-            // 
-            this.lblContentLastest.AutoSize = true;
-            this.lblContentLastest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContentLastest.Location = new System.Drawing.Point(449, 399);
-            this.lblContentLastest.Name = "lblContentLastest";
-            this.lblContentLastest.Size = new System.Drawing.Size(0, 15);
-            this.lblContentLastest.TabIndex = 32;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(228, 399);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(217, 15);
-            this.label9.TabIndex = 31;
-            this.label9.Text = "The lastest content successfully: ";
-            // 
-            // lblPrgBarTotalAdd
-            // 
-            this.lblPrgBarTotalAdd.AutoSize = true;
-            this.lblPrgBarTotalAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrgBarTotalAdd.Location = new System.Drawing.Point(449, 420);
-            this.lblPrgBarTotalAdd.Name = "lblPrgBarTotalAdd";
-            this.lblPrgBarTotalAdd.Size = new System.Drawing.Size(15, 15);
-            this.lblPrgBarTotalAdd.TabIndex = 34;
-            this.lblPrgBarTotalAdd.Text = "0";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(140, 420);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(305, 15);
-            this.label11.TabIndex = 33;
-            this.label11.Text = "The number of new contents add successfully: ";
             // 
             // frmMain
             // 
@@ -915,10 +915,10 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).EndInit();
             this.ResumeLayout(false);
 
         }
