@@ -895,7 +895,10 @@ namespace UCMS.ImportController
         private void btnStop_Click(object sender, EventArgs e)
         {
             btnRandom.Enabled = true;
-            StopThread = 2;
+            if(StopThread == 1)
+            {
+                StopThread = 2;
+            }
             btnStop.Enabled = false;
         }
 
