@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ActivityConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ScanProfileSetting ProfileName="Admin Scan Profile" CreationDate="2014-09-05T05:22:12.0731927+07:00" Description="5/4/2019 10:15:38 AM" Creator="" Enabled="false">
-    <ProfileProperties Name="ImageMode" Shared="false">
+  <ScanProfileSetting ProfileName="Admin Scan Profile" CreationDate="2011-12-06T13:17:33.413422+07:00" Description="5/2/2019 4:43:48 PM" Creator="" Enabled="true">
+    <ProfileProperties Name="ImageMode" Shared="true">
       <Value xsi:type="xsd:int">0</Value>
     </ProfileProperties>
-    <ProfileProperties Name="Resolution" Shared="false">
-      <Value xsi:type="xsd:int">200</Value>
+    <ProfileProperties Name="Resolution" Shared="true">
+      <Value xsi:type="xsd:string">300</Value>
     </ProfileProperties>
-    <ProfileProperties Name="PageSize" Shared="false">
+    <ProfileProperties Name="PageSize" Shared="true">
       <Value xsi:type="xsd:int">4</Value>
     </ProfileProperties>
     <ProfileProperties Name="ScanType" Shared="false">
@@ -19,11 +19,11 @@
     <ProfileProperties Name="Brightness" Shared="false">
       <Value xsi:type="xsd:int">0</Value>
     </ProfileProperties>
+    <ProfileProperties Name="Duplex" Shared="true">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ProfileProperties>
     <ProfileProperties Name="AutoBrightness" Shared="false">
       <Value xsi:type="xsd:boolean">true</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Duplex" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
     </ProfileProperties>
     <ProfileProperties Name="AutoDeskew" Shared="false">
       <Value xsi:type="xsd:boolean">false</Value>
@@ -37,35 +37,237 @@
     <ProfileProperties Name="RemoveIsolatedDots" Shared="false">
       <Value xsi:type="xsd:boolean">false</Value>
     </ProfileProperties>
-    <ProfileProperties Name="ShowTwainUI" Shared="false">
+    <ProfileProperties Name="ShowTwainUI" Shared="true">
       <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Compression" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="ExtractBarcodes" Shared="false">
-      <Value xsi:type="xsd:boolean">false</Value>
-    </ProfileProperties>
-    <ProfileProperties Name="Rotate" Shared="false">
-      <Value xsi:type="xsd:int">0</Value>
     </ProfileProperties>
   </ScanProfileSetting>
   <BatchNamingProfileSetting>
-    <Enabled>false</Enabled>
-    <BatchNamingSettings />
+    <Enabled>true</Enabled>
+    <BatchNamingSettings>
+      <BatchNamingSetting>
+        <DocumentTypeName>BG ISSUANCE</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>36I</StaticName>
+            <DisplayName>36I</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>BG AMENDMENT</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>36A</StaticName>
+            <DisplayName>36A</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>BG BENEFICIARY CLAIM</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>36C</StaticName>
+            <DisplayName>36C</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>BG OTHERS</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>36O</StaticName>
+            <DisplayName>36O</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>SUPP-000</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate />
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>Supplement BG</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>BranchID</StaticName>
+            <DisplayName>BranchID</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>TextConstant</Type>
+            <StaticName>SPB</StaticName>
+            <DisplayName>SPB</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Date</StaticName>
+            <DisplayName>Date</DisplayName>
+          </SourceField>
+          <SourceField>
+            <Type>System</Type>
+            <StaticName>Time</StaticName>
+            <DisplayName>Time</DisplayName>
+          </SourceField>
+        </BatchNamingTemplate>
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>ContentType</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate />
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>SUPP-002</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate />
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>SUPP-001</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate />
+      </BatchNamingSetting>
+      <BatchNamingSetting>
+        <DocumentTypeName>BG-AMEND</DocumentTypeName>
+        <DateFormat>yyyyMMdd</DateFormat>
+        <TimeFormat>HHmmss</TimeFormat>
+        <BatchNamingTemplate />
+      </BatchNamingSetting>
+    </BatchNamingSettings>
     <ReplaceIllegalChar />
   </BatchNamingProfileSetting>
-  <SeparationProfileSetting Active="false" eSeparationType="FixPage" AlternativeFormType="">
+  <SeparationProfileSetting Active="true" eSeparationType="Barcode" AlternativeFormType="">
     <FixPageSeparationSetting>
       <PageCount>1</PageCount>
-      <FormType>SUPP-001</FormType>
     </FixPageSeparationSetting>
     <BlankPageSeparationSetting>
       <DiregardPage>false</DiregardPage>
       <Threshold>99</Threshold>
     </BlankPageSeparationSetting>
     <CustomSeparationSetting />
-    <BarcodeSeparationSettings />
+    <BarcodeSeparationSettings>
+      <BarcodeSeparationSetting>
+        <eBarcode>bc39</eBarcode>
+        <eComparison>exact</eComparison>
+        <CompareValue>BG-CONTENT</CompareValue>
+        <FormType>ContentType</FormType>
+        <DiregardPage>false</DiregardPage>
+        <CombineCheckWithMinimumPageCount>false</CombineCheckWithMinimumPageCount>
+        <MinimumPageCount>0</MinimumPageCount>
+      </BarcodeSeparationSetting>
+      <BarcodeSeparationSetting>
+        <eBarcode>bc39</eBarcode>
+        <eComparison>exact</eComparison>
+        <CompareValue>SUPP-000</CompareValue>
+        <FormType>SUPP-000</FormType>
+        <DiregardPage>true</DiregardPage>
+        <CombineCheckWithMinimumPageCount>false</CombineCheckWithMinimumPageCount>
+        <MinimumPageCount>0</MinimumPageCount>
+      </BarcodeSeparationSetting>
+      <BarcodeSeparationSetting>
+        <eBarcode>bc39</eBarcode>
+        <eComparison>exact</eComparison>
+        <CompareValue>SUPP-001</CompareValue>
+        <FormType>SUPP-001</FormType>
+        <DiregardPage>true</DiregardPage>
+        <CombineCheckWithMinimumPageCount>false</CombineCheckWithMinimumPageCount>
+        <MinimumPageCount>0</MinimumPageCount>
+      </BarcodeSeparationSetting>
+      <BarcodeSeparationSetting>
+        <eBarcode>bc39</eBarcode>
+        <eComparison>exact</eComparison>
+        <CompareValue>SUPP-002</CompareValue>
+        <FormType>SUPP-002</FormType>
+        <DiregardPage>true</DiregardPage>
+        <CombineCheckWithMinimumPageCount>false</CombineCheckWithMinimumPageCount>
+        <MinimumPageCount>0</MinimumPageCount>
+      </BarcodeSeparationSetting>
+      <BarcodeSeparationSetting>
+        <eBarcode>bc39</eBarcode>
+        <eComparison>exact</eComparison>
+        <CompareValue>SUPPORTING</CompareValue>
+        <FormType>SUPP-000</FormType>
+        <DiregardPage>true</DiregardPage>
+        <CombineCheckWithMinimumPageCount>false</CombineCheckWithMinimumPageCount>
+        <MinimumPageCount>0</MinimumPageCount>
+      </BarcodeSeparationSetting>
+    </BarcodeSeparationSettings>
   </SeparationProfileSetting>
   <ValidationProfileSetting>
     <EnforceDefaultValidation>false</EnforceDefaultValidation>
@@ -75,7 +277,7 @@
   <DocumentTypeProfileSetting>
     <PreDefineFieldList />
     <UniFormtypeList>
-      <UniFormType Name="SUPP-001" Visible="true" ExternalID="841" Root="false">
+      <UniFormType Name="SUPP-001" Visible="true" ExternalID="tFB4W2FMbTGQh8Dhpdxc" Root="false">
         <FieldDefs />
         <DocumentNamingSetting>
           <DateFormat>ddMMyyyy</DateFormat>
@@ -83,7 +285,7 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="SUPP-002" Visible="true" ExternalID="842" Root="false">
+      <UniFormType Name="SUPP-002" Visible="true" ExternalID="cdQqNDJqHNB2p1IFqfDF" Root="false">
         <FieldDefs />
         <DocumentNamingSetting>
           <DateFormat>ddMMyyyy</DateFormat>
@@ -91,9 +293,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="BG BENEFICIARY CLAIM" Visible="true" ExternalID="843" Root="true">
+      <UniFormType Name="BG BENEFICIARY CLAIM" Visible="true" ExternalID="hdupqCpm2UYVEqocEmrK" Root="true">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="19" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6992" ValueFromBarcode="false" Name="CIFNo" Index="0">
+          <UniFieldDefinition DisplayName="Amount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="tJt26fHUuxA4jYoiXYKk" ValueFromBarcode="false" Name="Amount" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -124,7 +326,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="3" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6993" ValueFromBarcode="false" Name="Currency" Index="0">
+          <UniFieldDefinition DisplayName="CaseType" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="BNkNi2x7dxmiMDmtalv4" ValueFromBarcode="false" Name="CaseType" Index="1">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -155,7 +357,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6994" ValueFromBarcode="false" Name="Amount" Index="0">
+          <UniFieldDefinition DisplayName="CIFNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="aTDyvkKqRUFJyDN2re4m" ValueFromBarcode="false" Name="CIFNo" Index="2">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -186,7 +388,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="20" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6995" ValueFromBarcode="false" Name="RefLC" Index="0">
+          <UniFieldDefinition DisplayName="Currency" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="lTzecG8SCa24FQDg6cTS" ValueFromBarcode="false" Name="Currency" Index="3">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -217,7 +419,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6996" ValueFromBarcode="false" Name="CaseType" Index="0">
+          <UniFieldDefinition DisplayName="RefLC" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="SOVF2YQVEtsPvZrQcgNB" ValueFromBarcode="false" Name="RefLC" Index="4">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -255,9 +457,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="BG OTHERS" Visible="true" ExternalID="844" Root="true">
+      <UniFormType Name="BG OTHERS" Visible="true" ExternalID="2pdaBxuvAKBUJOhtsJu6" Root="true">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6997" ValueFromBarcode="false" Name="CaseType" Index="0">
+          <UniFieldDefinition DisplayName="Amount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="nsxcRcprY4pWMGLmLnoL" ValueFromBarcode="false" Name="Amount" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -288,7 +490,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="19" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6998" ValueFromBarcode="false" Name="CIFNo" Index="0">
+          <UniFieldDefinition DisplayName="CaseType" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="aTws4qdyPuAFVMC647bt" ValueFromBarcode="false" Name="CaseType" Index="1">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -319,7 +521,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="3" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6999" ValueFromBarcode="false" Name="Currency" Index="0">
+          <UniFieldDefinition DisplayName="CIFNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="MaLXgebEDjdZGYYb3J23" ValueFromBarcode="false" Name="CIFNo" Index="2">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -350,7 +552,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7000" ValueFromBarcode="false" Name="Amount" Index="0">
+          <UniFieldDefinition DisplayName="Currency" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="5nOvJnEnQnJkAXhOYD3c" ValueFromBarcode="false" Name="Currency" Index="3">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -381,7 +583,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="20" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7001" ValueFromBarcode="false" Name="RefLC" Index="0">
+          <UniFieldDefinition DisplayName="RefLC" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="hHb6gdaSgjmJLeUc32RJ" ValueFromBarcode="false" Name="RefLC" Index="4">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -419,9 +621,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="Supplement BG" Visible="true" ExternalID="845" Root="true">
+      <UniFormType Name="Supplement BG" Visible="true" ExternalID="pbDwHJZA2XwE0afkxbI5" Root="true">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7002" ValueFromBarcode="false" Name="CaseNo" Index="0">
+          <UniFieldDefinition DisplayName="CaseNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="xdT8JHE5gcHqVtYJOSZ0" ValueFromBarcode="false" Name="CaseNo" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -459,9 +661,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="BG ISSUANCE" Visible="true" ExternalID="846" Root="true">
+      <UniFormType Name="BG ISSUANCE" Visible="true" ExternalID="5DYctjqKIEohV70IFsAA" Root="true">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7003" ValueFromBarcode="false" Name="Foreign" Index="0">
+          <UniFieldDefinition DisplayName="AdvisingBankAddr" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="6jjeN6mKFjcLEk7QyLDY" ValueFromBarcode="false" Name="AdvisingBankAddr" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -492,7 +694,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="True" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7004" ValueFromBarcode="false" Name="IsExportXML" Index="0">
+          <UniFieldDefinition DisplayName="AdvisingBankName" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="wEilvdh0vuqq8cFuJbAe" ValueFromBarcode="false" Name="AdvisingBankName" Index="1">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -523,7 +725,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7005" ValueFromBarcode="false" Name="IssuanceMode" Index="0">
+          <UniFieldDefinition DisplayName="ApplicationDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="76wRtz7JQuvo8TTeirJs" ValueFromBarcode="false" Name="ApplicationDate" Index="2">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -554,7 +756,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7006" ValueFromBarcode="false" Name="Language" Index="0">
+          <UniFieldDefinition DisplayName="BeneficiaryAddr" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="4ixYQiwUAKKr1YzKkp8Z" ValueFromBarcode="false" Name="BeneficiaryAddr" Index="3">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -585,7 +787,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7007" ValueFromBarcode="false" Name="ApplicationDate" Index="0">
+          <UniFieldDefinition DisplayName="BeneficiaryName" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="wQ3OfhODpzLRKUv1JIzJ" ValueFromBarcode="false" Name="BeneficiaryName" Index="4">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -616,7 +818,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7008" ValueFromBarcode="false" Name="LCCurrency" Index="0">
+          <UniFieldDefinition DisplayName="BGAdviceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="gDChg1LpeGgAMgZzPntA" ValueFromBarcode="false" Name="BGAdviceMode" Index="5">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -647,7 +849,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7009" ValueFromBarcode="false" Name="LCAmount" Index="0">
+          <UniFieldDefinition DisplayName="Chk_Contract" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="J4fVCEt0R2WcsnqjK2bf" ValueFromBarcode="false" Name="Chk_Contract" Index="6">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -678,7 +880,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7010" ValueFromBarcode="false" Name="Chk_THBL" Index="0">
+          <UniFieldDefinition DisplayName="Chk_THBL" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="FGaYjiFdsFzMqtmS7G5M" ValueFromBarcode="false" Name="Chk_THBL" Index="7">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -709,7 +911,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7011" ValueFromBarcode="false" Name="ContractNo" Index="0">
+          <UniFieldDefinition DisplayName="CIFNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="i7G2fXpjUjynHBPfJDFW" ValueFromBarcode="false" Name="CIFNo" Index="8">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -740,7 +942,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7012" ValueFromBarcode="false" Name="ContractDate" Index="0">
+          <UniFieldDefinition DisplayName="Content" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="GINl2qTakp8kg3PrYjqS" ValueFromBarcode="false" Name="Content" Index="9">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -771,7 +973,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7013" ValueFromBarcode="false" Name="ContractCurrency" Index="0">
+          <UniFieldDefinition DisplayName="ContractAmount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="KWvj8gbbJU53aiAueV6J" ValueFromBarcode="false" Name="ContractAmount" Index="10">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -802,7 +1004,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7014" ValueFromBarcode="false" Name="ContractAmount" Index="0">
+          <UniFieldDefinition DisplayName="ContractCurrency" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="Y3cVX4VjhTdSxSUrOjCv" ValueFromBarcode="false" Name="ContractCurrency" Index="11">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -833,7 +1035,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7015" ValueFromBarcode="false" Name="Chk_Contract" Index="0">
+          <UniFieldDefinition DisplayName="ContractDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="pRV5hGGgNJ7e36TUxUtl" ValueFromBarcode="false" Name="ContractDate" Index="12">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -864,7 +1066,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7016" ValueFromBarcode="false" Name="EffectiveDate1" Index="0">
+          <UniFieldDefinition DisplayName="ContractNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="aIZjE0RhwTLezEwLKgr5" ValueFromBarcode="false" Name="ContractNo" Index="13">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -895,7 +1097,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7017" ValueFromBarcode="false" Name="EffectiveDate2" Index="0">
+          <UniFieldDefinition DisplayName="DocumentType" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="53kOQfWOYj1P3wMV0S2v" ValueFromBarcode="false" Name="DocumentType" Index="14">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -926,7 +1128,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7018" ValueFromBarcode="false" Name="ExpiryDate1" Index="0">
+          <UniFieldDefinition DisplayName="EffectiveDate1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="CM6mJRTYvWxqsPVfhCCh" ValueFromBarcode="false" Name="EffectiveDate1" Index="15">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -957,7 +1159,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7019" ValueFromBarcode="false" Name="ExpiryDate2" Index="0">
+          <UniFieldDefinition DisplayName="EffectiveDate2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="k5vyPfQipwVPbJYTJDXa" ValueFromBarcode="false" Name="EffectiveDate2" Index="16">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -988,7 +1190,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7020" ValueFromBarcode="false" Name="ExpiryDate3" Index="0">
+          <UniFieldDefinition DisplayName="ExpiryDate1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="rHLqio7FuAMjC3UrmcJA" ValueFromBarcode="false" Name="ExpiryDate1" Index="17">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1019,7 +1221,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7021" ValueFromBarcode="false" Name="BeneficiaryName" Index="0">
+          <UniFieldDefinition DisplayName="ExpiryDate2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="0VgZvpUSoVNRPDH3uxJq" ValueFromBarcode="false" Name="ExpiryDate2" Index="18">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1050,7 +1252,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7022" ValueFromBarcode="false" Name="BeneficiaryAddr" Index="0">
+          <UniFieldDefinition DisplayName="ExpiryDate3" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="WXF6JEEGpecMUgC3RkEb" ValueFromBarcode="false" Name="ExpiryDate3" Index="19">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1081,7 +1283,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7023" ValueFromBarcode="false" Name="AdvisingBankName" Index="0">
+          <UniFieldDefinition DisplayName="Foreign" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="bMcsU0yPu3zjcCSKQ2hp" ValueFromBarcode="false" Name="Foreign" Index="20">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1112,7 +1314,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7024" ValueFromBarcode="false" Name="AdvisingBankAddr" Index="0">
+          <UniFieldDefinition DisplayName="IsExportXML" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="BoolType" DefaultValue="True" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="3WSBQgWhOJmHwHln7yhp" ValueFromBarcode="false" Name="IsExportXML" Index="21">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1143,7 +1345,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7025" ValueFromBarcode="false" Name="MessageType" Index="0">
+          <UniFieldDefinition DisplayName="IssuanceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="R1rxtKofsfVAiAmJbJs4" ValueFromBarcode="false" Name="IssuanceMode" Index="22">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1174,7 +1376,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7026" ValueFromBarcode="false" Name="Content" Index="0">
+          <UniFieldDefinition DisplayName="Language" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="WluYEuivZop1TXBHcSG8" ValueFromBarcode="false" Name="Language" Index="23">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1205,7 +1407,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7027" ValueFromBarcode="false" Name="CIFNo" Index="0">
+          <UniFieldDefinition DisplayName="LCAmount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="AXkK2mi76UZMGeij4hLM" ValueFromBarcode="false" Name="LCAmount" Index="24">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1236,7 +1438,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7028" ValueFromBarcode="false" Name="VTBLetterFrom" Index="0">
+          <UniFieldDefinition DisplayName="LCCurrency" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="k56fZilcp2w70icwlSlx" ValueFromBarcode="false" Name="LCCurrency" Index="25">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1267,7 +1469,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7029" ValueFromBarcode="false" Name="BGAdviceMode" Index="0">
+          <UniFieldDefinition DisplayName="MessageType" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="PmBiAsi5oTd0H0ZOX2Ck" ValueFromBarcode="false" Name="MessageType" Index="26">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1298,7 +1500,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7030" ValueFromBarcode="false" Name="DocumentType" Index="0">
+          <UniFieldDefinition DisplayName="VTBLetterFrom" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="el7T1wI5xEKbXQJYuWaX" ValueFromBarcode="false" Name="VTBLetterFrom" Index="27">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1336,9 +1538,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="ContentType" Visible="true" ExternalID="847" Root="false">
+      <UniFormType Name="ContentType" Visible="true" ExternalID="eZEjwMsEyvTP2Opr8xJX" Root="false">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7031" ValueFromBarcode="false" Name="FullText" Index="0">
+          <UniFieldDefinition DisplayName="FullText" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="qhfFlsXjDMK6UrzEMAZJ" ValueFromBarcode="false" Name="FullText" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1376,9 +1578,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="BG AMENDMENT" Visible="true" ExternalID="848" Root="true">
+      <UniFormType Name="BG AMENDMENT" Visible="true" ExternalID="zwKSFcrcKjHr3n6SvKhR" Root="true">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="True" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7032" ValueFromBarcode="false" Name="IsExportXML" Index="0">
+          <UniFieldDefinition DisplayName="Amount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="SGY6OVn0hbRyUQYoCfBC" ValueFromBarcode="false" Name="Amount" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1409,7 +1611,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7033" ValueFromBarcode="false" Name="MessageType" Index="0">
+          <UniFieldDefinition DisplayName="BGAdviceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="yktFKJ8ni4vmBvukt647" ValueFromBarcode="false" Name="BGAdviceMode" Index="1">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1440,7 +1642,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7034" ValueFromBarcode="false" Name="BGAdviceMode" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="3Etmp82ahANAQVnHgwv7" ValueFromBarcode="false" Name="Chk_AmendType1" Index="2">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1471,7 +1673,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7035" ValueFromBarcode="false" Name="GuaranteeNo" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="gvXJEINiK8xNas15EG1l" ValueFromBarcode="false" Name="Chk_AmendType2" Index="3">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1502,7 +1704,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7036" ValueFromBarcode="false" Name="ExpiryDate" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType3" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="3ECOh2QG1YRIXSu7jwsJ" ValueFromBarcode="false" Name="Chk_AmendType3" Index="4">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1533,7 +1735,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="FloatType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7037" ValueFromBarcode="false" Name="Amount" Index="0">
+          <UniFieldDefinition DisplayName="ExpiryDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="aN7iAL20NccWF4FRBeEg" ValueFromBarcode="false" Name="ExpiryDate" Index="5">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1564,7 +1766,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7038" ValueFromBarcode="false" Name="Other_1" Index="0">
+          <UniFieldDefinition DisplayName="GuaranteeNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="FX7djcrHeiT1ucDh7iTw" ValueFromBarcode="false" Name="GuaranteeNo" Index="6">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1595,7 +1797,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7039" ValueFromBarcode="false" Name="Other_2" Index="0">
+          <UniFieldDefinition DisplayName="IsExportXML" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="BoolType" DefaultValue="True" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="DoQVOFTdr8qU2RFbRHxJ" ValueFromBarcode="false" Name="IsExportXML" Index="7">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1626,7 +1828,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7040" ValueFromBarcode="false" Name="IssuanceMode" Index="0">
+          <UniFieldDefinition DisplayName="IssuanceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="qv1MLb8BXfQ7dmJO72y4" ValueFromBarcode="false" Name="IssuanceMode" Index="8">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1657,7 +1859,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7041" ValueFromBarcode="false" Name="Chk_AmendType1" Index="0">
+          <UniFieldDefinition DisplayName="MessageType" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="pf5VnvE8JSgFRQrZJJKZ" ValueFromBarcode="false" Name="MessageType" Index="9">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1688,7 +1890,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7042" ValueFromBarcode="false" Name="Chk_AmendType2" Index="0">
+          <UniFieldDefinition DisplayName="Other_1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="x0NUzkbz1xy3x0HyByZO" ValueFromBarcode="false" Name="Other_1" Index="10">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1719,7 +1921,69 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7043" ValueFromBarcode="false" Name="Chk_AmendType3" Index="0">
+          <UniFieldDefinition DisplayName="Other_2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="ogRsnwPT7JJFtaeXIzYl" ValueFromBarcode="false" Name="Other_2" Index="11">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Other_3" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="TK8ubUa7KDstGQDzJ1Ya" ValueFromBarcode="false" Name="Other_3" Index="12">
+            <Columns />
+            <ReferenceFields />
+            <Visible Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Visible>
+            <Editable Name="">
+              <Privilege>
+                <Account>
+                  <Name>Everyone</Name>
+                  <UPN />
+                  <Class />
+                </Account>
+              </Privilege>
+              <Value>true</Value>
+            </Editable>
+            <FieldZone>
+              <Top>0</Top>
+              <Left>0</Left>
+              <Width>0</Width>
+              <Height>0</Height>
+              <PageNo>0</PageNo>
+            </FieldZone>
+          </UniFieldDefinition>
+          <UniFieldDefinition DisplayName="Other_4" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="N7uKiUZV13EEzeFQJgj8" ValueFromBarcode="false" Name="Other_4" Index="13">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1757,7 +2021,7 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="SUPP-000" Visible="true" ExternalID="849" Root="false">
+      <UniFormType Name="SUPP-000" Visible="true" ExternalID="UJbEYIaF8g7AmTxxrM2n" Root="false">
         <FieldDefs />
         <DocumentNamingSetting>
           <DateFormat>ddMMyyyy</DateFormat>
@@ -1765,9 +2029,9 @@
           <BatchNamingTemplate />
         </DocumentNamingSetting>
       </UniFormType>
-      <UniFormType Name="BG-AMEND" Visible="true" ExternalID="850" Root="false">
+      <UniFormType Name="BG-AMEND" Visible="true" ExternalID="wOflRbV4gGL74ttG1A7r" Root="false">
         <FieldDefs>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7044" ValueFromBarcode="false" Name="BGAdviceMode" Index="0">
+          <UniFieldDefinition DisplayName="Amount" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="v0Le1pabW10PlnSOj6aQ" ValueFromBarcode="false" Name="Amount" Index="0">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1798,7 +2062,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7045" ValueFromBarcode="false" Name="GuaranteeNo" Index="0">
+          <UniFieldDefinition DisplayName="BGAdviceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="nrfA2PoVCc7WoZpmEiw7" ValueFromBarcode="false" Name="BGAdviceMode" Index="1">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1829,7 +2093,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7046" ValueFromBarcode="false" Name="ExpiryDate" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="wy4fgVf1hZJnqZke0zDt" ValueFromBarcode="false" Name="Chk_AmendType1" Index="2">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1860,7 +2124,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7047" ValueFromBarcode="false" Name="Amount" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="VKnqXUyegw84hDInt7f3" ValueFromBarcode="false" Name="Chk_AmendType2" Index="3">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1891,7 +2155,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7048" ValueFromBarcode="false" Name="Other_1" Index="0">
+          <UniFieldDefinition DisplayName="Chk_AmendType3" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="NEyje5Jfqd3dOxI0dSIp" ValueFromBarcode="false" Name="Chk_AmendType3" Index="4">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1922,7 +2186,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7049" ValueFromBarcode="false" Name="Other_2" Index="0">
+          <UniFieldDefinition DisplayName="ExpiryDate" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="Zd0YzQm0dXgFD1N4ST7I" ValueFromBarcode="false" Name="ExpiryDate" Index="5">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1953,7 +2217,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7050" ValueFromBarcode="false" Name="IssuanceMode" Index="0">
+          <UniFieldDefinition DisplayName="GuaranteeNo" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="VjNRdsBdHt2ogf8CAdIg" ValueFromBarcode="false" Name="GuaranteeNo" Index="6">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -1984,7 +2248,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7051" ValueFromBarcode="false" Name="Chk_AmendType1" Index="0">
+          <UniFieldDefinition DisplayName="IssuanceMode" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="x2bcAwMiy4EiUqjaecfG" ValueFromBarcode="false" Name="IssuanceMode" Index="7">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -2015,7 +2279,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7052" ValueFromBarcode="false" Name="Chk_AmendType2" Index="0">
+          <UniFieldDefinition DisplayName="Other_1" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="Bpjb0hjsZtrcnOuAT5Ft" ValueFromBarcode="false" Name="Other_1" Index="8">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -2046,7 +2310,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7053" ValueFromBarcode="false" Name="Chk_AmendType3" Index="0">
+          <UniFieldDefinition DisplayName="Other_2" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="f7HIIcd7kYD5Z3s1Y0VE" ValueFromBarcode="false" Name="Other_2" Index="9">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -2077,7 +2341,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7054" ValueFromBarcode="false" Name="Other_3" Index="0">
+          <UniFieldDefinition DisplayName="Other_3" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="FL2Ji3pYgetceQ5qHNN1" ValueFromBarcode="false" Name="Other_3" Index="10">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -2108,7 +2372,7 @@
               <PageNo>0</PageNo>
             </FieldZone>
           </UniFieldDefinition>
-          <UniFieldDefinition DisplayName="" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="7055" ValueFromBarcode="false" Name="Other_4" Index="0">
+          <UniFieldDefinition DisplayName="Other_4" Mandatory="false" ReadOnly="false" MaxLength="0" DataType="StringType" DefaultValue="" CustomProperty="" MultiLine="false" MultiChoice="false" EDocManField="false" PreDefineListID="" ValidationFormat="" ExternalID="AWD0cpJGuW3M6rl13vcv" ValueFromBarcode="false" Name="Other_4" Index="11">
             <Columns />
             <ReferenceFields />
             <Visible Name="">
@@ -2148,9 +2412,9 @@
       </UniFormType>
     </UniFormtypeList>
   </DocumentTypeProfileSetting>
-  <SettingReference>Scan</SettingReference>
-  <AllowCreateNewBatch>false</AllowCreateNewBatch>
-  <AllowEditBatch>false</AllowEditBatch>
-  <NeedPrint>true</NeedPrint>
+  <SettingReference>--- Own Setting --- </SettingReference>
+  <AllowCreateNewBatch>true</AllowCreateNewBatch>
+  <AllowEditBatch>true</AllowEditBatch>
+  <NeedPrint>false</NeedPrint>
   <FilterRescanByUser>false</FilterRescanByUser>
 </ActivityConfiguration>

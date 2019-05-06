@@ -414,7 +414,15 @@ namespace UCMS.ImportController
                 //--------------Set value ContentPrivateData-----------------------------
 
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
-                oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, true);
+                Boolean autoProcess = false;
+                foreach (var item in Common.WFStepManchine)
+                {
+                    if(item.Equals(oFolder.Name + "_" + oWorkflowStep.Value))
+                    {
+                        autoProcess = true; break;
+                    }
+                }
+                oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
 
                 //Remove temp file
                 foreach (var PathDirect in pathItemPdf)
