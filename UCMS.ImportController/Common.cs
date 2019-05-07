@@ -52,7 +52,6 @@ namespace UCMS.ImportController
                 oReturn = serializer.Deserialize(stream);
                 stream.Close();
             }
-
             return oReturn;
         }
 

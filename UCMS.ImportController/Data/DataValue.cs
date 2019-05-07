@@ -10,5 +10,17 @@ namespace UCMS.ImportController.Data
     {
         public string Key { get; set; }
         public string Value { get; set; }
+
+        public DataValue()
+        {
+            this.Key = "";
+            this.Value = "";
+        }
+
+        public DataValue(String Key, String Value)
+        {
+            this.Key = Key;
+            this.Value = Value;
+        }
     }
 }

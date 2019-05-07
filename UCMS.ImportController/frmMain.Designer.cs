@@ -1,4 +1,6 @@
-﻿namespace UCMS.ImportController
+﻿using System.IO;
+
+namespace UCMS.ImportController
 {
     partial class frmMain
     {
@@ -22,6 +24,7 @@
             {
                 if(StopThread == 0)
                 {
+                    DeleteFileInDirectory(TiffList);
                     newThread.Abort();
                 }
                 else
