@@ -203,9 +203,13 @@ namespace UCMS.ImportController
         {
             if (!string.IsNullOrEmpty(txtFolder.Text) && Directory.Exists(txtFolder.Text))
             {
+                btnRandom.Enabled = false;
                 btnSubmit.Enabled = false;
                 AddEachAttachProfile();
+                MemoryManagement.FlushMemory();
                 btnSubmit.Enabled = true;
+                btnRandom.Enabled = true;
+
             }
             else
             {
@@ -334,10 +338,12 @@ namespace UCMS.ImportController
                         {
                             arrayFileInfor[i].MoveTo(RemoveFile + @"\\" + arrayFileInfor[i].Name);
                         }
+
                         if (!string.IsNullOrEmpty(RenameFile) && !File.Exists(arrayFileInfor[i].FullName.Replace(arrayFileInfor[i].Extension, "") + RenameFile))
                         {
                             arrayFileInfor[i].CopyTo(arrayFileInfor[i].FullName.Replace(arrayFileInfor[i].Extension, "") + RenameFile);
                             arrayFileInfor[i].Delete();
+                            
                         }
                     }
 
@@ -916,7 +922,6 @@ namespace UCMS.ImportController
         #region RandomUpload
         private void btnStop_Click(object sender, EventArgs e)
         {
-            btnRandom.Enabled = true;
             if (StopThread == 1)
             {
                 StopThread = 2;
@@ -1166,6 +1171,11 @@ namespace UCMS.ImportController
                 //lblPrgBarBatchImporter.Text = ImporterValue + "/" + ImporterCount;
                 lblContentLastest.Text = ImporterContentLastestName;
                 lblPrgBarTotalAdd.Text = ImporterValue + "";
+                if (StopThread == 2)
+                {
+                    btnSubmit.Enabled = true;
+                    btnRandom.Enabled = true;
+                }
             }
         }
 
@@ -1173,6 +1183,7 @@ namespace UCMS.ImportController
         {
             StopThread = 1;
             btnRandom.Enabled = false;
+            btnSubmit.Enabled = false;
             btnStop.Enabled = true;
             TiffList = Guid.NewGuid().ToString();
             Path.Combine(TiffList);
@@ -1202,6 +1213,7 @@ namespace UCMS.ImportController
                 while (true)
                 {
                     AddRanDomProfile(FolderList, BranchList, folderPath, false, _Type, _ReName, _MoveTo);
+                    MemoryManagement.FlushMemory();
                     Thread.Sleep(Common.PoolTime);
                 }
             });
