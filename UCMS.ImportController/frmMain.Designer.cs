@@ -610,13 +610,13 @@ namespace UCMS.ImportController
             this.machineToolStripMenuItem,
             this.userNameToolStripMenuItem});
             this.ctmDetails.Name = "ctmDetails";
-            this.ctmDetails.Size = new System.Drawing.Size(159, 114);
+            this.ctmDetails.Size = new System.Drawing.Size(130, 114);
             // 
             // ctmiDocumentType
             // 
             this.ctmiDocumentType.Name = "ctmiDocumentType";
-            this.ctmiDocumentType.Size = new System.Drawing.Size(158, 22);
-            this.ctmiDocumentType.Text = "Document Type";
+            this.ctmiDocumentType.Size = new System.Drawing.Size(129, 22);
+            this.ctmiDocumentType.Text = "Name";
             this.ctmiDocumentType.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // ctmiDate
