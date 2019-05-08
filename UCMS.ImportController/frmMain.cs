@@ -1147,6 +1147,7 @@ namespace UCMS.ImportController
                         arrayFileInfor = null;
                         GC.Collect();
                     }
+                    MemoryManagement.FlushMemory();
                 }
             }
             catch (Exception ex)
