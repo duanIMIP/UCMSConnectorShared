@@ -78,9 +78,12 @@ namespace UCMS.ImportController
             {
                 cboWorkflowStep.Text = "";
                 var obj = (sender as ComboBox).SelectedItem as Model.Workflow;
-                cboWorkflowStep.DataSource = obj.Steps;
+                if(obj.Steps != null)
+                {
+                    cboWorkflowStep.DataSource = obj.Steps.FindAll(x=>String.IsNullOrEmpty(x.Setting));
                 cboWorkflowStep.DisplayMember = "Name";
                 cboWorkflowStep.ValueMember = "Id";
+                }
             }
         }
 
@@ -948,6 +951,7 @@ namespace UCMS.ImportController
         {
             Random rdUpload = null;
             int iUpload = 0;
+            int TotalWhile = 0;
             Boolean checkUpload = false;
             DirectoryInfo directInfo = null;
             try
@@ -955,7 +959,7 @@ namespace UCMS.ImportController
                 rdUpload = new Random();
                 iUpload = 0;
                 checkUpload = false;
-
+                
 
                 if (BranchList.Count == 0 || FolderList.Count == 0)
                 {
@@ -968,7 +972,8 @@ namespace UCMS.ImportController
                 directInfo = new DirectoryInfo(folderPath);
                 foreach (var item in directInfo.GetFiles())
                 {
-                    checkUpload = false;
+                    checkUpload = false;                    
+
                     if ((String.IsNullOrEmpty(TypeUp) || TypeUp.Contains(item.Extension + ";")) && !item.Extension.Equals(Extension))
                     {
                         Branch oBranch = null;
@@ -992,6 +997,16 @@ namespace UCMS.ImportController
 
                         while (!checkUpload)
                         {
+                            TotalWhile++;
+                            if (TotalWhile > 500)// Lặp 500 lần không thực hiện upload thì dừng
+                            {
+                                DeleteFileInDirectory(TiffList);                                
+                                GC.Collect();
+                                StopThread = 0;
+                                newThread.Abort();
+                                return;
+                            }
+
                             oBranch = null;
                             oFolder = null;
                             WorkflowList = null;
@@ -1025,7 +1040,9 @@ namespace UCMS.ImportController
                             if (iUpload > WorkflowList.Count - 1) iUpload = (WorkflowList.Count - 1);
                             oWorkflow = WorkflowList[iUpload];
 
-                            if (oWorkflow.Steps.Count == 0) continue;
+                            if (oWorkflow.Steps == null || oWorkflow.Steps.Count == 0) continue;
+                            oWorkflow.Steps = oWorkflow.Steps.FindAll(x=>String.IsNullOrEmpty(x.Setting));
+                            if (oWorkflow.Steps == null || oWorkflow.Steps.Count == 0) continue;
                             iUpload = rdUpload.Next(0, oWorkflow.Steps.Count);
                             if (iUpload > oWorkflow.Steps.Count - 1) iUpload = (oWorkflow.Steps.Count - 1);
                             oWorkflowStep = oWorkflow.Steps[iUpload];
@@ -1126,6 +1143,7 @@ namespace UCMS.ImportController
                                 newThread.Abort();
                                 return;
                             }
+                            
                         }
                         oBranch = null;
                         oFolder = null;
@@ -1148,6 +1166,7 @@ namespace UCMS.ImportController
                         GC.Collect();
                     }
                     MemoryManagement.FlushMemory();
+                    TotalWhile = 0;
                 }
             }
             catch (Exception ex)
@@ -1158,9 +1177,20 @@ namespace UCMS.ImportController
             if (StopThread == 2)
             {
                 StopThread = 0;
+                GC.Collect();
+                newThread.Abort();
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        private void AddRanDomProfileList(List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        {
+            foreach (var folderPath in ListPath)
+            {
+                AddRanDomProfile(FolderList, BranchList, folderPath, false, _Type, _ReName, _MoveTo);
+                MemoryManagement.FlushMemory();
+            }            
         }
 
         public delegate void SafeCallDelegate(String ImporterContentLastestName, int ImporterValue);
@@ -1191,9 +1221,9 @@ namespace UCMS.ImportController
             btnSubmit.Enabled = false;
             btnStop.Enabled = true;
             TiffList = Guid.NewGuid().ToString();
-            Path.Combine(TiffList);
             Directory.CreateDirectory(TiffList);
             var folderPath = txtRandomFolder.Text;
+            List<String> ListPath = new List<string>();
             PrgBarBatchImporterValue = 0;
             if (string.IsNullOrEmpty(folderPath))
             {
@@ -1213,7 +1243,15 @@ namespace UCMS.ImportController
                 }
             }
 
-            if(FolderList.Count == 0)
+            if (!chkUploadFile.Checked && !chkUploadFolder.Checked)
+            {
+                MessageBox.Show("Upload File or Upload Folder must checked");
+                btnRandom.Enabled = true;
+                btnStop.Enabled = false;
+                return;
+            }
+
+            if (FolderList.Count == 0)
             {
                 MessageBox.Show("The Library empty");
                 btnRandom.Enabled = true;
@@ -1221,17 +1259,42 @@ namespace UCMS.ImportController
                 return;
             }
 
+            
+
+            if(chkUploadFolder.Checked)
+            {
+                foreach (var item in Directory.GetDirectories(folderPath))
+                {
+                    ListPath.Add(item);
+                    if (chkUploadFolder.Checked)
+                    {
+                        foreach (var itemChildren in Directory.GetDirectories(item))
+                        {
+                            ListPath.Add(itemChildren);
+                        }
+                    }
+                }
+            }
+
+
+            if (chkUploadFile.Checked)
+            {
+                ListPath.Add(folderPath);
+            }
+
+
             newThread = new Thread(() =>
             {
                 while (true)
                 {
-                    AddRanDomProfile(FolderList, BranchList, folderPath, false, _Type, _ReName, _MoveTo);
-                    MemoryManagement.FlushMemory();
+                    AddRanDomProfileList(FolderList, BranchList, ListPath, false, _Type, _ReName, _MoveTo);
                     Thread.Sleep(Common.PoolTime);
                 }
             });
             newThread.Start();
         }
+
+
 
         private void MessageThread()
         {

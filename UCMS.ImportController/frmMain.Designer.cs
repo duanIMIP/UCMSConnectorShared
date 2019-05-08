@@ -122,6 +122,8 @@ namespace UCMS.ImportController
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfigRandom = new System.Windows.Forms.Button();
+            this.chkUploadFolder = new System.Windows.Forms.CheckBox();
+            this.chkUploadFile = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -203,9 +205,9 @@ namespace UCMS.ImportController
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(17, 136);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.Size = new System.Drawing.Size(62, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Watch Folder";
+            this.label5.Text = "Root Folder";
             // 
             // btnSubmit
             // 
@@ -811,13 +813,15 @@ namespace UCMS.ImportController
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkUploadFile);
+            this.groupBox2.Controls.Add(this.chkUploadFolder);
             this.groupBox2.Controls.Add(this.txtRandomFolder);
             this.groupBox2.Controls.Add(this.grdLibrary);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.btnConfigRandom);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(612, 354);
+            this.groupBox2.Size = new System.Drawing.Size(612, 380);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Upload attributes of contents";
@@ -841,7 +845,7 @@ namespace UCMS.ImportController
             this.grdtxtLibraryName,
             this.grdLibraryId});
             this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
-            this.grdLibrary.Location = new System.Drawing.Point(11, 59);
+            this.grdLibrary.Location = new System.Drawing.Point(11, 88);
             this.grdLibrary.Name = "grdLibrary";
             this.grdLibrary.Size = new System.Drawing.Size(593, 288);
             this.grdLibrary.TabIndex = 26;
@@ -871,9 +875,9 @@ namespace UCMS.ImportController
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(8, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 23;
-            this.label6.Text = "Watch Folder";
+            this.label6.Text = "Root Folder";
             // 
             // btnConfigRandom
             // 
@@ -885,6 +889,28 @@ namespace UCMS.ImportController
             this.btnConfigRandom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigRandom.UseVisualStyleBackColor = true;
             this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
+            // 
+            // chkUploadFolder
+            // 
+            this.chkUploadFolder.AutoSize = true;
+            this.chkUploadFolder.Checked = true;
+            this.chkUploadFolder.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUploadFolder.Location = new System.Drawing.Point(94, 46);
+            this.chkUploadFolder.Name = "chkUploadFolder";
+            this.chkUploadFolder.Size = new System.Drawing.Size(189, 17);
+            this.chkUploadFolder.TabIndex = 27;
+            this.chkUploadFolder.Text = "Upload Sub Folders In Root Folder";
+            this.chkUploadFolder.UseVisualStyleBackColor = true;
+            // 
+            // chkUploadFile
+            // 
+            this.chkUploadFile.AutoSize = true;
+            this.chkUploadFile.Location = new System.Drawing.Point(94, 67);
+            this.chkUploadFile.Name = "chkUploadFile";
+            this.chkUploadFile.Size = new System.Drawing.Size(154, 17);
+            this.chkUploadFile.TabIndex = 28;
+            this.chkUploadFile.Text = "Upload Files In Root Folder";
+            this.chkUploadFile.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -1004,5 +1030,7 @@ namespace UCMS.ImportController
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblContentLastest;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox chkUploadFile;
+        private System.Windows.Forms.CheckBox chkUploadFolder;
     }
 }
