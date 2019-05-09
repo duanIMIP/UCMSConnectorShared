@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UCMS.ImportController.Data;
 
 namespace UCMS.ImportController
 {
@@ -20,21 +21,21 @@ namespace UCMS.ImportController
                 components.Dispose();
             }
 
-            foreach (var newThread in listThread)
+            foreach (MultipleProfileThread newThread in listThread)
             {
-                if (newThread != null && newThread.IsAlive)
+                if (newThread.MyThread != null && newThread.MyThread.IsAlive)
                 {
-                    if (StopThread == 0)
+                    if (newThread.StopThread == 0)
                     {
-                        newThread.Abort();
+                        newThread.MyThread.Abort();
                     }
                     else
                     {
-                        MessageThread();
+                        MessageThread(newThread.StopThread);
                         return;
                     }
                 }
-            }            
+            }         
             base.Dispose(disposing);
         }
 

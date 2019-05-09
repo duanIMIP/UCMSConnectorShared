@@ -30,9 +30,8 @@ namespace UCMS.ImportController
         public String _Type { get; set; }
         public BatchNamingProfile oBatchNamingProfile { get; set; }
         public String grdName { get; set; }
-        private List<Thread> listThread { get; set; }
+        private List<MultipleProfileThread> listThread { get; set; }
         private String nameThread { get; set; }
-        private int StopThread = 0;
         private int PrgBarBatchImporterValue = 0;
         private List<MultipleProfile> MultipleProfileList { get; set; }
 
@@ -46,7 +45,7 @@ namespace UCMS.ImportController
             grdContentField.ContextMenuStrip = new ContextMenuStrip();
             MultipleProfileList = new List<MultipleProfile>();
             grdMultipleProfile.ContextMenuStrip = new ContextMenuStrip();
-            listThread = new List<Thread>();
+            listThread = new List<MultipleProfileThread>();
         }
 
         private void WatchFolder_Load(object sender, EventArgs e)
@@ -930,9 +929,9 @@ namespace UCMS.ImportController
         #region RandomUpload
         private void btnStop_Click(object sender, EventArgs e)
         {
-            if (StopThread == 1)
+            for (int i = 0; i < listThread.Count; i++)
             {
-                StopThread = 2;
+                listThread[i].StopThread = 2;
             }
             btnStop.Enabled = false;
         }
@@ -945,7 +944,7 @@ namespace UCMS.ImportController
             ctmWatchFolder.Show(ptLowerLeft);
         }
 
-        private void AddRanDomProfile(Thread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfile(MultipleProfileThread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             Random rdUpload = null;
             int iUpload = 0;
@@ -961,9 +960,9 @@ namespace UCMS.ImportController
 
                 if (BranchList.Count == 0 || FolderList.Count == 0)
                 {
-                    StopThread = 0;
+                    newThread.StopThread = 0;
                     GC.Collect();
-                    newThread.Abort();
+                    newThread.MyThread.Abort();
                     return;
                 }
 
@@ -999,8 +998,8 @@ namespace UCMS.ImportController
                             if (TotalWhile > 500)// Lặp 500 lần không thực hiện upload thì dừng
                             {
                                 GC.Collect();
-                                StopThread = 0;
-                                newThread.Abort();
+                                newThread.StopThread = 0;
+                                newThread.MyThread.Abort();
                                 return;
                             }
 
@@ -1113,10 +1112,10 @@ namespace UCMS.ImportController
                             String ContentNew = Profile(oUCMSApiClient, new DataValue() { Key = oBranch.Name, Value = oBranch.Name }, oFolder, new DataValue() { Key = oWorkflow.Id, Value = oWorkflow.Name }, new DataValue() { Key = oWorkflowStep.Id, Value = oWorkflowStep.Name }, new DataValue() { Key = oUniFormType.ExternalID, Value = oUniFormType.Name }, new DataValue() { Key = oUniFormTypeParent.ExternalID, Value = oUniFormTypeParent.Name }, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, Extension, MoveTo, "USCBatch");
                             checkUpload = true;
                             PrgBarBatchImporterValue++;
-                            WriteTextSafe(ContentNew, PrgBarBatchImporterValue);
-                            if (StopThread == 2 || StopThread == 0)
+                            WriteTextSafe(ContentNew, PrgBarBatchImporterValue, newThread.StopThread);
+                            if (newThread.StopThread == 2)
                             {
-                                StopThread = 0;
+                                newThread.StopThread = 0;                                
                                 oBranch = null;
                                 oFolder = null;
                                 WorkflowList = null;
@@ -1136,7 +1135,7 @@ namespace UCMS.ImportController
                                 UFDList = null;
                                 arrayFileInfor = null;
                                 GC.Collect();
-                                newThread.Abort();
+                                newThread.MyThread.Abort();
                                 return;
                             }
 
@@ -1172,15 +1171,15 @@ namespace UCMS.ImportController
                 Common.LogToFile("AddRanDomProfile_" + ex.Message);
             }
 
-            if (StopThread == 2 || StopThread == 0)
+            if (newThread.StopThread == 2)
             {
-                StopThread = 0;
+                newThread.StopThread = 0;
                 GC.Collect();
-                newThread.Abort();
+                newThread.MyThread.Abort();
             }
         }
 
-        private void AddRanDomProfileList(Thread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfileList(MultipleProfileThread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             foreach (var folderPath in ListPath)
             {
@@ -1189,13 +1188,13 @@ namespace UCMS.ImportController
             }
         }
 
-        public delegate void SafeCallDelegate(String ImporterContentLastestName, int ImporterValue);
-        private void WriteTextSafe(String ImporterContentLastestName, int ImporterValue)
+        public delegate void SafeCallDelegate(String ImporterContentLastestName, int ImporterValue, int StopThread);
+        private void WriteTextSafe(String ImporterContentLastestName, int ImporterValue, int StopThread)
         {
             if (lblPrgBarTotalAdd.InvokeRequired || lblContentLastest.InvokeRequired)
             {
                 var d = new SafeCallDelegate(WriteTextSafe);
-                Invoke(d, new object[] { ImporterContentLastestName, ImporterValue });
+                Invoke(d, new object[] { ImporterContentLastestName, ImporterValue, StopThread });
             }
             else
             {
@@ -1212,12 +1211,24 @@ namespace UCMS.ImportController
 
         private void btnRandom_Click(object sender, EventArgs e)
         {
-            StopThread = 1;
+            foreach (MultipleProfileThread newThread in listThread)
+            {
+                if (newThread.MyThread != null && newThread.MyThread.IsAlive)
+                {
+                    if (newThread.StopThread != 0)
+                    {
+                        MessageThread(newThread.StopThread);
+                        return;
+                    }
+                }
+            }
+
             btnRandom.Enabled = false;
             btnSubmit.Enabled = false;
             btnStop.Enabled = true;
             PrgBarBatchImporterValue = 0;
             List<MultipleProfile> tempList = new List<MultipleProfile>();
+            listThread = new List<MultipleProfileThread>();
 
             foreach (DataGridViewRow itemgrdMultiple in grdMultipleProfile.Rows)
             {
@@ -1236,7 +1247,6 @@ namespace UCMS.ImportController
                 btnRandom.Enabled = true;
                 btnSubmit.Enabled = true;
                 btnStop.Enabled = false;
-                StopThread = 0;
                 return;
             }
 
@@ -1244,18 +1254,21 @@ namespace UCMS.ImportController
             {
                 Thread newThread = new Thread(() =>
                 {
+                    MultipleProfileThread oMultipleProfileThread = new MultipleProfileThread();
+                    oMultipleProfileThread.MyThread = Thread.CurrentThread;
+                    oMultipleProfileThread.StopThread = 1;
+                    listThread.Add(oMultipleProfileThread);
                     while (true)
                     {
-                        AddRanDomProfileList(Thread.CurrentThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
+                        AddRanDomProfileList(oMultipleProfileThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
                         Thread.Sleep(Common.PoolTime);
                     }
-                });
-                listThread.Add(newThread);
+                });                
                 newThread.Start();
             }
         }
 
-        private void MessageThread()
+        private void MessageThread(int StopThread)
         {
             switch (StopThread)
             {
