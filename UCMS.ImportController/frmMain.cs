@@ -31,10 +31,11 @@ namespace UCMS.ImportController
         public BatchNamingProfile oBatchNamingProfile { get; set; }
         public String grdName { get; set; }
         private List<Thread> listThread { get; set; }
+        private String nameThread { get; set; }
         private int StopThread = 0;
         private int PrgBarBatchImporterValue = 0;
         private List<MultipleProfile> MultipleProfileList { get; set; }
-
+        
         public frmMain()
         {
             InitializeComponent();
@@ -1159,7 +1160,10 @@ namespace UCMS.ImportController
                         UFDList = null;
                         arrayFileInfor = null;
                     }
-                    MemoryManagement.FlushMemory();
+                    if(PrgBarBatchImporterValue % MultipleProfileList.Count == 0)
+                    {
+                        MemoryManagement.FlushMemory();
+                    }
                     TotalWhile = 0;
                 }
             }
@@ -1267,7 +1271,7 @@ namespace UCMS.ImportController
             MultipleProfile oMultipleProfile = new MultipleProfile();
             List<Model.Folder> FolderTemp = GetData.GetFolder(oUCMSApiClient);
 
-            if (string.IsNullOrEmpty(txtRandomFolder.Text))
+            if (string.IsNullOrEmpty(txtRandomFolder.Text) || !Directory.Exists(txtRandomFolder.Text))
             {
                 MessageBox.Show("The path of upload file doesn't correct");
                 oMultipleProfile.Dispose();
@@ -1318,22 +1322,45 @@ namespace UCMS.ImportController
                     }
                 }
             }
+
             if (chkUploadFile.Checked)
             {
                 oMultipleProfile.PathList.Add(txtRandomFolder.Text);
             }
-            oMultipleProfile.Name = DateTime.Now.ToString("yyMMdd_hhmmssff");
+            
             oMultipleProfile.FileUploadType = _Type;
             oMultipleProfile.FileUploadReName = _ReName;
             oMultipleProfile.FileUploadMoveTo = _MoveTo;
-            MultipleProfileList.Add(oMultipleProfile);
-            var source = new BindingSource();
-            source.DataSource = MultipleProfileList;
-            grdMultipleProfile.DataSource = source;
-
-            //oMultipleProfile.Dispose();
+            oMultipleProfile.PathValue = txtRandomFolder.Text;
+            oMultipleProfile.CheckFile = chkUploadFile.Checked;
+            oMultipleProfile.CheckFolder = chkUploadFolder.Checked;
+            if(String.IsNullOrEmpty(nameThread))
+            {
+                oMultipleProfile.Name = DateTime.Now.ToString("yyMMdd_hhmmssff");
+                MultipleProfileList.Add(oMultipleProfile);
+                var source = new BindingSource();
+                source.DataSource = MultipleProfileList;
+                grdMultipleProfile.DataSource = source;
+            }
+            else
+            {
+                for (int i = 0; i < MultipleProfileList.Count; i++)
+                {
+                    if (MultipleProfileList[i].Name.Equals(nameThread))
+                    {
+                        oMultipleProfile.Name = nameThread;
+                        MultipleProfileList[i] = oMultipleProfile;
+                        var source = new BindingSource();
+                        source.DataSource = MultipleProfileList;
+                        grdMultipleProfile.DataSource = source;                        
+                    }
+                }                
+            }
+            LoadMultipleProfile((grdMultipleProfile.CurrentRow.DataBoundItem) as MultipleProfile);
             if (FolderTemp.Count > 0) FolderTemp.Clear();
             FolderTemp = null;
+            nameThread = null;            
+            
         }
 
         private void grdMultipleProfile_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -1366,13 +1393,33 @@ namespace UCMS.ImportController
             grdName = grdView.Name;
             if (e.Button == MouseButtons.Left)
             {
-                //if (grdView.CurrentCell != null && grdView.CurrentCell.Value != null && e.RowIndex != -1)
-                //{
-                //    MultipleProfile oMultipleProfile = (grdView.CurrentRow.DataBoundItem as MultipleProfile);
-                //    txtRandomFolder.Text = oMultipleProfile.
+                if (grdView.CurrentCell != null && grdView.CurrentCell.Value != null && e.RowIndex != -1)
+                {
+                    MultipleProfile oMultipleProfile = (grdView.CurrentRow.DataBoundItem as MultipleProfile);
+                    LoadMultipleProfile(oMultipleProfile);
+                }
+            }
+        }
 
-                    
-                //}
+        private void LoadMultipleProfile(MultipleProfile oMultipleProfile)
+        {
+            txtRandomFolder.Text = oMultipleProfile.PathValue;
+            chkUploadFile.Checked = oMultipleProfile.CheckFile;
+            chkUploadFolder.Checked = oMultipleProfile.CheckFolder;
+            _MoveTo = oMultipleProfile.FileUploadMoveTo;
+            _ReName = oMultipleProfile.FileUploadReName;
+            _Type = oMultipleProfile.FileUploadType;
+            nameThread = oMultipleProfile.Name;
+            foreach (DataGridViewRow item in grdLibrary.Rows)
+            {
+                if (oMultipleProfile.FolderList.Exists(x => x.Id.Equals(item.Cells["grdLibraryId"].Value)))
+                {
+                    item.Cells["grdChkLibraryName"].Value = true.ToString();
+                }
+                else
+                {
+                    item.Cells["grdChkLibraryName"].Value = false.ToString();
+                }
             }
         }
     }

@@ -771,7 +771,7 @@ namespace UCMS.ImportController
             this.grbMultipleProfile.Size = new System.Drawing.Size(177, 380);
             this.grbMultipleProfile.TabIndex = 35;
             this.grbMultipleProfile.TabStop = false;
-            this.grbMultipleProfile.Text = "Multiple Profile";
+            this.grbMultipleProfile.Text = "Multiple Thread";
             // 
             // grdMultipleProfile
             // 
@@ -963,6 +963,7 @@ namespace UCMS.ImportController
             this.grdMultipleProfileName.HeaderText = "Name";
             this.grdMultipleProfileName.Name = "grdMultipleProfileName";
             this.grdMultipleProfileName.ReadOnly = true;
+            this.grdMultipleProfileName.Width = 120;
             // 
             // frmMain
             // 

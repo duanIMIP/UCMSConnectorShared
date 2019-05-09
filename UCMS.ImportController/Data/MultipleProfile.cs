@@ -18,6 +18,9 @@ namespace UCMS.ImportController.Data
         public String FileUploadReName { get; set; }
         public String FileUploadMoveTo { get; set; }
         public String Name { get; set; }
+        public Boolean CheckFolder { get; set; }
+        public Boolean CheckFile { get; set; }
+        public String PathValue { get; set; }
 
 
         public MultipleProfile()
@@ -29,9 +32,12 @@ namespace UCMS.ImportController.Data
             FileUploadReName = "";
             FileUploadMoveTo = "";
             Name = "";
+            CheckFolder = false;
+            CheckFile = false;
+            PathValue = "";
         }
 
-        public MultipleProfile(List<String> PathList, List<Branch> BranchList, List<Model.Folder> FolderList, String FileUploadType, String FileUploadReName, String FileUploadMoveTo, String Name)
+        public MultipleProfile(List<String> PathList, List<Branch> BranchList, List<Model.Folder> FolderList, String FileUploadType, String FileUploadReName, String FileUploadMoveTo, String Name, Boolean CheckFolder, Boolean CheckFile, String PathValue)
         {
             this.PathList = PathList;
             this.BranchList = BranchList;
@@ -40,6 +46,9 @@ namespace UCMS.ImportController.Data
             this.FileUploadReName = FileUploadReName;
             this.FileUploadMoveTo = FileUploadMoveTo;
             this.Name = Name;
+            this.CheckFolder = CheckFolder;
+            this.CheckFile = CheckFile;
+            this.PathValue = PathValue;
         }
 
         ~MultipleProfile()
@@ -53,6 +62,9 @@ namespace UCMS.ImportController.Data
             FileUploadReName = null;
             FileUploadMoveTo = null;
             Name = null;
+            CheckFolder = false;
+            CheckFile = false;
+            PathValue = null;
         }
 
         public void Dispose()
@@ -77,6 +89,9 @@ namespace UCMS.ImportController.Data
                     FileUploadReName = null;
                     FileUploadMoveTo = null;
                     Name = null;
+                    CheckFolder = false;
+                    CheckFile = false;
+                    PathValue = null;
                 }
                 disposed = true;
             }
