@@ -30,10 +30,11 @@ namespace UCMS.ImportController
         public String _Type { get; set; }
         public BatchNamingProfile oBatchNamingProfile { get; set; }
         public String grdName { get; set; }
-        private Thread newThread;
+        private List<Thread> listThread { get; set; }
         private int StopThread = 0;
         private int PrgBarBatchImporterValue = 0;
-        private String TiffList { get; set; }
+        private List<MultipleProfile> MultipleProfileList { get; set; }
+
         public frmMain()
         {
             InitializeComponent();
@@ -41,8 +42,10 @@ namespace UCMS.ImportController
             _ReName = "";
             _MoveTo = "";
             _Type = ".tif;.tiff;.pdf;";
-            TiffList = "";
             grdContentField.ContextMenuStrip = new ContextMenuStrip();
+            MultipleProfileList = new List<MultipleProfile>();
+            grdMultipleProfile.ContextMenuStrip = new ContextMenuStrip();
+            listThread = new List<Thread>();
         }
 
         private void WatchFolder_Load(object sender, EventArgs e)
@@ -58,6 +61,8 @@ namespace UCMS.ImportController
             cboLibrary.DisplayMember = "Name";
             cboLibrary.ValueMember = "Id";
             grdLibrary.DataSource = GetData.GetFolder(oUCMSApiClient);
+            grdMultipleProfile.DataSource = MultipleProfileList;
+            grdMultipleProfile.AutoGenerateColumns = true;
         }
 
         private void cboLibrary_SelectedIndexChanged(object sender, EventArgs e)
@@ -301,8 +306,7 @@ namespace UCMS.ImportController
                     pathClient = arrayFileInfor[i].DirectoryName;
                     if (arrayFileInfor[i].Extension == ".pdf")
                     {
-                        var tempFileSplit = TiffList + @"\" + Guid.NewGuid().ToString();
-                        Path.Combine(tempFileSplit);
+                        var tempFileSplit = Guid.NewGuid().ToString();
                         Directory.CreateDirectory(tempFileSplit);
 
                         ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
@@ -321,6 +325,7 @@ namespace UCMS.ImportController
                             oUCMSApiClient.Attachment.Upload(attachment);
                             attachment = null;
                         }
+                        DeleteFileInDirectory(tempFileSplit);
                     }
                     else
                     {
@@ -463,7 +468,6 @@ namespace UCMS.ImportController
             oContentPrivateData = null;
             oBatch = null;
             oUniDocument = null;
-            GC.Collect();
             return ContentName;
 
         }
@@ -476,9 +480,6 @@ namespace UCMS.ImportController
                 {
                     return false;
                 }
-                TiffList = Guid.NewGuid().ToString();
-                Path.Combine(TiffList);
-                Directory.CreateDirectory(TiffList);
                 DataValue oBranch = new DataValue() { Key = cboBrank.SelectedValue.ToString(), Value = cboBrank.Text };
                 Model.Folder oFolder = cboLibrary.SelectedItem as Model.Folder;
                 DataValue oWorkflow = new DataValue() { Key = cboWorkflow.SelectedValue.ToString(), Value = cboWorkflow.Text };
@@ -547,20 +548,14 @@ namespace UCMS.ImportController
 
                 if (Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, _ReName, _MoveTo, "USCBatch") != "")
                 {
-                    DeleteFileInDirectory(TiffList);
                     MessageBox.Show("Cập nhật thành công");
                     return true;
-                }
-                else
-                {
-                    DeleteFileInDirectory(TiffList);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Có lỗi trong quá trình cập nhật");
                 Common.LogToFile("AddControllProfile_" + ex.Message);
-                DeleteFileInDirectory(TiffList);
             }
             return false;
         }
@@ -569,9 +564,6 @@ namespace UCMS.ImportController
         {
             try
             {
-                TiffList = Guid.NewGuid().ToString();
-                Path.Combine(TiffList);
-                Directory.CreateDirectory(TiffList);
                 if (!CheckControllProfile(LoadRootFalse))
                 {
                     return false;
@@ -664,7 +656,6 @@ namespace UCMS.ImportController
                     }
 
                 }
-                DeleteFileInDirectory(TiffList);
                 MessageBox.Show("Update successfully");
                 return true;
             }
@@ -924,6 +915,12 @@ namespace UCMS.ImportController
                 case "grdLibraryParent":
                     grdLibraryParent.CurrentCell.Value = "";
                     break;
+                case "grdMultipleProfile":
+                    MultipleProfileList.Remove(MultipleProfileList.SingleOrDefault(x=>x.Name.Equals(grdMultipleProfile.CurrentCell.Value)));
+                    var source = new BindingSource();
+                    source.DataSource = MultipleProfileList;
+                    grdMultipleProfile.DataSource = source;
+                    break;
             }
         }
 
@@ -947,7 +944,7 @@ namespace UCMS.ImportController
             ctmWatchFolder.Show(ptLowerLeft);
         }
 
-        private void AddRanDomProfile(List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfile(Thread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             Random rdUpload = null;
             int iUpload = 0;
@@ -999,8 +996,7 @@ namespace UCMS.ImportController
                         {
                             TotalWhile++;
                             if (TotalWhile > 500)// Lặp 500 lần không thực hiện upload thì dừng
-                            {
-                                DeleteFileInDirectory(TiffList);                                
+                            {                             
                                 GC.Collect();
                                 StopThread = 0;
                                 newThread.Abort();
@@ -1117,10 +1113,9 @@ namespace UCMS.ImportController
                             checkUpload = true;
                             PrgBarBatchImporterValue++;
                             WriteTextSafe(ContentNew, PrgBarBatchImporterValue);
-                            if (StopThread == 2)
+                            if (StopThread == 2 || StopThread == 0)
                             {
                                 StopThread = 0;
-                                DeleteFileInDirectory(TiffList);
                                 oBranch = null;
                                 oFolder = null;
                                 WorkflowList = null;
@@ -1163,7 +1158,6 @@ namespace UCMS.ImportController
                         oLibraryParent = null;
                         UFDList = null;
                         arrayFileInfor = null;
-                        GC.Collect();
                     }
                     MemoryManagement.FlushMemory();
                     TotalWhile = 0;
@@ -1174,21 +1168,19 @@ namespace UCMS.ImportController
                 Common.LogToFile("AddRanDomProfile_" + ex.Message);
             }
 
-            if (StopThread == 2)
+            if (StopThread == 2 || StopThread == 0)
             {
                 StopThread = 0;
                 GC.Collect();
                 newThread.Abort();
             }
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
         }
 
-        private void AddRanDomProfileList(List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfileList(Thread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             foreach (var folderPath in ListPath)
             {
-                AddRanDomProfile(FolderList, BranchList, folderPath, false, _Type, _ReName, _MoveTo);
+                AddRanDomProfile(newThread, FolderList, BranchList, folderPath, LoadRootFalse, TypeUp, Extension, MoveTo);
                 MemoryManagement.FlushMemory();
             }            
         }
@@ -1219,83 +1211,24 @@ namespace UCMS.ImportController
             StopThread = 1;
             btnRandom.Enabled = false;
             btnSubmit.Enabled = false;
-            btnStop.Enabled = true;
-            TiffList = Guid.NewGuid().ToString();
-            Directory.CreateDirectory(TiffList);
-            var folderPath = txtRandomFolder.Text;
-            List<String> ListPath = new List<string>();
+            btnStop.Enabled = true;            
             PrgBarBatchImporterValue = 0;
-            if (string.IsNullOrEmpty(folderPath))
+
+            foreach (MultipleProfile item in MultipleProfileList)
             {
-                MessageBox.Show("The path of upload file doesn't correct");
-                btnRandom.Enabled = true;
-                btnStop.Enabled = false;
-                return;
-            }
-            List<Branch> BranchList = GetData.GetBranch(oUCMSApiClient);
-            List<Model.Folder> FolderTemp = GetData.GetFolder(oUCMSApiClient);
-            List<Model.Folder> FolderList = new List<Model.Folder>();
-            foreach (DataGridViewRow item in grdLibrary.Rows)
-            {
-                if (Convert.ToBoolean(item.Cells["grdChkLibraryName"].Value))
+                Thread newThread = new Thread(() =>
                 {
-                    FolderList.Add(FolderTemp.SingleOrDefault(x => x.Id.Equals(item.Cells["grdLibraryId"].Value)));
-                }
-            }
-
-            if (!chkUploadFile.Checked && !chkUploadFolder.Checked)
-            {
-                MessageBox.Show("Upload File or Upload Folder must checked");
-                btnRandom.Enabled = true;
-                btnStop.Enabled = false;
-                return;
-            }
-
-            if (FolderList.Count == 0)
-            {
-                MessageBox.Show("The Library empty");
-                btnRandom.Enabled = true;
-                btnStop.Enabled = false;
-                return;
-            }
-
-            
-
-            if(chkUploadFolder.Checked)
-            {
-                foreach (var item in Directory.GetDirectories(folderPath))
-                {
-                    ListPath.Add(item);
-                    if (chkUploadFolder.Checked)
+                    while (true)
                     {
-                        foreach (var itemChildren in Directory.GetDirectories(item))
-                        {
-                            ListPath.Add(itemChildren);
-                        }
+                        AddRanDomProfileList(Thread.CurrentThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
+                        Thread.Sleep(Common.PoolTime);
                     }
-                }
+                });
+                listThread.Add(newThread);
+                newThread.Start();                
             }
-
-
-            if (chkUploadFile.Checked)
-            {
-                ListPath.Add(folderPath);
-            }
-
-
-            newThread = new Thread(() =>
-            {
-                while (true)
-                {
-                    AddRanDomProfileList(FolderList, BranchList, ListPath, false, _Type, _ReName, _MoveTo);
-                    Thread.Sleep(Common.PoolTime);
-                }
-            });
-            newThread.Start();
         }
-
-
-
+               
          private void MessageThread()
         {
             switch (StopThread)
@@ -1328,5 +1261,119 @@ namespace UCMS.ImportController
         }
 
         #endregion RandomUpload
+
+        private void btlAddProfile_Click(object sender, EventArgs e)
+        {
+            MultipleProfile oMultipleProfile = new MultipleProfile();
+            List<Model.Folder> FolderTemp = GetData.GetFolder(oUCMSApiClient);
+
+            if (string.IsNullOrEmpty(txtRandomFolder.Text))
+            {
+                MessageBox.Show("The path of upload file doesn't correct");
+                oMultipleProfile.Dispose();
+                if (FolderTemp.Count > 0) FolderTemp.Clear();
+                FolderTemp = null;
+                return;
+            }
+
+            if (!chkUploadFile.Checked && !chkUploadFolder.Checked)
+            {
+                MessageBox.Show("Upload File or Upload Folder must checked");
+                oMultipleProfile.Dispose();
+                if (FolderTemp.Count > 0) FolderTemp.Clear();
+                FolderTemp = null;
+                return;
+            }            
+
+            foreach (DataGridViewRow item in grdLibrary.Rows)
+            {
+                if (Convert.ToBoolean(item.Cells["grdChkLibraryName"].Value))
+                {
+                    oMultipleProfile.FolderList.Add(FolderTemp.SingleOrDefault(x => x.Id.Equals(item.Cells["grdLibraryId"].Value)));
+                }
+            }
+
+            if (oMultipleProfile.FolderList.Count == 0)
+            {
+                MessageBox.Show("The Library empty");
+                oMultipleProfile.Dispose();
+                if (FolderTemp.Count > 0) FolderTemp.Clear();
+                FolderTemp = null;
+                return;
+            }
+
+            oMultipleProfile.BranchList = GetData.GetBranch(oUCMSApiClient);
+
+            if (chkUploadFolder.Checked)
+            {
+                foreach (var item in Directory.GetDirectories(txtRandomFolder.Text))
+                {
+                    oMultipleProfile.PathList.Add(item);
+                    if (chkUploadFolder.Checked)
+                    {
+                        foreach (var itemChildren in Directory.GetDirectories(item))
+                        {
+                            oMultipleProfile.PathList.Add(itemChildren);
+                        }
+                    }
+                }
+            }
+            if (chkUploadFile.Checked)
+            {
+                oMultipleProfile.PathList.Add(txtRandomFolder.Text);
+            }
+            oMultipleProfile.Name = DateTime.Now.ToString("yyMMdd_hhmmssff");
+            oMultipleProfile.FileUploadType = _Type;
+            oMultipleProfile.FileUploadReName = _ReName;
+            oMultipleProfile.FileUploadMoveTo = _MoveTo;
+            MultipleProfileList.Add(oMultipleProfile);
+            var source = new BindingSource();
+            source.DataSource = MultipleProfileList;
+            grdMultipleProfile.DataSource = source;
+
+            //oMultipleProfile.Dispose();
+            if (FolderTemp.Count > 0) FolderTemp.Clear();
+            FolderTemp = null;
+        }
+
+        private void grdMultipleProfile_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void grdMultipleProfile_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView grdView = sender as DataGridView;
+            grdName = grdView.Name;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (grdView.CurrentCell != null && grdView.CurrentCell.Value != null && e.RowIndex != -1)
+                {
+                    if (grdView.CurrentCell is DataGridViewTextBoxCell)
+                    {
+                        DataGridViewTextBoxCell btnSender = (DataGridViewTextBoxCell)grdView.CurrentCell;
+                        Point ptLowerLeft = new Point(btnSender.Size.Width, btnSender.Size.Height);
+                        ptLowerLeft = grdView.PointToScreen(ptLowerLeft);
+                        ctmFieldRight.Show(ptLowerLeft);
+                    }
+                }
+            }
+        }
+
+        private void grdMultipleProfile_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView grdView = sender as DataGridView;
+            grdName = grdView.Name;
+            if (e.Button == MouseButtons.Left)
+            {
+                //if (grdView.CurrentCell != null && grdView.CurrentCell.Value != null && e.RowIndex != -1)
+                //{
+                //    MultipleProfile oMultipleProfile = (grdView.CurrentRow.DataBoundItem as MultipleProfile);
+                //    txtRandomFolder.Text = oMultipleProfile.
+
+                    
+                //}
+            }
+        }
     }
 }

@@ -20,19 +20,21 @@ namespace UCMS.ImportController
                 components.Dispose();
             }
 
-            if (newThread!= null && newThread.IsAlive)
+            foreach (var newThread in listThread)
             {
-                if(StopThread == 0)
+                if (newThread != null && newThread.IsAlive)
                 {
-                    DeleteFileInDirectory(TiffList);
-                    newThread.Abort();
+                    if (StopThread == 0)
+                    {
+                        newThread.Abort();
+                    }
+                    else
+                    {
+                        MessageThread();
+                        return;
+                    }
                 }
-                else
-                {
-                    MessageThread();
-                    return;
-                }
-            }
+            }            
             base.Dispose(disposing);
         }
 
@@ -108,13 +110,18 @@ namespace UCMS.ImportController
             this.lblNumberTotalContents = new System.Windows.Forms.Label();
             this.lblTotalContens = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.grbMultipleProfile = new System.Windows.Forms.GroupBox();
+            this.grdMultipleProfile = new System.Windows.Forms.DataGridView();
+            this.btnStop = new System.Windows.Forms.Button();
             this.lblPrgBarTotalAdd = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblContentLastest = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnStop = new System.Windows.Forms.Button();
+            this.btlAddProfile = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkUploadFile = new System.Windows.Forms.CheckBox();
+            this.chkUploadFolder = new System.Windows.Forms.CheckBox();
             this.txtRandomFolder = new System.Windows.Forms.TextBox();
             this.grdLibrary = new System.Windows.Forms.DataGridView();
             this.grdChkLibraryName = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -122,8 +129,7 @@ namespace UCMS.ImportController
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfigRandom = new System.Windows.Forms.Button();
-            this.chkUploadFolder = new System.Windows.Forms.CheckBox();
-            this.chkUploadFile = new System.Windows.Forms.CheckBox();
+            this.grdMultipleProfileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -142,6 +148,8 @@ namespace UCMS.ImportController
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.grbMultipleProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdMultipleProfile)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdLibrary)).BeginInit();
@@ -622,28 +630,28 @@ namespace UCMS.ImportController
             // ctmiDate
             // 
             this.ctmiDate.Name = "ctmiDate";
-            this.ctmiDate.Size = new System.Drawing.Size(158, 22);
+            this.ctmiDate.Size = new System.Drawing.Size(129, 22);
             this.ctmiDate.Text = "Date";
             this.ctmiDate.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // timeToolStripMenuItem
             // 
             this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
-            this.timeToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.timeToolStripMenuItem.Text = "Time";
             this.timeToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // machineToolStripMenuItem
             // 
             this.machineToolStripMenuItem.Name = "machineToolStripMenuItem";
-            this.machineToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.machineToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.machineToolStripMenuItem.Text = "Machine";
             this.machineToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
             // userNameToolStripMenuItem
             // 
             this.userNameToolStripMenuItem.Name = "userNameToolStripMenuItem";
-            this.userNameToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.userNameToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.userNameToolStripMenuItem.Text = "UserName";
             this.userNameToolStripMenuItem.Click += new System.EventHandler(this.ConfigContentField_Click);
             // 
@@ -682,9 +690,9 @@ namespace UCMS.ImportController
             // 
             // btnRandom
             // 
-            this.btnRandom.Location = new System.Drawing.Point(8, 14);
+            this.btnRandom.Location = new System.Drawing.Point(9, 391);
             this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(83, 29);
+            this.btnRandom.Size = new System.Drawing.Size(83, 35);
             this.btnRandom.TabIndex = 21;
             this.btnRandom.Text = "Run";
             this.btnRandom.UseVisualStyleBackColor = true;
@@ -694,10 +702,10 @@ namespace UCMS.ImportController
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(6, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(737, 479);
+            this.tabControl1.Size = new System.Drawing.Size(743, 479);
             this.tabControl1.TabIndex = 24;
             // 
             // tabPage1
@@ -711,7 +719,7 @@ namespace UCMS.ImportController
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(729, 453);
+            this.tabPage1.Size = new System.Drawing.Size(735, 453);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Importer";
             // 
@@ -738,6 +746,9 @@ namespace UCMS.ImportController
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.grbMultipleProfile);
+            this.tabPage2.Controls.Add(this.btnRandom);
+            this.tabPage2.Controls.Add(this.btnStop);
             this.tabPage2.Controls.Add(this.lblPrgBarTotalAdd);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.lblContentLastest);
@@ -747,9 +758,44 @@ namespace UCMS.ImportController
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(729, 453);
+            this.tabPage2.Size = new System.Drawing.Size(735, 453);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Batch Importer";
+            // 
+            // grbMultipleProfile
+            // 
+            this.grbMultipleProfile.Controls.Add(this.grdMultipleProfile);
+            this.grbMultipleProfile.Cursor = System.Windows.Forms.Cursors.Default;
+            this.grbMultipleProfile.Location = new System.Drawing.Point(7, 6);
+            this.grbMultipleProfile.Name = "grbMultipleProfile";
+            this.grbMultipleProfile.Size = new System.Drawing.Size(177, 380);
+            this.grbMultipleProfile.TabIndex = 35;
+            this.grbMultipleProfile.TabStop = false;
+            this.grbMultipleProfile.Text = "Multiple Profile";
+            // 
+            // grdMultipleProfile
+            // 
+            this.grdMultipleProfile.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grdMultipleProfile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdMultipleProfile.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grdMultipleProfileName});
+            this.grdMultipleProfile.Location = new System.Drawing.Point(6, 16);
+            this.grdMultipleProfile.Name = "grdMultipleProfile";
+            this.grdMultipleProfile.ShowEditingIcon = false;
+            this.grdMultipleProfile.Size = new System.Drawing.Size(165, 360);
+            this.grdMultipleProfile.TabIndex = 0;
+            this.grdMultipleProfile.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdMultipleProfile_CellMouseClick);
+            this.grdMultipleProfile.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdMultipleProfile_CellMouseDoubleClick);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(102, 391);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(83, 35);
+            this.btnStop.TabIndex = 22;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // lblPrgBarTotalAdd
             // 
@@ -792,24 +838,23 @@ namespace UCMS.ImportController
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnRandom);
-            this.groupBox3.Controls.Add(this.btnStop);
-            this.groupBox3.Location = new System.Drawing.Point(626, 6);
+            this.groupBox3.Controls.Add(this.btlAddProfile);
+            this.groupBox3.Location = new System.Drawing.Point(642, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(97, 101);
+            this.groupBox3.Size = new System.Drawing.Size(88, 63);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Action";
             // 
-            // btnStop
+            // btlAddProfile
             // 
-            this.btnStop.Location = new System.Drawing.Point(8, 55);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(83, 29);
-            this.btnStop.TabIndex = 22;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btlAddProfile.Location = new System.Drawing.Point(3, 23);
+            this.btlAddProfile.Name = "btlAddProfile";
+            this.btlAddProfile.Size = new System.Drawing.Size(83, 35);
+            this.btlAddProfile.TabIndex = 23;
+            this.btlAddProfile.Text = "Add Profile";
+            this.btlAddProfile.UseVisualStyleBackColor = true;
+            this.btlAddProfile.Click += new System.EventHandler(this.btlAddProfile_Click);
             // 
             // groupBox2
             // 
@@ -819,20 +864,42 @@ namespace UCMS.ImportController
             this.groupBox2.Controls.Add(this.grdLibrary);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.btnConfigRandom);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Location = new System.Drawing.Point(190, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(612, 380);
+            this.groupBox2.Size = new System.Drawing.Size(449, 380);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Upload attributes of contents";
             // 
+            // chkUploadFile
+            // 
+            this.chkUploadFile.AutoSize = true;
+            this.chkUploadFile.Checked = true;
+            this.chkUploadFile.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUploadFile.Location = new System.Drawing.Point(44, 67);
+            this.chkUploadFile.Name = "chkUploadFile";
+            this.chkUploadFile.Size = new System.Drawing.Size(154, 17);
+            this.chkUploadFile.TabIndex = 28;
+            this.chkUploadFile.Text = "Upload Files In Root Folder";
+            this.chkUploadFile.UseVisualStyleBackColor = true;
+            // 
+            // chkUploadFolder
+            // 
+            this.chkUploadFolder.AutoSize = true;
+            this.chkUploadFolder.Location = new System.Drawing.Point(44, 46);
+            this.chkUploadFolder.Name = "chkUploadFolder";
+            this.chkUploadFolder.Size = new System.Drawing.Size(189, 17);
+            this.chkUploadFolder.TabIndex = 27;
+            this.chkUploadFolder.Text = "Upload Sub Folders In Root Folder";
+            this.chkUploadFolder.UseVisualStyleBackColor = true;
+            // 
             // txtRandomFolder
             // 
             this.txtRandomFolder.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtRandomFolder.Location = new System.Drawing.Point(94, 19);
+            this.txtRandomFolder.Location = new System.Drawing.Point(110, 19);
             this.txtRandomFolder.Multiline = true;
             this.txtRandomFolder.Name = "txtRandomFolder";
-            this.txtRandomFolder.Size = new System.Drawing.Size(408, 21);
+            this.txtRandomFolder.Size = new System.Drawing.Size(298, 21);
             this.txtRandomFolder.TabIndex = 25;
             // 
             // grdLibrary
@@ -845,9 +912,9 @@ namespace UCMS.ImportController
             this.grdtxtLibraryName,
             this.grdLibraryId});
             this.grdLibrary.GridColor = System.Drawing.SystemColors.Control;
-            this.grdLibrary.Location = new System.Drawing.Point(11, 88);
+            this.grdLibrary.Location = new System.Drawing.Point(6, 88);
             this.grdLibrary.Name = "grdLibrary";
-            this.grdLibrary.Size = new System.Drawing.Size(593, 288);
+            this.grdLibrary.Size = new System.Drawing.Size(436, 288);
             this.grdLibrary.TabIndex = 26;
             // 
             // grdChkLibraryName
@@ -873,7 +940,7 @@ namespace UCMS.ImportController
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 27);
+            this.label6.Location = new System.Drawing.Point(44, 27);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 23;
@@ -881,7 +948,7 @@ namespace UCMS.ImportController
             // 
             // btnConfigRandom
             // 
-            this.btnConfigRandom.Location = new System.Drawing.Point(508, 19);
+            this.btnConfigRandom.Location = new System.Drawing.Point(412, 18);
             this.btnConfigRandom.Name = "btnConfigRandom";
             this.btnConfigRandom.Size = new System.Drawing.Size(31, 21);
             this.btnConfigRandom.TabIndex = 24;
@@ -890,27 +957,12 @@ namespace UCMS.ImportController
             this.btnConfigRandom.UseVisualStyleBackColor = true;
             this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
             // 
-            // chkUploadFolder
+            // grdMultipleProfileName
             // 
-            this.chkUploadFolder.AutoSize = true;
-            this.chkUploadFolder.Checked = true;
-            this.chkUploadFolder.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUploadFolder.Location = new System.Drawing.Point(94, 46);
-            this.chkUploadFolder.Name = "chkUploadFolder";
-            this.chkUploadFolder.Size = new System.Drawing.Size(189, 17);
-            this.chkUploadFolder.TabIndex = 27;
-            this.chkUploadFolder.Text = "Upload Sub Folders In Root Folder";
-            this.chkUploadFolder.UseVisualStyleBackColor = true;
-            // 
-            // chkUploadFile
-            // 
-            this.chkUploadFile.AutoSize = true;
-            this.chkUploadFile.Location = new System.Drawing.Point(94, 67);
-            this.chkUploadFile.Name = "chkUploadFile";
-            this.chkUploadFile.Size = new System.Drawing.Size(154, 17);
-            this.chkUploadFile.TabIndex = 28;
-            this.chkUploadFile.Text = "Upload Files In Root Folder";
-            this.chkUploadFile.UseVisualStyleBackColor = true;
+            this.grdMultipleProfileName.DataPropertyName = "Name";
+            this.grdMultipleProfileName.HeaderText = "Name";
+            this.grdMultipleProfileName.Name = "grdMultipleProfileName";
+            this.grdMultipleProfileName.ReadOnly = true;
             // 
             // frmMain
             // 
@@ -943,6 +995,8 @@ namespace UCMS.ImportController
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.grbMultipleProfile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdMultipleProfile)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -1032,5 +1086,9 @@ namespace UCMS.ImportController
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkUploadFile;
         private System.Windows.Forms.CheckBox chkUploadFolder;
+        private System.Windows.Forms.GroupBox grbMultipleProfile;
+        private System.Windows.Forms.Button btlAddProfile;
+        private System.Windows.Forms.DataGridView grdMultipleProfile;
+        private System.Windows.Forms.DataGridViewTextBoxColumn grdMultipleProfileName;
     }
 }
