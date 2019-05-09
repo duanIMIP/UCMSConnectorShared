@@ -35,7 +35,7 @@ namespace UCMS.ImportController
         private int StopThread = 0;
         private int PrgBarBatchImporterValue = 0;
         private List<MultipleProfile> MultipleProfileList { get; set; }
-        
+
         public frmMain()
         {
             InitializeComponent();
@@ -84,11 +84,11 @@ namespace UCMS.ImportController
             {
                 cboWorkflowStep.Text = "";
                 var obj = (sender as ComboBox).SelectedItem as Model.Workflow;
-                if(obj.Steps != null)
+                if (obj.Steps != null)
                 {
-                    cboWorkflowStep.DataSource = obj.Steps.FindAll(x=>String.IsNullOrEmpty(x.Setting));
-                cboWorkflowStep.DisplayMember = "Name";
-                cboWorkflowStep.ValueMember = "Id";
+                    cboWorkflowStep.DataSource = obj.Steps.FindAll(x => String.IsNullOrEmpty(x.Setting));
+                    cboWorkflowStep.DisplayMember = "Name";
+                    cboWorkflowStep.ValueMember = "Id";
                 }
             }
         }
@@ -917,7 +917,7 @@ namespace UCMS.ImportController
                     grdLibraryParent.CurrentCell.Value = "";
                     break;
                 case "grdMultipleProfile":
-                    MultipleProfileList.Remove(MultipleProfileList.SingleOrDefault(x=>x.Name.Equals(grdMultipleProfile.CurrentCell.Value)));
+                    MultipleProfileList.Remove(MultipleProfileList.SingleOrDefault(x => x.Name.Equals(grdMultipleProfile.CurrentCell.Value)));
                     var source = new BindingSource();
                     source.DataSource = MultipleProfileList;
                     grdMultipleProfile.DataSource = source;
@@ -957,7 +957,7 @@ namespace UCMS.ImportController
                 rdUpload = new Random();
                 iUpload = 0;
                 checkUpload = false;
-                
+
 
                 if (BranchList.Count == 0 || FolderList.Count == 0)
                 {
@@ -970,7 +970,7 @@ namespace UCMS.ImportController
                 directInfo = new DirectoryInfo(folderPath);
                 foreach (var item in directInfo.GetFiles())
                 {
-                    checkUpload = false;                    
+                    checkUpload = false;
 
                     if ((String.IsNullOrEmpty(TypeUp) || TypeUp.Contains(item.Extension + ";")) && !item.Extension.Equals(Extension))
                     {
@@ -997,7 +997,7 @@ namespace UCMS.ImportController
                         {
                             TotalWhile++;
                             if (TotalWhile > 500)// Lặp 500 lần không thực hiện upload thì dừng
-                            {                             
+                            {
                                 GC.Collect();
                                 StopThread = 0;
                                 newThread.Abort();
@@ -1038,7 +1038,7 @@ namespace UCMS.ImportController
                             oWorkflow = WorkflowList[iUpload];
 
                             if (oWorkflow.Steps == null || oWorkflow.Steps.Count == 0) continue;
-                            oWorkflow.Steps = oWorkflow.Steps.FindAll(x=>String.IsNullOrEmpty(x.Setting));
+                            oWorkflow.Steps = oWorkflow.Steps.FindAll(x => String.IsNullOrEmpty(x.Setting));
                             if (oWorkflow.Steps == null || oWorkflow.Steps.Count == 0) continue;
                             iUpload = rdUpload.Next(0, oWorkflow.Steps.Count);
                             if (iUpload > oWorkflow.Steps.Count - 1) iUpload = (oWorkflow.Steps.Count - 1);
@@ -1139,7 +1139,7 @@ namespace UCMS.ImportController
                                 newThread.Abort();
                                 return;
                             }
-                            
+
                         }
                         oBranch = null;
                         oFolder = null;
@@ -1160,7 +1160,7 @@ namespace UCMS.ImportController
                         UFDList = null;
                         arrayFileInfor = null;
                     }
-                    if(PrgBarBatchImporterValue % MultipleProfileList.Count == 0)
+                    if (PrgBarBatchImporterValue % MultipleProfileList.Count == 0)
                     {
                         MemoryManagement.FlushMemory();
                     }
@@ -1186,7 +1186,7 @@ namespace UCMS.ImportController
             {
                 AddRanDomProfile(newThread, FolderList, BranchList, folderPath, LoadRootFalse, TypeUp, Extension, MoveTo);
                 MemoryManagement.FlushMemory();
-            }            
+            }
         }
 
         public delegate void SafeCallDelegate(String ImporterContentLastestName, int ImporterValue);
@@ -1215,10 +1215,32 @@ namespace UCMS.ImportController
             StopThread = 1;
             btnRandom.Enabled = false;
             btnSubmit.Enabled = false;
-            btnStop.Enabled = true;            
+            btnStop.Enabled = true;
             PrgBarBatchImporterValue = 0;
+            List<MultipleProfile> tempList = new List<MultipleProfile>();
 
-            foreach (MultipleProfile item in MultipleProfileList)
+            foreach (DataGridViewRow itemgrdMultiple in grdMultipleProfile.Rows)
+            {
+                MultipleProfile item = MultipleProfileList.SingleOrDefault(x => Convert.ToBoolean(itemgrdMultiple.Cells["grdMultipleProfileNo"].Value) && x.Name.Equals(itemgrdMultiple.Cells["grdMultipleProfileName"].Value));
+
+                if (item != null && !string.IsNullOrEmpty(item.Name))
+                {
+                    tempList.Add(item);
+                }
+            }
+
+            if (tempList.Count == 0)
+            {
+                MessageBox.Show("You must checked dataview multiple thread!");
+                tempList = null;
+                btnRandom.Enabled = true;
+                btnSubmit.Enabled = true;
+                btnStop.Enabled = false;
+                StopThread = 0;
+                return;
+            }
+
+            foreach (var item in tempList)
             {
                 Thread newThread = new Thread(() =>
                 {
@@ -1229,11 +1251,11 @@ namespace UCMS.ImportController
                     }
                 });
                 listThread.Add(newThread);
-                newThread.Start();                
+                newThread.Start();
             }
         }
-               
-         private void MessageThread()
+
+        private void MessageThread()
         {
             switch (StopThread)
             {
@@ -1268,6 +1290,7 @@ namespace UCMS.ImportController
 
         private void btlAddProfile_Click(object sender, EventArgs e)
         {
+            btlAddProfile.Enabled = false;
             MultipleProfile oMultipleProfile = new MultipleProfile();
             List<Model.Folder> FolderTemp = GetData.GetFolder(oUCMSApiClient);
 
@@ -1277,6 +1300,7 @@ namespace UCMS.ImportController
                 oMultipleProfile.Dispose();
                 if (FolderTemp.Count > 0) FolderTemp.Clear();
                 FolderTemp = null;
+                btlAddProfile.Enabled = true;
                 return;
             }
 
@@ -1286,8 +1310,9 @@ namespace UCMS.ImportController
                 oMultipleProfile.Dispose();
                 if (FolderTemp.Count > 0) FolderTemp.Clear();
                 FolderTemp = null;
+                btlAddProfile.Enabled = true;
                 return;
-            }            
+            }
 
             foreach (DataGridViewRow item in grdLibrary.Rows)
             {
@@ -1303,6 +1328,7 @@ namespace UCMS.ImportController
                 oMultipleProfile.Dispose();
                 if (FolderTemp.Count > 0) FolderTemp.Clear();
                 FolderTemp = null;
+                btlAddProfile.Enabled = true;
                 return;
             }
 
@@ -1313,12 +1339,9 @@ namespace UCMS.ImportController
                 foreach (var item in Directory.GetDirectories(txtRandomFolder.Text))
                 {
                     oMultipleProfile.PathList.Add(item);
-                    if (chkUploadFolder.Checked)
+                    foreach (var itemChildren in Directory.GetDirectories(item))
                     {
-                        foreach (var itemChildren in Directory.GetDirectories(item))
-                        {
-                            oMultipleProfile.PathList.Add(itemChildren);
-                        }
+                        oMultipleProfile.PathList.Add(itemChildren);
                     }
                 }
             }
@@ -1327,14 +1350,14 @@ namespace UCMS.ImportController
             {
                 oMultipleProfile.PathList.Add(txtRandomFolder.Text);
             }
-            
+
             oMultipleProfile.FileUploadType = _Type;
             oMultipleProfile.FileUploadReName = _ReName;
             oMultipleProfile.FileUploadMoveTo = _MoveTo;
             oMultipleProfile.PathValue = txtRandomFolder.Text;
             oMultipleProfile.CheckFile = chkUploadFile.Checked;
             oMultipleProfile.CheckFolder = chkUploadFolder.Checked;
-            if(String.IsNullOrEmpty(nameThread))
+            if (String.IsNullOrEmpty(nameThread))
             {
                 oMultipleProfile.Name = DateTime.Now.ToString("yyMMdd_hhmmssff");
                 MultipleProfileList.Add(oMultipleProfile);
@@ -1352,15 +1375,16 @@ namespace UCMS.ImportController
                         MultipleProfileList[i] = oMultipleProfile;
                         var source = new BindingSource();
                         source.DataSource = MultipleProfileList;
-                        grdMultipleProfile.DataSource = source;                        
+                        grdMultipleProfile.DataSource = source;
                     }
-                }                
+                }
             }
             LoadMultipleProfile((grdMultipleProfile.CurrentRow.DataBoundItem) as MultipleProfile);
             if (FolderTemp.Count > 0) FolderTemp.Clear();
             FolderTemp = null;
-            nameThread = null;            
-            
+            nameThread = null;
+            MessageBox.Show("Add Profile successfully");
+            btlAddProfile.Enabled = true;
         }
 
         private void grdMultipleProfile_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -1420,6 +1444,111 @@ namespace UCMS.ImportController
                 {
                     item.Cells["grdChkLibraryName"].Value = false.ToString();
                 }
+            }
+        }
+
+        private void btnImportProfile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opnfd = new OpenFileDialog();
+            opnfd.CheckFileExists = true;
+            opnfd.AddExtension = true;
+            opnfd.Multiselect = false;
+            opnfd.Filter = "Text (*.xml;)|*.xml;";
+            if (opnfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    MultipleProfileList = new List<MultipleProfile>();
+                    List<MultipleThread> tempList = Common.DeSerializeFromFile(opnfd.FileName, typeof(List<MultipleThread>)) as List<MultipleThread>;
+                    List<Model.Folder> FolderTemp = GetData.GetFolder(oUCMSApiClient);
+                    foreach (MultipleThread item in tempList)
+                    {
+                        MultipleProfile temp = new MultipleProfile()
+                        {
+                            PathList = item.PathList,
+                            BranchList = item.BranchList,
+                            FileUploadType = item.FileUploadType,
+                            FileUploadReName = item.FileUploadReName,
+                            FileUploadMoveTo = item.FileUploadMoveTo,
+                            Name = item.Name,
+                            FolderList = new List<Model.Folder>(),
+                            CheckFolder = item.CheckFolder,
+                            CheckFile = item.CheckFile,
+                            PathValue = item.PathValue,
+                            CheckItem = item.CheckItem
+                        };
+                        foreach (var itemFolder in FolderTemp)
+                        {
+                            if (item.FolderList.Exists(x => x.Key.Equals(itemFolder.Id)))
+                            {
+                                temp.FolderList.Add(itemFolder);
+                            }
+                        }
+                        MultipleProfileList.Add(temp);
+                        temp = null;
+                    }
+                    if (tempList.Count > 0) tempList.Clear();
+                    tempList = null;
+                    if (FolderTemp.Count > 0) FolderTemp.Clear();
+                    FolderTemp = null;
+
+                    var source = new BindingSource();
+                    source.DataSource = MultipleProfileList;
+                    grdMultipleProfile.DataSource = source;
+
+                    MessageBox.Show("Import successfully");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void btnExportProfile_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fbd = new SaveFileDialog();
+            fbd.Title = "Export Multiple Profile to .xml";
+            fbd.Filter = "Text (*.xml)|*.xml";
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    List<MultipleThread> listExport = new List<MultipleThread>();
+                    String fileXml = fbd.FileName;
+                    foreach (var item in MultipleProfileList)
+                    {
+                        MultipleThread temp = new MultipleThread()
+                        {
+                            PathList = item.PathList,
+                            BranchList = item.BranchList,
+                            FileUploadType = item.FileUploadType,
+                            FileUploadReName = item.FileUploadReName,
+                            FileUploadMoveTo = item.FileUploadMoveTo,
+                            Name = item.Name,
+                            FolderList = new List<DataValue>(),
+                            CheckFolder = item.CheckFolder,
+                            CheckFile = item.CheckFile,
+                            PathValue = item.PathValue,
+                            CheckItem = item.CheckItem
+                        };
+                        foreach (var itemFolder in item.FolderList)
+                        {
+                            temp.FolderList.Add(new DataValue(itemFolder.Id, itemFolder.Name));
+                        }
+                        listExport.Add(temp);
+                        temp = null;
+                    }
+                    String contentXml = Common.SerializeToString(typeof(List<MultipleThread>), listExport);
+                    MessageBox.Show(Common.WriteToFile(fileXml, contentXml));
+                    if (listExport.Count > 0) listExport.Clear();
+                    listExport = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
             }
         }
     }

@@ -21,7 +21,7 @@ namespace UCMS.ImportController.Data
         public Boolean CheckFolder { get; set; }
         public Boolean CheckFile { get; set; }
         public String PathValue { get; set; }
-
+        public Boolean CheckItem { get; set; }
 
         public MultipleProfile()
         {
@@ -35,9 +35,10 @@ namespace UCMS.ImportController.Data
             CheckFolder = false;
             CheckFile = false;
             PathValue = "";
+            CheckItem = false;
         }
 
-        public MultipleProfile(List<String> PathList, List<Branch> BranchList, List<Model.Folder> FolderList, String FileUploadType, String FileUploadReName, String FileUploadMoveTo, String Name, Boolean CheckFolder, Boolean CheckFile, String PathValue)
+        public MultipleProfile(List<String> PathList, List<Branch> BranchList, List<Model.Folder> FolderList, String FileUploadType, String FileUploadReName, String FileUploadMoveTo, String Name, Boolean CheckFolder, Boolean CheckFile, String PathValue, Boolean CheckItem)
         {
             this.PathList = PathList;
             this.BranchList = BranchList;
@@ -49,6 +50,7 @@ namespace UCMS.ImportController.Data
             this.CheckFolder = CheckFolder;
             this.CheckFile = CheckFile;
             this.PathValue = PathValue;
+            this.CheckItem = CheckItem;
         }
 
         ~MultipleProfile()
@@ -65,6 +67,7 @@ namespace UCMS.ImportController.Data
             CheckFolder = false;
             CheckFile = false;
             PathValue = null;
+            CheckItem = false;
         }
 
         public void Dispose()
@@ -92,9 +95,36 @@ namespace UCMS.ImportController.Data
                     CheckFolder = false;
                     CheckFile = false;
                     PathValue = null;
+                    CheckItem = false;
                 }
                 disposed = true;
             }
         }
+    }
+
+    public class MultipleThread
+    {
+        [XmlElement("PathList")]
+        public List<String> PathList { get; set; }
+        [XmlElement("BranchList")]
+        public List<IMIP.UniversalScan.Data.Branch> BranchList { get; set; }
+        [XmlElement("FolderList")]
+        public List<DataValue> FolderList { get; set; }
+        [XmlElement("FileUploadType")]
+        public String FileUploadType { get; set; }
+        [XmlElement("FileUploadReName")]
+        public String FileUploadReName { get; set; }
+        [XmlElement("FileUploadMoveTo")]
+        public String FileUploadMoveTo { get; set; }
+        [XmlElement("Name")]
+        public String Name { get; set; }
+        [XmlElement("CheckFolder")]
+        public Boolean CheckFolder { get; set; }
+        [XmlElement("CheckFile")]
+        public Boolean CheckFile { get; set; }
+        [XmlElement("PathValue")]
+        public String PathValue { get; set; }
+        [XmlElement("CheckItem")]
+        public Boolean CheckItem { get; set; }
     }
 }

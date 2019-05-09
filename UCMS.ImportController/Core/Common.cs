@@ -86,7 +86,7 @@ namespace UCMS.ImportController
                 textReader = new StringReader(value);
                 return deserializer.Deserialize(textReader) as T;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.GetBaseException());
                 return null;
@@ -115,8 +115,8 @@ namespace UCMS.ImportController
             {
                 if (textReader != null)
                     textReader.Close();
-            }            
-        }        
+            }
+        }
 
         public static void LogToFile(string message)
         {
@@ -141,6 +141,27 @@ namespace UCMS.ImportController
 
             }
         }
+
+        public static String WriteToFile(string fileName, String message)
+        {
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    return "File name exists";
+                }
+                TextWriterTraceListener listener = new TextWriterTraceListener(fileName);
+                listener.WriteLine(message);
+                listener.Flush();
+                listener.Close();
+                return "Write file successfully";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         public static ResponseObject GetBy(string requestUri)
         {
             ResponseObject res = new ResponseObject();

@@ -294,7 +294,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 28);
             this.btnSave.TabIndex = 20;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Submit";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
