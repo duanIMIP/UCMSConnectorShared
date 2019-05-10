@@ -124,7 +124,7 @@ namespace UCMS.ImportController
             {
                 message = DateTime.Now.ToString("HH:mm:ss") + " " + message;
                 string logPath = string.Empty;
-                logPath = @"C:\UCMSLog\" + DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("HH");
+                logPath = @"UCMSLog\" + DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("HH");
                 if (!Directory.Exists(logPath))
                 {
                     Directory.CreateDirectory(logPath);
