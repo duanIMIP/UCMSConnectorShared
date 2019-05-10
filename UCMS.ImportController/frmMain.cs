@@ -309,8 +309,7 @@ namespace UCMS.ImportController
                         var tempFileSplit = Guid.NewGuid().ToString();
                         Directory.CreateDirectory(tempFileSplit);
 
-                        var abc = ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
-                        Common.LogToFile(Common.SerializeToString(typeof(List<String>), abc));
+                        ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
                         foreach (var itemSplitFile in Directory.GetFiles(tempFileSplit))
                         {
                             var attachment = new Model.Attachment()
