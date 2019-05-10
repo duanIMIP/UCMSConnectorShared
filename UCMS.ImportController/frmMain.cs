@@ -309,9 +309,8 @@ namespace UCMS.ImportController
                         var tempFileSplit = Guid.NewGuid().ToString();
                         Directory.CreateDirectory(tempFileSplit);
 
-                        ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
-
-
+                        var abc = ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
+                        Common.LogToFile(Common.SerializeToString(typeof(List<String>), abc));
                         foreach (var itemSplitFile in Directory.GetFiles(tempFileSplit))
                         {
                             var attachment = new Model.Attachment()
@@ -1112,6 +1111,7 @@ namespace UCMS.ImportController
                             String ContentNew = Profile(oUCMSApiClient, new DataValue() { Key = oBranch.Name, Value = oBranch.Name }, oFolder, new DataValue() { Key = oWorkflow.Id, Value = oWorkflow.Name }, new DataValue() { Key = oWorkflowStep.Id, Value = oWorkflowStep.Name }, new DataValue() { Key = oUniFormType.ExternalID, Value = oUniFormType.Name }, new DataValue() { Key = oUniFormTypeParent.ExternalID, Value = oUniFormTypeParent.Name }, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, Extension, MoveTo, "USCBatch");
                             checkUpload = true;
                             PrgBarBatchImporterValue++;
+                            if (ContentNew == "") continue;
                             WriteTextSafe(ContentNew, PrgBarBatchImporterValue, newThread.StopThread);
                             if (newThread.StopThread == 2)
                             {
@@ -1392,7 +1392,7 @@ namespace UCMS.ImportController
                     }
                 }
             }
-            LoadMultipleProfile((grdMultipleProfile.CurrentRow.DataBoundItem) as MultipleProfile);
+            //LoadMultipleProfile((grdMultipleProfile.CurrentRow.DataBoundItem) as MultipleProfile);
             if (FolderTemp.Count > 0) FolderTemp.Clear();
             FolderTemp = null;
             nameThread = null;
@@ -1553,6 +1553,7 @@ namespace UCMS.ImportController
                         temp = null;
                     }
                     String contentXml = Common.SerializeToString(typeof(List<MultipleThread>), listExport);
+                    if (File.Exists(fileXml)) File.Delete(fileXml);
                     MessageBox.Show(Common.WriteToFile(fileXml, contentXml));
                     if (listExport.Count > 0) listExport.Clear();
                     listExport = null;

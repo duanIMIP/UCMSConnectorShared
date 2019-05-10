@@ -33,6 +33,7 @@ D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\bin
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\bin\Debug\de\IMIP.UniversalScan.resources.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\bin\Debug\vi\IMIP.UniversalScan.resources.dll
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\bin\Debug\IMIP.SharedComponent.CustomMapping.dll
+D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.csprojAssemblyReference.cache
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.resources
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.de.resources
 D:\Duanvc\SofwareIMIP\duanIMIP\UCMSConnectorShared\UniversalScan-ProcessData\obj\Debug\IMIP.UniversalScan.Profile.DocumentSeparation.vi.resources
