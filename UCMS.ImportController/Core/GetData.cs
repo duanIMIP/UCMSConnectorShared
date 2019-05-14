@@ -189,7 +189,8 @@ namespace UCMS.ImportController
                     }
                 }
             }
-            return tempName!=""? tempName:ContentTypeName + DateTime.Now.ToString("yyMMddHHmmssff");
+            if(tempName == "") Common.LogToFile(ContentTypeName + "_" + LibraryName +  "_" + Common.SerializeToString(typeof(BatchNamingProfile), oBatchNamingProfile));
+            return tempName!=""? tempName:(ContentTypeName + DateTime.Now.ToString("yyMMddHHmmssff"));
         }
 
 

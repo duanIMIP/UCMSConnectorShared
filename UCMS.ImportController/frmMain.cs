@@ -1097,12 +1097,19 @@ namespace UCMS.ImportController
 
                             if (UniFormTypeList == null) continue;
                             if (oBatchNamingProfile == null) continue;
-                            oUniFormType = UniFormTypeList[rdUpload.Next(0, UniFormTypeList.Count - 1)];
+
+                            iUpload = rdUpload.Next(0, UniFormTypeList.Count);
+                            if (iUpload > UniFormTypeList.Count - 1) iUpload = (UniFormTypeList.Count - 1);
+                            oUniFormType = UniFormTypeList[iUpload];
+
                             if (!oUniFormType.Root)
                             {
                                 UniFormTypeParentList = UniFormTypeList.FindAll(x => x.Root);
                                 if (UniFormTypeParentList == null) continue;
-                                oUniFormTypeParent = UniFormTypeParentList[rdUpload.Next(0, UniFormTypeParentList.Count - 1)];
+
+                                iUpload = rdUpload.Next(0, UniFormTypeParentList.Count);
+                                if (iUpload > UniFormTypeParentList.Count - 1) iUpload = (UniFormTypeParentList.Count - 1);
+                                oUniFormTypeParent = UniFormTypeParentList[iUpload];
                             }
 
                             UFDList = GetData.GetListContentField(oUCMSApiClient, oUniFormType);
@@ -1223,7 +1230,7 @@ namespace UCMS.ImportController
                 Model.WorkflowStep oWorkflowStepRoot = null;
                 ActivityConfiguration oActivityConfiguration = null;
                 List<UniFormType> UniFormTypeList = null;
-                oBatchNamingProfile = null;
+                BatchNamingProfile oBatchNaming = null;
                 Dictionary<string, object> oContentField = null;
                 Dictionary<string, object> oLibraryField = null;
                 Dictionary<string, object> oContentParent = null;
@@ -1239,7 +1246,7 @@ namespace UCMS.ImportController
                     oWorkflowStepRoot = null;
                     oActivityConfiguration = null;
                     UniFormTypeList = null;
-                    oBatchNamingProfile = null;
+                    oBatchNaming = null;
                     oContentField = null;
                     oLibraryField = null;
                     oContentParent = null;
@@ -1281,6 +1288,10 @@ namespace UCMS.ImportController
                                             {
                                                 oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStepRoot.Id);
                                             }
+                                            else
+                                            {
+                                                continue;
+                                            }
                                         }
 
                                         if (oActivityConfiguration.DocumentTypeProfile != null)
@@ -1298,11 +1309,11 @@ namespace UCMS.ImportController
                                             }
                                             if (oActivityConfiguration.BatchNamingProfile != null)
                                             {
-                                                oBatchNamingProfile = oActivityConfiguration.BatchNamingProfile;
+                                                oBatchNaming = oActivityConfiguration.BatchNamingProfile;
                                             }
                                         }
 
-                                        if (UniFormTypeList != null && oBatchNamingProfile != null)
+                                        if (UniFormTypeList != null && oBatchNaming != null)
                                         {
                                             //Process at here
                                             foreach (UniFormType oUniFormType in UniFormTypeList)
@@ -1351,11 +1362,11 @@ namespace UCMS.ImportController
                                                 String ContentNew = "";
                                                 if (!String.IsNullOrEmpty(oUniFormTypeParent.ExternalID))
                                                 {
-                                                    ContentNew = GetData.Naming(oUniFormTypeParent.Name, oBranch.Name, oFolder.Name, oBatchNamingProfile);
+                                                    ContentNew = GetData.Naming(oUniFormTypeParent.Name, oBranch.Name, oFolder.Name, oBatchNaming);
                                                 }
                                                 else
                                                 {
-                                                    ContentNew = GetData.Naming(oUniFormType.Name, oBranch.Name, oFolder.Name, oBatchNamingProfile);
+                                                    ContentNew = GetData.Naming(oUniFormType.Name, oBranch.Name, oFolder.Name, oBatchNaming);
                                                 }
 
                                                 Profile(oUCMSApiClient, new DataValue() { Key = oBranch.Name, Value = oBranch.Name }, oFolder, new DataValue() { Key = oWorkflow.Id, Value = oWorkflow.Name }, new DataValue() { Key = oWorkflowStep.Id, Value = oWorkflowStep.Name }, new DataValue() { Key = oUniFormType.ExternalID, Value = oUniFormType.Name }, new DataValue() { Key = oUniFormTypeParent.ExternalID, Value = oUniFormTypeParent.Name }, oContentField, oLibraryField, oContentParent, oLibraryParent, new List<FileInfo>() {itemFileInfo}, Extension, MoveTo, "USCBatch", ContentNew);
@@ -1368,7 +1379,7 @@ namespace UCMS.ImportController
                                                     oWorkflowStepRoot = null;
                                                     oActivityConfiguration = null;
                                                     UniFormTypeList = null;
-                                                    oBatchNamingProfile = null;
+                                                    oBatchNaming = null;
                                                     oUniFormTypeParent = null;
                                                     oContentField = null;
                                                     oLibraryField = null;
@@ -1392,7 +1403,7 @@ namespace UCMS.ImportController
                 oWorkflowStepRoot = null;
                 oActivityConfiguration = null;
                 UniFormTypeList = null;
-                oBatchNamingProfile = null;
+                oBatchNaming = null;
                 oContentField = null;
                 oLibraryField = null;
                 oContentParent = null;
