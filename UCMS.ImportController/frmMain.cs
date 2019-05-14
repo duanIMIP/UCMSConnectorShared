@@ -262,7 +262,6 @@ namespace UCMS.ImportController
 
         private String Profile(UCMSApiClient oUCMSApiClient, DataValue oBranch, Model.Folder oFolder, DataValue oWorkflow, DataValue oWorkflowStep, DataValue oContenType, DataValue oContenTypeParent, Dictionary<string, object> oContentField, Dictionary<string, object> oLibraryField, Dictionary<string, object> oContentParent, Dictionary<string, object> oLibraryParent, List<FileInfo> arrayFileInfor, String RenameFile, String RemoveFile, String keyPrivateData, String Namming)
         {
-            Common.LogToFile("Profile_StartUpdate");
             String pathClient = "";
             Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
             oWorkflowItem.Content = new Model.Content();
@@ -298,13 +297,13 @@ namespace UCMS.ImportController
                     oWorkflowItem.Content.Values = temp;
                     oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
                 }
-                Common.LogToFile("Content_Creating");
+
                 oWorkflowItem.Content = oUCMSApiClient.Content.Create(oWorkflowItem.Content);
-                Common.LogToFile("Content_Created");
+
                 oWorkflowItem.Content.Attachments = new List<Model.Attachment>();
-                Common.LogToFile("Content_Checkout");
+
                 oUCMSApiClient.Content.Checkout(oWorkflowItem.Content.Id);
-                Common.LogToFile("Content_Checkout successful");
+
                 for (int i = 0; i < arrayFileInfor.Count(); i++)
                 {
                     pathClient = arrayFileInfor[i].DirectoryName;
@@ -363,9 +362,9 @@ namespace UCMS.ImportController
                     }
                     FilePathName = "";
                 }
-                Common.LogToFile("Content_Attachment successful");
+
                 oUCMSApiClient.Content.Checkin(oWorkflowItem.Content.Id);
-                Common.LogToFile("Content_Checkin successful");
+
                 oContentPrivateData.Key = keyPrivateData;
 
                 //--------------Set value ContentPrivateData-----------------------------                
@@ -447,7 +446,7 @@ namespace UCMS.ImportController
                 oContentPrivateData.Value = Common.SerializeToString(typeof(UniBatch), oBatch);
                 //--------------Set value ContentPrivateData-----------------------------
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
-                Common.LogToFile("Content_SetPrivateData successful");
+
                 Boolean autoProcess = false;
                 foreach (var item in Common.WFStepProcessAuto)
                 {
@@ -457,7 +456,7 @@ namespace UCMS.ImportController
                     }
                 }
                 oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
-                Common.LogToFile("WorkflowItem_Insert successful");
+
                 ContentName = oWorkflowItem.Content.Name;
             }
             catch (Exception ex)
@@ -1225,10 +1224,10 @@ namespace UCMS.ImportController
                 ActivityConfiguration oActivityConfiguration = null;
                 List<UniFormType> UniFormTypeList = null;
                 oBatchNamingProfile = null;
-                Dictionary<string, object> oContentField = new Dictionary<string, object>();
-                Dictionary<string, object> oLibraryField = new Dictionary<string, object>();
-                Dictionary<string, object> oContentParent = new Dictionary<string, object>();
-                Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
+                Dictionary<string, object> oContentField = null;
+                Dictionary<string, object> oLibraryField = null;
+                Dictionary<string, object> oContentParent = null;
+                Dictionary<string, object> oLibraryParent = null;
                 List<UniFieldDefinition> UFDList = null;
                 rdUpload = new Random();
 
@@ -1309,6 +1308,10 @@ namespace UCMS.ImportController
                                             foreach (UniFormType oUniFormType in UniFormTypeList)
                                             {
                                                 UniFormType oUniFormTypeParent = new UniFormType();
+                                                oContentField = new Dictionary<string, object>();
+                                                oLibraryField = new Dictionary<string, object>();
+                                                oContentParent = new Dictionary<string, object>();
+                                                oLibraryParent = new Dictionary<string, object>();
                                                 if (!oUniFormType.Root)
                                                 {
                                                     foreach (UniFormType itemUniFormTypeParent in UniFormTypeList.FindAll(x => x.Root))
@@ -1487,20 +1490,23 @@ namespace UCMS.ImportController
             
             foreach (var item in tempList)
             {
-                Thread newThread = new Thread((abc) =>
-                {
-                    MultipleProfileThread oMultipleProfileThread = new MultipleProfileThread();
-                    oMultipleProfileThread.MyThread = Thread.CurrentThread;
-                    oMultipleProfileThread.StopThread = 1;
-                    listThread.Add(oMultipleProfileThread);
-                    int orderThread = listThread.Count - 1;
-                    while (true)
-                    {
-                        AddRanDomProfileList(orderThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
-                        Thread.Sleep(Common.PoolTime);
-                    }
-                });                
-                newThread.Start();
+                Thread newThread = new Thread(new ParameterizedThreadStart(ExcuteNewContent));                
+                newThread.Start(item);
+            }
+        }
+
+        private void ExcuteNewContent(object item1)
+        {
+            MultipleProfile item = item1 as MultipleProfile;
+            MultipleProfileThread oMultipleProfileThread = new MultipleProfileThread();
+            oMultipleProfileThread.MyThread = Thread.CurrentThread;
+            oMultipleProfileThread.StopThread = 1;
+            listThread.Add(oMultipleProfileThread);
+            int orderThread = listThread.Count - 1;
+            while (true)
+            {
+                AddRanDomProfileList(orderThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
+                Thread.Sleep(Common.PoolTime);
             }
         }
 
