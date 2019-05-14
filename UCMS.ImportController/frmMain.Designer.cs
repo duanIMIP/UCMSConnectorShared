@@ -113,12 +113,16 @@ namespace UCMS.ImportController
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grbMultipleProfile = new System.Windows.Forms.GroupBox();
             this.grdMultipleProfile = new System.Windows.Forms.DataGridView();
+            this.grdMultipleProfileNo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.grdMultipleProfileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnStop = new System.Windows.Forms.Button();
             this.lblPrgBarTotalAdd = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblContentLastest = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnExportProfile = new System.Windows.Forms.Button();
+            this.btnImportProfile = new System.Windows.Forms.Button();
             this.btlAddProfile = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkUploadFile = new System.Windows.Forms.CheckBox();
@@ -130,10 +134,7 @@ namespace UCMS.ImportController
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfigRandom = new System.Windows.Forms.Button();
-            this.grdMultipleProfileNo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.grdMultipleProfileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnImportProfile = new System.Windows.Forms.Button();
-            this.btnExportProfile = new System.Windows.Forms.Button();
+            this.btnNewProfile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -793,6 +794,20 @@ namespace UCMS.ImportController
             this.grdMultipleProfile.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdMultipleProfile_CellMouseClick);
             this.grdMultipleProfile.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdMultipleProfile_CellMouseDoubleClick);
             // 
+            // grdMultipleProfileNo
+            // 
+            this.grdMultipleProfileNo.HeaderText = "No";
+            this.grdMultipleProfileNo.Name = "grdMultipleProfileNo";
+            this.grdMultipleProfileNo.Width = 50;
+            // 
+            // grdMultipleProfileName
+            // 
+            this.grdMultipleProfileName.DataPropertyName = "Name";
+            this.grdMultipleProfileName.HeaderText = "Name";
+            this.grdMultipleProfileName.Name = "grdMultipleProfileName";
+            this.grdMultipleProfileName.ReadOnly = true;
+            this.grdMultipleProfileName.Width = 120;
+            // 
             // btnStop
             // 
             this.btnStop.Location = new System.Drawing.Point(102, 391);
@@ -844,23 +859,45 @@ namespace UCMS.ImportController
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnNewProfile);
             this.groupBox3.Controls.Add(this.btnExportProfile);
             this.groupBox3.Controls.Add(this.btnImportProfile);
             this.groupBox3.Controls.Add(this.btlAddProfile);
             this.groupBox3.Location = new System.Drawing.Point(642, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(88, 147);
+            this.groupBox3.Size = new System.Drawing.Size(88, 185);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Action";
             // 
+            // btnExportProfile
+            // 
+            this.btnExportProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportProfile.Location = new System.Drawing.Point(6, 150);
+            this.btnExportProfile.Name = "btnExportProfile";
+            this.btnExportProfile.Size = new System.Drawing.Size(76, 26);
+            this.btnExportProfile.TabIndex = 25;
+            this.btnExportProfile.Text = "ExportProfile";
+            this.btnExportProfile.UseVisualStyleBackColor = true;
+            this.btnExportProfile.Click += new System.EventHandler(this.btnExportProfile_Click);
+            // 
+            // btnImportProfile
+            // 
+            this.btnImportProfile.Location = new System.Drawing.Point(6, 119);
+            this.btnImportProfile.Name = "btnImportProfile";
+            this.btnImportProfile.Size = new System.Drawing.Size(76, 26);
+            this.btnImportProfile.TabIndex = 24;
+            this.btnImportProfile.Text = "Import Profile";
+            this.btnImportProfile.UseVisualStyleBackColor = true;
+            this.btnImportProfile.Click += new System.EventHandler(this.btnImportProfile_Click);
+            // 
             // btlAddProfile
             // 
-            this.btlAddProfile.Location = new System.Drawing.Point(3, 23);
+            this.btlAddProfile.Location = new System.Drawing.Point(6, 47);
             this.btlAddProfile.Name = "btlAddProfile";
-            this.btlAddProfile.Size = new System.Drawing.Size(83, 35);
+            this.btlAddProfile.Size = new System.Drawing.Size(76, 26);
             this.btlAddProfile.TabIndex = 23;
-            this.btlAddProfile.Text = "Add Profile";
+            this.btlAddProfile.Text = "Save Profile";
             this.btlAddProfile.UseVisualStyleBackColor = true;
             this.btlAddProfile.Click += new System.EventHandler(this.btlAddProfile_Click);
             // 
@@ -965,40 +1002,15 @@ namespace UCMS.ImportController
             this.btnConfigRandom.UseVisualStyleBackColor = true;
             this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
             // 
-            // grdMultipleProfileNo
+            // btnNewProfile
             // 
-            this.grdMultipleProfileNo.HeaderText = "No";
-            this.grdMultipleProfileNo.Name = "grdMultipleProfileNo";
-            this.grdMultipleProfileNo.Width = 50;
-            // 
-            // grdMultipleProfileName
-            // 
-            this.grdMultipleProfileName.DataPropertyName = "Name";
-            this.grdMultipleProfileName.HeaderText = "Name";
-            this.grdMultipleProfileName.Name = "grdMultipleProfileName";
-            this.grdMultipleProfileName.ReadOnly = true;
-            this.grdMultipleProfileName.Width = 120;
-            // 
-            // btnImportProfile
-            // 
-            this.btnImportProfile.Location = new System.Drawing.Point(6, 82);
-            this.btnImportProfile.Name = "btnImportProfile";
-            this.btnImportProfile.Size = new System.Drawing.Size(76, 26);
-            this.btnImportProfile.TabIndex = 24;
-            this.btnImportProfile.Text = "Import Profile";
-            this.btnImportProfile.UseVisualStyleBackColor = true;
-            this.btnImportProfile.Click += new System.EventHandler(this.btnImportProfile_Click);
-            // 
-            // btnExportProfile
-            // 
-            this.btnExportProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportProfile.Location = new System.Drawing.Point(6, 113);
-            this.btnExportProfile.Name = "btnExportProfile";
-            this.btnExportProfile.Size = new System.Drawing.Size(76, 26);
-            this.btnExportProfile.TabIndex = 25;
-            this.btnExportProfile.Text = "ExportProfile";
-            this.btnExportProfile.UseVisualStyleBackColor = true;
-            this.btnExportProfile.Click += new System.EventHandler(this.btnExportProfile_Click);
+            this.btnNewProfile.Location = new System.Drawing.Point(6, 16);
+            this.btnNewProfile.Name = "btnNewProfile";
+            this.btnNewProfile.Size = new System.Drawing.Size(76, 26);
+            this.btnNewProfile.TabIndex = 26;
+            this.btnNewProfile.Text = "New Profile";
+            this.btnNewProfile.UseVisualStyleBackColor = true;
+            this.btnNewProfile.Click += new System.EventHandler(this.btnNewProfile_Click);
             // 
             // frmMain
             // 
@@ -1129,5 +1141,6 @@ namespace UCMS.ImportController
         private System.Windows.Forms.DataGridViewTextBoxColumn grdMultipleProfileName;
         private System.Windows.Forms.Button btnExportProfile;
         private System.Windows.Forms.Button btnImportProfile;
+        private System.Windows.Forms.Button btnNewProfile;
     }
 }
