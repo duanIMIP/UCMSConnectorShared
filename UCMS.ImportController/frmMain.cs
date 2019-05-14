@@ -260,7 +260,7 @@ namespace UCMS.ImportController
 
         #region AddProfile
 
-        private String Profile(UCMSApiClient oUCMSApiClient, DataValue oBranch, Model.Folder oFolder, DataValue oWorkflow, DataValue oWorkflowStep, DataValue oContenType, DataValue oContenTypeParent, Dictionary<string, object> oContentField, Dictionary<string, object> oLibraryField, Dictionary<string, object> oContentParent, Dictionary<string, object> oLibraryParent, List<FileInfo> arrayFileInfor, String RenameFile, String RemoveFile, String keyPrivateData)
+        private String Profile(UCMSApiClient oUCMSApiClient, DataValue oBranch, Model.Folder oFolder, DataValue oWorkflow, DataValue oWorkflowStep, DataValue oContenType, DataValue oContenTypeParent, Dictionary<string, object> oContentField, Dictionary<string, object> oLibraryField, Dictionary<string, object> oContentParent, Dictionary<string, object> oLibraryParent, List<FileInfo> arrayFileInfor, String RenameFile, String RemoveFile, String keyPrivateData, String Namming)
         {
             String pathClient = "";
             Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
@@ -281,7 +281,7 @@ namespace UCMS.ImportController
             {
                 if (!String.IsNullOrEmpty(oContenTypeParent.Key))//Branch or Document
                 {
-                    oWorkflowItem.Content.Name = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                    oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
                     temp = oContentParent;
                     temp.Add("BranchID", oBranch.Value);
@@ -290,7 +290,7 @@ namespace UCMS.ImportController
                 }
                 else
                 {
-                    oWorkflowItem.Content.Name = GetData.Naming(oContenType.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                    oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
                     temp = oContentField;
                     temp.Add("BranchID", oBranch.Value);
@@ -298,7 +298,6 @@ namespace UCMS.ImportController
                     oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
                 }
                 oWorkflowItem.Content = oUCMSApiClient.Content.Create(oWorkflowItem.Content);
-
                 oWorkflowItem.Content.Attachments = new List<Model.Attachment>();
                 oUCMSApiClient.Content.Checkout(oWorkflowItem.Content.Id);
                 for (int i = 0; i < arrayFileInfor.Count(); i++)
@@ -359,9 +358,7 @@ namespace UCMS.ImportController
                     }
                     FilePathName = "";
                 }
-
                 oUCMSApiClient.Content.Checkin(oWorkflowItem.Content.Id);
-
                 oContentPrivateData.Key = keyPrivateData;
 
                 //--------------Set value ContentPrivateData-----------------------------                
@@ -442,7 +439,6 @@ namespace UCMS.ImportController
                 }
                 oContentPrivateData.Value = Common.SerializeToString(typeof(UniBatch), oBatch);
                 //--------------Set value ContentPrivateData-----------------------------
-
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
                 Boolean autoProcess = false;
                 foreach (var item in Common.WFStepProcessAuto)
@@ -544,7 +540,17 @@ namespace UCMS.ImportController
                     }
                 }
 
-                if (Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, _ReName, _MoveTo, "USCBatch") != "")
+                String ContentNew = "";
+                if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                {
+                    ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                }
+                else
+                {
+                    ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                }
+
+                if (Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, _ReName, _MoveTo, "USCBatch", ContentNew) != "")
                 {
                     MessageBox.Show("Cập nhật thành công");
                     return true;
@@ -647,7 +653,18 @@ namespace UCMS.ImportController
                                 }
                             }
                         }
-                        Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new List<FileInfo>() { itemInfo }, _ReName, _MoveTo, "USCBatch");
+
+                        String ContentNew = "";
+                        if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                        {
+                            ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                        }
+                        else
+                        {
+                            ContentNew = GetData.Naming(oContenType.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                        }
+
+                        Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new List<FileInfo>() { itemInfo }, _ReName, _MoveTo, "USCBatch", ContentNew);
                         CoutNumber++;
                         prgBarAddControl.Value = CoutNumber;
                         lblNumberTotalContents.Text = CoutNumber + "/" + fileInfoList.Count;
@@ -942,7 +959,7 @@ namespace UCMS.ImportController
             ctmWatchFolder.Show(ptLowerLeft);
         }
 
-        private void AddRanDomProfile(MultipleProfileThread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfile(int orderThread, List<Model.Folder> FolderList, List<Branch> BranchList, string folderPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             Random rdUpload = null;
             int iUpload = 0;
@@ -958,9 +975,9 @@ namespace UCMS.ImportController
 
                 if (BranchList.Count == 0 || FolderList.Count == 0)
                 {
-                    newThread.StopThread = 0;
+                    listThread[orderThread].StopThread = 0;
                     GC.Collect();
-                    newThread.MyThread.Abort();
+                    listThread[orderThread].MyThread.Abort();
                     return;
                 }
 
@@ -996,8 +1013,8 @@ namespace UCMS.ImportController
                             if (TotalWhile > 500)// Lặp 500 lần không thực hiện upload thì dừng
                             {
                                 GC.Collect();
-                                newThread.StopThread = 0;
-                                newThread.MyThread.Abort();
+                                listThread[orderThread].StopThread = 0;
+                                listThread[orderThread].MyThread.Abort();
                                 return;
                             }
 
@@ -1107,14 +1124,23 @@ namespace UCMS.ImportController
                                 }
                             }
                             arrayFileInfor = new List<FileInfo>() { item };
-                            String ContentNew = Profile(oUCMSApiClient, new DataValue() { Key = oBranch.Name, Value = oBranch.Name }, oFolder, new DataValue() { Key = oWorkflow.Id, Value = oWorkflow.Name }, new DataValue() { Key = oWorkflowStep.Id, Value = oWorkflowStep.Name }, new DataValue() { Key = oUniFormType.ExternalID, Value = oUniFormType.Name }, new DataValue() { Key = oUniFormTypeParent.ExternalID, Value = oUniFormTypeParent.Name }, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, Extension, MoveTo, "USCBatch");
-                            checkUpload = true;
-                            PrgBarBatchImporterValue++;
-                            if (ContentNew == "") continue;
-                            WriteTextSafe(ContentNew, PrgBarBatchImporterValue, newThread.StopThread);
-                            if (newThread.StopThread == 2)
+                            String ContentNew = "";
+                            if(!String.IsNullOrEmpty(oUniFormTypeParent.ExternalID))
                             {
-                                newThread.StopThread = 0;                                
+                                ContentNew = GetData.Naming(oUniFormTypeParent.Name, oBranch.Name, oFolder.Name, oBatchNamingProfile);
+                            }
+                            else
+                            {
+                                ContentNew = GetData.Naming(oUniFormType.Name, oBranch.Name, oFolder.Name, oBatchNamingProfile);
+                            }
+
+                            Profile(oUCMSApiClient, new DataValue() { Key = oBranch.Name, Value = oBranch.Name }, oFolder, new DataValue() { Key = oWorkflow.Id, Value = oWorkflow.Name }, new DataValue() { Key = oWorkflowStep.Id, Value = oWorkflowStep.Name }, new DataValue() { Key = oUniFormType.ExternalID, Value = oUniFormType.Name }, new DataValue() { Key = oUniFormTypeParent.ExternalID, Value = oUniFormTypeParent.Name }, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, Extension, MoveTo, "USCBatch", ContentNew);
+                            checkUpload = true;
+                            PrgBarBatchImporterValue++;                            
+                            WriteTextSafe(ContentNew, PrgBarBatchImporterValue, listThread[orderThread].StopThread);
+                            if (listThread[orderThread].StopThread == 2)
+                            {
+                                listThread[orderThread].StopThread = 0;                                
                                 oBranch = null;
                                 oFolder = null;
                                 WorkflowList = null;
@@ -1134,7 +1160,7 @@ namespace UCMS.ImportController
                                 UFDList = null;
                                 arrayFileInfor = null;
                                 GC.Collect();
-                                newThread.MyThread.Abort();
+                                listThread[orderThread].MyThread.Abort();
                                 return;
                             }
 
@@ -1170,20 +1196,20 @@ namespace UCMS.ImportController
                 Common.LogToFile("AddRanDomProfile_" + ex.Message);
             }
 
-            if (newThread.StopThread == 2)
+            if (listThread[orderThread].StopThread == 2)
             {
-                newThread.StopThread = 0;
+                listThread[orderThread].StopThread = 0;
                 GC.Collect();
-                newThread.MyThread.Abort();
+                listThread[orderThread].MyThread.Abort();
             }
         }
 
-        private void AddRanDomProfileList(MultipleProfileThread newThread, List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
+        private void AddRanDomProfileList(int orderThread, List<Model.Folder> FolderList, List<Branch> BranchList, List<String> ListPath, Boolean LoadRootFalse = false, String TypeUp = "", string Extension = "", string MoveTo = "")
         {
             foreach (var folderPath in ListPath)
             {
-                AddRanDomProfile(newThread, FolderList, BranchList, folderPath, LoadRootFalse, TypeUp, Extension, MoveTo);
-                MemoryManagement.FlushMemory();
+                AddRanDomProfile(orderThread, FolderList, BranchList, folderPath, LoadRootFalse, TypeUp, Extension, MoveTo);
+                MemoryManagement.FlushMemory();                
             }
         }
 
@@ -1248,18 +1274,19 @@ namespace UCMS.ImportController
                 btnStop.Enabled = false;
                 return;
             }
-
+            
             foreach (var item in tempList)
             {
-                Thread newThread = new Thread(() =>
+                Thread newThread = new Thread((abc) =>
                 {
                     MultipleProfileThread oMultipleProfileThread = new MultipleProfileThread();
                     oMultipleProfileThread.MyThread = Thread.CurrentThread;
                     oMultipleProfileThread.StopThread = 1;
                     listThread.Add(oMultipleProfileThread);
+                    int orderThread = listThread.Count - 1;
                     while (true)
                     {
-                        AddRanDomProfileList(oMultipleProfileThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
+                        AddRanDomProfileList(orderThread, item.FolderList, item.BranchList, item.PathList, false, item.FileUploadType, item.FileUploadReName, item.FileUploadMoveTo);
                         Thread.Sleep(Common.PoolTime);
                     }
                 });                
