@@ -85,7 +85,7 @@ namespace UCMS.ImportController
                 var obj = (sender as ComboBox).SelectedItem as Model.Workflow;
                 if (obj.Steps != null)
                 {
-                    cboWorkflowStep.DataSource = obj.Steps.FindAll(x => String.IsNullOrEmpty(x.Setting));
+                    cboWorkflowStep.DataSource = obj.Steps.FindAll(x => x.Activity.UniqueId.Equals(Common.UniqueId));
                     cboWorkflowStep.DisplayMember = "Name";
                     cboWorkflowStep.ValueMember = "Id";
                 }
@@ -1294,7 +1294,7 @@ namespace UCMS.ImportController
                                 oWorkflowStepRoot = null;
                                 foreach (Model.WorkflowStep oWorkflowStep in oWorkflow.Steps)
                                 {
-                                    if (String.IsNullOrEmpty(oWorkflowStep.Setting))
+                                    if (oWorkflowStep.Activity.UniqueId.Equals(Common.UniqueId))
                                     {
                                         // Process at here
                                         oActivityConfiguration = GetData.GetActivityConfiguration(oUCMSApiClient, oWorkflowStep.Id);

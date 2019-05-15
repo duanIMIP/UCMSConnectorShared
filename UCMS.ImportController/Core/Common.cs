@@ -23,6 +23,8 @@ namespace UCMS.ImportController
 
         public static Int32 MaxTimeUpdate = Convert.ToInt32(ConfigurationSettings.AppSettings["MaxTimeUpdate"]);
 
+        public static String UniqueId = ConfigurationSettings.AppSettings["UniqueId"].ToString();
+
         public static String SettingReferenceDefault = "--- Own Setting ---";
 
         public static String[] WFStepProcessAuto = ConfigurationSettings.AppSettings["WFStepProcessAuto"].Split(';');
