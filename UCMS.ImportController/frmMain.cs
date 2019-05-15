@@ -277,6 +277,7 @@ namespace UCMS.ImportController
             UniDocument oUniDocument = new UniDocument();
             String ContentName = "";
             String FilePathName = "";
+            DateTime DateValue = DateTime.MinValue;
             try
             {
                 if (!String.IsNullOrEmpty(oContenTypeParent.Key))//Branch or Document
@@ -298,7 +299,12 @@ namespace UCMS.ImportController
                     oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
                 }
 
+                DateValue = DateTime.Now;
                 oWorkflowItem.Content = oUCMSApiClient.Content.Create(oWorkflowItem.Content);
+                if(DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
+                {                    
+                    Thread.Sleep(Common.MaxTimeUpdate);
+                }
 
                 oWorkflowItem.Content.Attachments = new List<Model.Attachment>();
 
@@ -363,8 +369,12 @@ namespace UCMS.ImportController
                     FilePathName = "";
                 }
 
+                DateValue = DateTime.Now;
                 oUCMSApiClient.Content.Checkin(oWorkflowItem.Content.Id);
-
+                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
+                {
+                    Thread.Sleep(Common.MaxTimeUpdate);
+                }
                 oContentPrivateData.Key = keyPrivateData;
 
                 //--------------Set value ContentPrivateData-----------------------------                
@@ -444,8 +454,15 @@ namespace UCMS.ImportController
                     oBatch.Docs.Add(oUniDocument);
                 }
                 oContentPrivateData.Value = Common.SerializeToString(typeof(UniBatch), oBatch);
+
                 //--------------Set value ContentPrivateData-----------------------------
+
+                DateValue = DateTime.Now;
                 oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
+                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
+                {
+                    Thread.Sleep(Common.MaxTimeUpdate);
+                }
 
                 Boolean autoProcess = false;
                 foreach (var item in Common.WFStepProcessAuto)
@@ -455,8 +472,13 @@ namespace UCMS.ImportController
                         autoProcess = true; break;
                     }
                 }
-                oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
 
+                DateValue = DateTime.Now;
+                oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
+                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
+                {
+                    Thread.Sleep(Common.MaxTimeUpdate);
+                }
                 ContentName = oWorkflowItem.Content.Name;
             }
             catch (Exception ex)
