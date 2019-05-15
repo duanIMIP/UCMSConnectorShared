@@ -21,6 +21,8 @@ namespace UCMS.ImportController
         public static String UCMSAuthorizationServer = ConfigurationSettings.AppSettings["UCMSAuthorizationServer"].ToString();
         public static Int32 PoolTime = Convert.ToInt32(ConfigurationSettings.AppSettings["PoolTime"]);
 
+        public static Int32 MaxTimeUpdate = Convert.ToInt32(ConfigurationSettings.AppSettings["MaxTimeUpdate"]);
+
         public static String SettingReferenceDefault = "--- Own Setting ---";
 
         public static String[] WFStepProcessAuto = ConfigurationSettings.AppSettings["WFStepProcessAuto"].Split(';');
