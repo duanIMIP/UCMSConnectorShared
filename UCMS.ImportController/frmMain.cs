@@ -1241,6 +1241,7 @@ namespace UCMS.ImportController
                 Thread newThread = new Thread(new ParameterizedThreadStart(ExcuteNewContent));
                 listThread.Add(newThread);
                 newThread.Start(item);
+                Thread.Sleep(500);
             }
         }
 
@@ -1277,7 +1278,7 @@ namespace UCMS.ImportController
                         DirectoryInfo directInfo = new DirectoryInfo(folderPath);
                         foreach (FileInfo itemFileInfo in directInfo.GetFiles())
                         {
-                            if ((String.IsNullOrEmpty(item.FileUploadType) || item.FileUploadType.Contains(itemFileInfo.Extension + ";")) && !itemFileInfo.Extension.Equals(item.FileUploadReName))
+                            if ((String.IsNullOrEmpty(item.FileUploadType) || item.FileUploadType.ToUpper().Contains(itemFileInfo.Extension.ToUpper() + ";")) && !itemFileInfo.Extension.ToUpper().Equals(item.FileUploadReName.ToUpper()))
                             {
                                 CountFile++;
 
@@ -1288,10 +1289,17 @@ namespace UCMS.ImportController
 
                                 oContentProfile.Profile(oUCMSApiClient, item.BranchList, item.FolderList, itemFileInfo, "USCBatch");
 
-                                PrgBarBatchImporterValue++;
-                                WriteTextSafe(oContentProfile.Namming, PrgBarBatchImporterValue, iContinuteThread == 1);
+                                if(oContentProfile.ProfileCreated == 1)
+                                {
+                                    PrgBarBatchImporterValue++;
+                                    WriteTextSafe(oContentProfile.Namming, PrgBarBatchImporterValue, iContinuteThread == 1);
+                                }   
+                                else
+                                {
+                                    Common.LogToFile("Create content: " + oContentProfile.Namming + " error");
+                                }
 
-                                if (CountFile % 4 == 0)
+                                if (CountFile % 8 == 0)
                                 {
                                     MemoryManagement.FlushMemory();
                                 }

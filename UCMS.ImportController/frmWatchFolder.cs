@@ -59,10 +59,23 @@ namespace UCMS.ImportController
                     }
                 }
             }
-            //_Type = "Image Files(" + _Type + ")|" + _Type;
+
+            if(txtOther.Text != string.Empty)
+            {
+                _Type += txtOther.Text + ";";
+            }
+            
             _ReName = txtExtension.Text;
             _MoveTo = txtMoveTo.Text;
-            this.DialogResult = DialogResult.OK;
+
+            if (_Type.ToUpper().Contains(_ReName.ToUpper() + ";"))
+            {
+                MessageBox.Show("Attach Extension and Rename Extension don't same other");
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private void chkMoveTo_Click(object sender, EventArgs e)

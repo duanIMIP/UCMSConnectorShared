@@ -117,6 +117,7 @@ namespace UCMS.ImportController
             this.lblContentLastest = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnNewProfile = new System.Windows.Forms.Button();
             this.btnExportProfile = new System.Windows.Forms.Button();
             this.btnImportProfile = new System.Windows.Forms.Button();
             this.btlAddProfile = new System.Windows.Forms.Button();
@@ -130,7 +131,6 @@ namespace UCMS.ImportController
             this.grdLibraryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfigRandom = new System.Windows.Forms.Button();
-            this.btnNewProfile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabContent.SuspendLayout();
             this.tabContentField.SuspendLayout();
@@ -776,6 +776,8 @@ namespace UCMS.ImportController
             // 
             // grdMultipleProfile
             // 
+            this.grdMultipleProfile.AllowUserToAddRows = false;
+            this.grdMultipleProfile.AllowUserToDeleteRows = false;
             this.grdMultipleProfile.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grdMultipleProfile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdMultipleProfile.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -865,6 +867,16 @@ namespace UCMS.ImportController
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Action";
+            // 
+            // btnNewProfile
+            // 
+            this.btnNewProfile.Location = new System.Drawing.Point(6, 16);
+            this.btnNewProfile.Name = "btnNewProfile";
+            this.btnNewProfile.Size = new System.Drawing.Size(76, 26);
+            this.btnNewProfile.TabIndex = 26;
+            this.btnNewProfile.Text = "New Profile";
+            this.btnNewProfile.UseVisualStyleBackColor = true;
+            this.btnNewProfile.Click += new System.EventHandler(this.btnNewProfile_Click);
             // 
             // btnExportProfile
             // 
@@ -997,16 +1009,6 @@ namespace UCMS.ImportController
             this.btnConfigRandom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigRandom.UseVisualStyleBackColor = true;
             this.btnConfigRandom.Click += new System.EventHandler(this.btnConfigRandom_Click);
-            // 
-            // btnNewProfile
-            // 
-            this.btnNewProfile.Location = new System.Drawing.Point(6, 16);
-            this.btnNewProfile.Name = "btnNewProfile";
-            this.btnNewProfile.Size = new System.Drawing.Size(76, 26);
-            this.btnNewProfile.TabIndex = 26;
-            this.btnNewProfile.Text = "New Profile";
-            this.btnNewProfile.UseVisualStyleBackColor = true;
-            this.btnNewProfile.Click += new System.EventHandler(this.btnNewProfile_Click);
             // 
             // frmMain
             // 

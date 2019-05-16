@@ -40,6 +40,8 @@ namespace UCMS.ImportController.Data
         public String RemoveFile { get; set; }
         [XmlElement("Namming")]
         public String Namming { get; set; }
+        [XmlElement("ProfileCreated")]
+        public int ProfileCreated { get; set; }
 
         public ContentProfile()
         {
@@ -56,6 +58,7 @@ namespace UCMS.ImportController.Data
             RenameFile = "";
             RemoveFile = "";
             Namming = "";
+            ProfileCreated = 0;
         }
 
         private DataValue getBranch(String Key, List<Branch> BranchList)
@@ -237,6 +240,7 @@ namespace UCMS.ImportController.Data
                 DateValue = DateTime.Now;
                 oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
                 SetThreadSleep(DateValue, DateTime.Now);
+                ProfileCreated = 1;
             }
             catch (Exception ex)
             {
@@ -272,15 +276,16 @@ namespace UCMS.ImportController.Data
             try
             {
                 String FilePathName = oFileInfo.FullName;
+                String FileExtension = oFileInfo.Extension;
 
                 oUCMSApiClient.Content.Checkout(ContentID);
 
-                if (oFileInfo.Extension == ".pdf")
+                if (FileExtension.ToUpper().Equals(".pdf".ToUpper()))
                 {
                     var tempFileSplit = Guid.NewGuid().ToString();
                     Directory.CreateDirectory(tempFileSplit);
 
-                    ImageProcessing.SplitPDF2Tiff(oFileInfo.FullName, tempFileSplit, 300);
+                    ImageProcessing.SplitPDF2Tiff(FilePathName, tempFileSplit, 300);
                     foreach (var itemSplitFile in Directory.GetFiles(tempFileSplit))
                     {
                         var attachment = new Model.Attachment()
@@ -302,17 +307,15 @@ namespace UCMS.ImportController.Data
                     var attachment = new Model.Attachment()
                     {
                         ContentId = ContentID,
-                        Data = File.ReadAllBytes(oFileInfo.FullName),
+                        Data = File.ReadAllBytes(FilePathName),
                         MIME = "image/universalscan",
                         Type = UCMS.Model.Enum.AttachmentType.Public,
-                        Name = Guid.NewGuid() + oFileInfo.Extension
+                        Name = Guid.NewGuid() + FileExtension
                     };
                     oUCMSApiClient.Attachment.Upload(attachment);
                     AttachmentList.Add(attachment);
                     attachment = null;
                 }
-
-
 
                 if (!String.IsNullOrEmpty(RemoveFile))
                 {
@@ -329,11 +332,13 @@ namespace UCMS.ImportController.Data
 
                 if (!string.IsNullOrEmpty(RenameFile))
                 {
-                    File.Copy(FilePathName, FilePathName.Replace(oFileInfo.Extension, "") + RenameFile, true);
+                    File.Copy(FilePathName, FilePathName.Replace(FileExtension, "") + RenameFile, true);
+                    File.Delete(FilePathName);
                 }
 
                 oUCMSApiClient.Content.Checkin(ContentID);
                 FilePathName = "";
+                FileExtension = "";
             }
             catch (Exception ex)
             {

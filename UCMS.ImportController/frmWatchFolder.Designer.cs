@@ -39,7 +39,7 @@
             this.chkDOCX = new System.Windows.Forms.CheckBox();
             this.chkXLS = new System.Windows.Forms.CheckBox();
             this.chkDOC = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtOther = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkMoveTo = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -164,12 +164,12 @@
             this.chkDOC.Text = ".doc";
             this.chkDOC.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtOther
             // 
-            this.textBox1.Location = new System.Drawing.Point(207, 116);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 20);
-            this.textBox1.TabIndex = 11;
+            this.txtOther.Location = new System.Drawing.Point(207, 116);
+            this.txtOther.Name = "txtOther";
+            this.txtOther.Size = new System.Drawing.Size(220, 20);
+            this.txtOther.TabIndex = 11;
             // 
             // label1
             // 
@@ -201,7 +201,7 @@
             this.groupBox1.Controls.Add(this.chkGIJ);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.chkPNG);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtOther);
             this.groupBox1.Controls.Add(this.chkJFIF);
             this.groupBox1.Controls.Add(this.chkPDF);
             this.groupBox1.Controls.Add(this.chkXLSX);
@@ -393,7 +393,7 @@
         private System.Windows.Forms.CheckBox chkDOCX;
         private System.Windows.Forms.CheckBox chkXLS;
         private System.Windows.Forms.CheckBox chkDOC;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtOther;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkMoveTo;
         private System.Windows.Forms.GroupBox groupBox1;
