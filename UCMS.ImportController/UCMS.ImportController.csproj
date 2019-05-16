@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Core\Common.cs" />
     <Compile Include="Data\ActivityConfiguration.cs" />
+    <Compile Include="Data\ContentProfile.cs" />
     <Compile Include="Data\DataValue.cs" />
     <Compile Include="Data\MultipleProfile.cs" />
     <Compile Include="frmChildren.cs">

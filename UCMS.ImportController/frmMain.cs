@@ -1526,6 +1526,17 @@ namespace UCMS.ImportController
                 Thread newThread = new Thread(new ParameterizedThreadStart(ExcuteNewContent));                
                 newThread.Start(item);
             }
+
+
+            Thread dateThread = new Thread(()=>
+            {
+                while(true)
+                {
+                    Thread.Sleep(2*60*58*1000);
+                    oUCMSApiClient.Login();
+                }
+            });
+            dateThread.Start();
         }
 
         private void ExcuteNewContent(object item1)
