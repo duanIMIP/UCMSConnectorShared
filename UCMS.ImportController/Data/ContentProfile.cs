@@ -7,97 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using UCMS.RestClient;
 
 namespace UCMS.ImportController.Data
 {
     public class ContentProfile
     {
-        [XmlElement("BranchId")]
-        public String BranchId { get; set; }
-        [XmlElement("FolderId")]
-        public String FolderId { get; set; }
-        [XmlElement("oWorkflow")]
-        public DataValue oWorkflow { get; set; }
-        [XmlElement("oWorkflowStep")]
-        public DataValue oWorkflowStep { get; set; }
-        [XmlElement("oContenType")]
-        public DataValue oContenType { get; set; }
-        [XmlElement("oContenTypeParent")]
-        public DataValue oContenTypeParent { get; set; }
-        [XmlElement("oContentField")]
-        public List<DataValue> oContentField { get; set; }
-        [XmlElement("oLibraryField")]
-        public List<DataValue> oLibraryField { get; set; }
-        [XmlElement("oContentParent")]
-        public List<DataValue> oContentParent { get; set; }
-        [XmlElement("oLibraryParent")]
-        public List<DataValue> oLibraryParent { get; set; }
-        [XmlElement("RenameFile")]
-        public String RenameFile { get; set; }
-        [XmlElement("RemoveFile")]
-        public String RemoveFile { get; set; }
-        [XmlElement("Namming")]
-        public String Namming { get; set; }
+        public UCMSApiClient oUCMSApiClient { get; set; }
 
-        public ContentProfile()
+        public ContentProfile(UCMSApiClient oUCMSApiClient)
         {
-            BranchId = "";
-            FolderId = "";
-            oWorkflow = new DataValue();
-            oWorkflowStep = new DataValue();
-            oContenType = new DataValue();
-            oContenTypeParent = new DataValue();
-            oContentField = new List<DataValue>();
-            oLibraryField = new List<DataValue>();
-            oContentParent = new List<DataValue>();
-            oLibraryParent = new List<DataValue>();
-            RenameFile = "";
-            RemoveFile = "";
-            Namming = "";
+            this.oUCMSApiClient = oUCMSApiClient;
         }
 
-        private DataValue getBranch(String Key, List<Branch> BranchList)
+        public void Profile(DataValue oBranch, Model.Folder oFolder, DataValue oWorkflow, DataValue oWorkflowStep, DataValue oContenType, DataValue oContenTypeParent, Dictionary<string, object> oContentField, Dictionary<string, object> oLibraryField, Dictionary<string, object> oContentParent, Dictionary<string, object> oLibraryParent, FileInfo oFileInfo, String RenameFile, String RemoveFile, String keyPrivateData, String Namming)
         {
-            foreach (Branch item in BranchList)
-            {
-                if(item.Name.Equals(Key))
-                {
-                    return new DataValue() {Key = item.Name , Value = item.Name };
-                }
-            }
-            return new DataValue();
-        }
-
-        private Model.Folder getFolder(String Key, List<Model.Folder> FolderList)
-        {
-            foreach (Model.Folder item in FolderList)
-            {
-                if (item.Id.Equals(Key))
-                {
-                    return item;
-                }
-            }
-            return new Model.Folder();
-        }
-
-        public void Profile(UCMSApiClient oUCMSApiClient, List<Branch> BranchList, List<Model.Folder> FolderList, FileInfo oFileInfo, String keyPrivateData)
-        {
-            DataValue oBranch = getBranch(BranchId, BranchList);
-            Model.Folder oFolder = getFolder(FolderId, FolderList);
             Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
             oWorkflowItem.Content = new Model.Content();
             oWorkflowItem.Content.Folder = oFolder;
             oWorkflowItem.Content.Tags = new List<string>();
             oWorkflowItem.Content.Attachments = new List<Model.Attachment>();
-            oWorkflowItem.Content.Values = new Dictionary<string, object>();
-            oWorkflowItem.Content.LibraryFieldValues = new Dictionary<string, object>();
             oWorkflowItem.Workflow = new Model.Workflow() { Id = oWorkflow.Key };
             oWorkflowItem.WorkflowStep = new Model.WorkflowStep() { Id = oWorkflowStep.Key };
             oWorkflowItem.State = Model.Enum.WorkflowItemState.Ready;
             oWorkflowItem.Priority = Model.Enum.WorkflowItemPriority.Normal;
 
+            Dictionary<string, object> temp = null;
             Model.ContentPrivateData oContentPrivateData = new Model.ContentPrivateData();
             UniBatch oBatch = new UniBatch();
             UniDocument oUniDocument = new UniDocument();
@@ -108,36 +43,26 @@ namespace UCMS.ImportController.Data
                 {
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
-                    foreach (var item in oContentParent)
-                    {
-                        oWorkflowItem.Content.Values.Add(item.Key, item.Value);
-                    }
-                    oWorkflowItem.Content.Values.Add("BranchID", oBranch.Value);
-                    foreach (var item in oLibraryParent)
-                    {
-                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, item.Value);
-                    }
+                    temp = oContentParent;
+                    temp.Add("BranchID", oBranch.Value);
+                    oWorkflowItem.Content.Values = temp;
+                    oWorkflowItem.Content.LibraryFieldValues = oLibraryParent;
                 }
                 else
                 {
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
-                    foreach (var item in oContentField)
-                    {
-                        oWorkflowItem.Content.Values.Add(item.Key, item.Value);
-                    }
-                    oWorkflowItem.Content.Values.Add("BranchID", oBranch.Value);
-                    foreach (var item in oLibraryField)
-                    {
-                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, item.Value);
-                    }
+                    temp = oContentField;
+                    temp.Add("BranchID", oBranch.Value);
+                    oWorkflowItem.Content.Values = temp;
+                    oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
                 }
 
                 DateValue = DateTime.Now;
                 oWorkflowItem.Content = oUCMSApiClient.Content.Create(oWorkflowItem.Content);
                 SetThreadSleep(DateValue, DateTime.Now);
 
-                oWorkflowItem.Content.Attachments = UploadAttachment(oUCMSApiClient, oWorkflowItem.Content.Id, oFileInfo);
+                oWorkflowItem.Content.Attachments = UploadAttachment(oWorkflowItem.Content.Id, oFileInfo, RenameFile, RemoveFile);
                 
                 oContentPrivateData.Key = keyPrivateData;
 
@@ -254,6 +179,7 @@ namespace UCMS.ImportController.Data
             oWorkflowItem.Content.Folder = null;
             oWorkflowItem.Content = null;
             oWorkflowItem = null;
+            temp = null;
             oContentPrivateData = null;
             oBatch = null;
             oUniDocument = null;
@@ -262,11 +188,12 @@ namespace UCMS.ImportController.Data
         /// <summary>
         /// Upload Attachmen in database and return list Attachment
         /// </summary>
-        /// <param name="oUCMSApiClient"></param>
-        /// <param name="ContentID"></param>        
+        /// <param name="ContentID"></param>
+        /// <param name="oFileInfo"></param>
+        /// <param name="RenameFile"></param>
+        /// <param name="RemoveFile"></param>
         /// <returns></returns>
-        /// 
-        private List<Model.Attachment> UploadAttachment(UCMSApiClient oUCMSApiClient, String ContentID, FileInfo oFileInfo)
+        private List<Model.Attachment> UploadAttachment(String ContentID, FileInfo oFileInfo, String RenameFile, String RemoveFile)
         {
             List<Model.Attachment> AttachmentList = new List<Model.Attachment>();
             try
@@ -359,7 +286,7 @@ namespace UCMS.ImportController.Data
         /// Delete all file in folder and folder
         /// </summary>
         /// <param name="folderRoot"></param>
-        public void DeleteFileInDirectory(String folderRoot)
+        private void DeleteFileInDirectory(String folderRoot)
         {
             if (!String.IsNullOrEmpty(folderRoot))
             {

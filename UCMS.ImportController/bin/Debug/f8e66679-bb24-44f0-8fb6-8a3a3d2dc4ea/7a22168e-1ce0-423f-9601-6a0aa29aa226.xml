@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BranchId>HCM</BranchId>
+  <FolderId>eRRWgaZT5Y3ydIYZwyQB</FolderId>
+  <oWorkflow>
+    <Key>itspdWWZtD3v6AdKFzjH</Key>
+    <Value>NhapHangNgoaiNuoc</Value>
+  </oWorkflow>
+  <oWorkflowStep>
+    <Key>euOm5T6brEOyEGnmE0RC</Key>
+    <Value>UniversalScan</Value>
+  </oWorkflowStep>
+  <oContenType>
+    <Key>joRuzoWUbndsqKiDs5gt</Key>
+    <Value>Nhan Vien Nhap</Value>
+  </oContenType>
+  <oContenTypeParent>
+    <Value />
+  </oContenTypeParent>
+  <oContentField>
+    <Key>Ho_Ten</Key>
+    <Value />
+  </oContentField>
+  <oContentField>
+    <Key>Mat_Hang</Key>
+    <Value />
+  </oContentField>
+  <oContentField>
+    <Key>So_luong</Key>
+    <Value />
+  </oContentField>
+  <oLibraryField>
+    <Key>So_Chung_Tu</Key>
+    <Value />
+  </oLibraryField>
+  <oLibraryField>
+    <Key>Ngay_Thang</Key>
+    <Value />
+  </oLibraryField>
+  <RenameFile />
+  <RemoveFile />
+  <Namming>21155420190516</Namming>
+</ContentProfile>

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Threading;
+﻿using System.IO;
 using UCMS.ImportController.Data;
 
 namespace UCMS.ImportController
@@ -23,15 +21,21 @@ namespace UCMS.ImportController
                 components.Dispose();
             }
 
-            foreach (Thread newThread in listThread)
+            foreach (MultipleProfileThread newThread in listThread)
             {
-                if (newThread != null && newThread.IsAlive)
+                if (newThread.MyThread != null && newThread.MyThread.IsAlive)
                 {
-                    MessageThread(iContinuteThread);
-                    return;
+                    if (newThread.StopThread == 0)
+                    {
+                        newThread.MyThread.Abort();
+                    }
+                    else
+                    {
+                        MessageThread(newThread.StopThread);
+                        return;
+                    }
                 }
-            }
-            dateThread.Abort();
+            }         
             base.Dispose(disposing);
         }
 

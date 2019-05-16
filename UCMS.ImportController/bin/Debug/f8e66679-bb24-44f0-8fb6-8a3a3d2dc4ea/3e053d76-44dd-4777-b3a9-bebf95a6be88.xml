@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BranchId>HCM</BranchId>
+  <FolderId>eRRWgaZT5Y3ydIYZwyQB</FolderId>
+  <oWorkflow>
+    <Key>itspdWWZtD3v6AdKFzjH</Key>
+    <Value>NhapHangNgoaiNuoc</Value>
+  </oWorkflow>
+  <oWorkflowStep>
+    <Key>MtB8Ygd6cgGGTwqH6JYJ</Key>
+    <Value>Country</Value>
+  </oWorkflowStep>
+  <oContenType>
+    <Key>Yn2Jllucfmqu48MSZOXc</Key>
+    <Value>Nhan Vien Kiem Tra</Value>
+  </oContenType>
+  <oContenTypeParent>
+    <Value />
+  </oContenTypeParent>
+  <oContentField>
+    <Key>Ho_va_Ten</Key>
+    <Value />
+  </oContentField>
+  <oContentField>
+    <Key>Ngay_Sinh</Key>
+    <Value />
+  </oContentField>
+  <oContentField>
+    <Key>Trang_Thai</Key>
+    <Value />
+  </oContentField>
+  <oLibraryField>
+    <Key>So_Chung_Tu</Key>
+    <Value />
+  </oLibraryField>
+  <oLibraryField>
+    <Key>Ngay_Thang</Key>
+    <Value />
+  </oLibraryField>
+  <RenameFile />
+  <RemoveFile />
+  <Namming>HCMDESKTOP-VLJPKF5</Namming>
+</ContentProfile>
