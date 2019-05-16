@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BranchId>HCM</BranchId>
+  <FolderId>TYm1fyntQdaDu2qjwNMR</FolderId>
+  <oWorkflow>
+    <Key>e5WM0TgMKDZcIPVbL8hH</Key>
+    <Value>Wflow Process</Value>
+  </oWorkflow>
+  <oWorkflowStep>
+    <Key>qgnaLUOlCHrt1AxVPKCu</Key>
+    <Value>gui tien</Value>
+  </oWorkflowStep>
+  <oContenType>
+    <Key>osLf8msbrG1SNx8T3FoY</Key>
+    <Value>Sec Giay</Value>
+  </oContenType>
+  <oContenTypeParent>
+    <Value />
+  </oContenTypeParent>
+  <oContentField>
+    <Key>Ngay_Thang</Key>
+    <Value />
+  </oContentField>
+  <oContentField>
+    <Key>Ma_Hop</Key>
+    <Value />
+  </oContentField>
+  <oLibraryField>
+    <Key>Number_value</Key>
+    <Value />
+  </oLibraryField>
+  <oLibraryField>
+    <Key>Date_Value</Key>
+    <Value />
+  </oLibraryField>
+  <RenameFile />
+  <RemoveFile />
+  <Namming>HCMadministrator@ucms.imipgroup.comDESKTOP-VLJPKF5</Namming>
+</ContentProfile>
