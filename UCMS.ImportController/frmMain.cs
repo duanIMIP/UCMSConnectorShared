@@ -1077,7 +1077,7 @@ namespace UCMS.ImportController
                                     }
                                 }
 
-                                if (UniFormTypeList != null && oBatchNaming != null && oBatchNaming.Enabled && oBatchNaming.BatchNamingSettings != null)
+                                if (UniFormTypeList != null && oBatchNaming != null)
                                 {
                                     //Process at here
                                     foreach (UniFormType oUniFormType in UniFormTypeList)
@@ -1097,12 +1097,12 @@ namespace UCMS.ImportController
                                         UFDList = GetData.GetListContentField(oUCMSApiClient, oUniFormType);
                                         for (int i = 0; i < UFDList.Count; i++)
                                         {
-                                            oContentProfile.oContentField.Add(new DataValue(UFDList[i].Name, UFDList[i].DefaultValue));
+                                            oContentProfile.oContentField.Add(new DataValue(UFDList[i].Name, convertValueField(UFDList[i].DefaultValue, UFDList[i].Name)));
                                         }
                                         UFDList = GetData.GetListLibraryField(oUCMSApiClient, oUniFormType, oFolder.Id);
                                         for (int i = 0; i < UFDList.Count; i++)
                                         {
-                                            oContentProfile.oLibraryField.Add(new DataValue(UFDList[i].Name, UFDList[i].DefaultValue));
+                                            oContentProfile.oLibraryField.Add(new DataValue(UFDList[i].Name, convertValueField(UFDList[i].DefaultValue, UFDList[i].Name)));
                                         }
 
                                         if (!oUniFormType.Root && !String.IsNullOrEmpty(oUniFormTypeParent.ExternalID))
@@ -1110,20 +1110,25 @@ namespace UCMS.ImportController
                                             UFDList = GetData.GetListContentField(oUCMSApiClient, oUniFormTypeParent);
                                             for (int i = 0; i < UFDList.Count; i++)
                                             {
-                                                oContentProfile.oContentParent.Add(new DataValue(UFDList[i].Name, UFDList[i].DefaultValue));
+                                                oContentProfile.oContentParent.Add(new DataValue(UFDList[i].Name, convertValueField(UFDList[i].DefaultValue, UFDList[i].Name)));
                                             }
 
                                             UFDList = GetData.GetListLibraryField(oUCMSApiClient, oUniFormTypeParent, oFolder.Id);
                                             for (int i = 0; i < UFDList.Count; i++)
                                             {
-                                                oContentProfile.oLibraryParent.Add(new DataValue(UFDList[i].Name, UFDList[i].DefaultValue));
+                                                oContentProfile.oLibraryParent.Add(new DataValue(UFDList[i].Name, convertValueField(UFDList[i].DefaultValue, UFDList[i].Name)));
                                             }
-                                            oContentProfile.oBatchNamingSetting = oBatchNaming.GetBatchNamingSetting(oUniFormTypeParent.Name);
+                                        }
+
+                                        if (!String.IsNullOrEmpty(oUniFormTypeParent.ExternalID))
+                                        {
+                                            oContentProfile.Namming = oContentProfile.getContentName(oUniFormTypeParent.Name, oBranch.Name, oFolder.Name, oBatchNaming);
                                         }
                                         else
                                         {
-                                            oContentProfile.oBatchNamingSetting = oBatchNaming.GetBatchNamingSetting(oUniFormType.Name);
+                                            oContentProfile.Namming = oContentProfile.getContentName(oUniFormType.Name, oBranch.Name, oFolder.Name, oBatchNaming);
                                         }
+
 
                                         oContentProfile.BranchId = oBranch.Name;
                                         oContentProfile.FolderId = oFolder.Id;
@@ -1151,7 +1156,7 @@ namespace UCMS.ImportController
                                         oContentProfile.oLibraryParent = null;
                                         oContentProfile.RenameFile = "";
                                         oContentProfile.RemoveFile = "";
-                                        oContentProfile.oBatchNamingSetting = null;
+                                        oContentProfile.Namming = "";
                                         oContentProfile = null;
                                     }
                                 }
@@ -1284,11 +1289,11 @@ namespace UCMS.ImportController
 
                                 oContentProfile.Profile(oUCMSApiClient, item.BranchList, item.FolderList, itemFileInfo, "USCBatch");
 
-                                if(oContentProfile.ProfileCreated == 1)
+                                if (oContentProfile.ProfileCreated == 1)
                                 {
                                     PrgBarBatchImporterValue++;
                                     WriteTextSafe(oContentProfile.Namming, PrgBarBatchImporterValue, iContinuteThread == 1);
-                                }   
+                                }
                                 else
                                 {
                                     Common.LogToFile("Create content: " + oContentProfile.Namming + " error");

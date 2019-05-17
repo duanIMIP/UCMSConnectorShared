@@ -17,7 +17,6 @@ namespace UCMS.ImportController.Data
 {
     public class ContentProfile
     {
-        private String _Namming { get; set; }
         [XmlElement("BranchId")]
         public String BranchId { get; set; }
         [XmlElement("FolderId")]
@@ -42,15 +41,14 @@ namespace UCMS.ImportController.Data
         public String RenameFile { get; set; }
         [XmlElement("RemoveFile")]
         public String RemoveFile { get; set; }
-        [XmlElement("oBatchNamingProfile")]
-        public BatchNamingSetting oBatchNamingSetting { get; set; }
-        [XmlElement("ProfileCreated")]
-        public int ProfileCreated { get; set; }        
         [XmlElement("Namming")]
-        public String Namming { get {
-                return _Namming;
-            }
-        }
+        public String Namming { get; set; }
+        [XmlElement("ProfileCreated")]
+        public int ProfileCreated { get; set; }
+
+        private String TypeTime { get; set; }
+        private String TypeDate { get; set; }
+
         public ContentProfile()
         {
             BranchId = "";
@@ -65,9 +63,10 @@ namespace UCMS.ImportController.Data
             oLibraryParent = new List<DataValue>();
             RenameFile = "";
             RemoveFile = "";
-            oBatchNamingSetting = new BatchNamingSetting();
+            Namming = "";
+            TypeTime = "";
+            TypeDate = "";
             ProfileCreated = 0;
-            _Namming = "";
         }
 
         private DataValue getBranch(String Key, List<Branch> BranchList)
@@ -113,37 +112,38 @@ namespace UCMS.ImportController.Data
             Model.ContentPrivateData oContentPrivateData = new Model.ContentPrivateData();
             UniBatch oBatch = new UniBatch();
             UniDocument oUniDocument = new UniDocument();
-            DateTime DateValue = DateTime.MinValue;            
+            DateTime DateValue = DateTime.MinValue;
             try
             {
-                if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                Namming = Namming.Replace("{TypeDate}", DateTime.Now.ToString(TypeDate));
+                Namming = Namming.Replace("{TypeTime}", DateTime.Now.ToString(TypeTime));
+
+                if (!String.IsNullOrEmpty(oContenTypeParent.Key))//Branch or Document
                 {
-                    _Namming = getNamming(oBatchNamingSetting, oBranch.Value, oContenTypeParent.Value);
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
                     foreach (var item in oContentParent)
                     {
-                        oWorkflowItem.Content.Values.Add(item.Key, SerializeValue(item.Value));
+                        oWorkflowItem.Content.Values.Add(item.Key, item.Value);
                     }
                     oWorkflowItem.Content.Values.Add("BranchID", oBranch.Value);
                     foreach (var item in oLibraryParent)
                     {
-                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, SerializeValue(item.Value));
+                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, item.Value);
                     }
                 }
                 else
                 {
-                    _Namming = getNamming(oBatchNamingSetting, oBranch.Value, oContenType.Value);
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
                     foreach (var item in oContentField)
                     {
-                        oWorkflowItem.Content.Values.Add(item.Key, SerializeValue(item.Value));
+                        oWorkflowItem.Content.Values.Add(item.Key, item.Value);
                     }
                     oWorkflowItem.Content.Values.Add("BranchID", oBranch.Value);
                     foreach (var item in oLibraryField)
                     {
-                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, SerializeValue(item.Value));
+                        oWorkflowItem.Content.LibraryFieldValues.Add(item.Key, item.Value);
                     }
                 }
 
@@ -391,84 +391,72 @@ namespace UCMS.ImportController.Data
             }
         }
 
-
-        private string SerializeValue(string config)
-        {
-            string cfDate = DateTime.Now.ToString("ddMMyyyy");
-            string cfTime = DateTime.Now.ToString("HHmmss");
-            string cfMachineName = Environment.MachineName.ToString();
-            string cfUsername = Common.Username;
-
-            config = config.Replace("{$Type}", oContenType.Value);
-            config = config.Replace("{$Date}", cfDate);
-            config = config.Replace("{$Time}", cfTime);
-            config = config.Replace("{$MachineName}", cfMachineName);
-            config = config.Replace("{$UserName}", cfUsername);
-            return config;
-        }
-
-        private string getNamming(BatchNamingSetting oBatchNamingSetting, String BranchName, String ContentName)
+        public String getContentName(string ContentTypeName, string BranchName, string LibraryName, BatchNamingProfile oBatchNamingProfile)
         {
             String tempName = "";
             int indexBatch = 0;
-            if (oBatchNamingSetting != null)
+            if (oBatchNamingProfile != null && oBatchNamingProfile.Enabled && oBatchNamingProfile.BatchNamingSettings != null)
             {
-                foreach (SourceField oSourceField in oBatchNamingSetting.BatchNamingTemplate)
+                BatchNamingSetting oNaming = oBatchNamingProfile.BatchNamingSettings.SingleOrDefault(x => x.DocumentTypeName.Equals(ContentTypeName));
+                if (oNaming != null)
                 {
-                    indexBatch++;
-                    switch (oSourceField.Type)
+                    foreach (SourceField oSourceField in oNaming.BatchNamingTemplate)
                     {
-                        case SourceFieldType.DocVariable:
-                            if (oSourceField.StaticName == ScanCommon.ConstantString.DocType)
-                            {
-                                tempName += oSourceField.Type;
-                            }
-                            else if (oSourceField.StaticName == ScanCommon.ConstantString.DocName)
-                            {
-                                tempName += ContentName;
-                            }
-                            else if (oSourceField.StaticName == ScanCommon.ConstantString.DocSequence)
-                            {
-                                tempName += indexBatch.ToString();
-                            }
-                            break;
-                        case SourceFieldType.System:
-                            if (oSourceField.StaticName == ScanCommon.ConstantString.SystemMachineName)
-                            {
-                                tempName += System.Environment.MachineName;
-                            }
-                            else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemUserName)
-                            {
-                                tempName += Common.Username; //System.Environment.UserName
-                            }
-                            else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemDate)
-                            {
-                                tempName += DateTime.Now.ToString(oBatchNamingSetting.DateFormat);
-                            }
-                            else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemTime)
-                            {
-                                tempName += DateTime.Now.ToString(oBatchNamingSetting.TimeFormat);
-                            }
-                            else if (oSourceField.StaticName.Equals("BranchID"))
-                            {
-                                tempName += BranchName;
-                            }
-                            else
-                            {
+                        indexBatch++;
+                        switch (oSourceField.Type)
+                        {
+                            case SourceFieldType.DocVariable:
+                                if (oSourceField.StaticName == ScanCommon.ConstantString.DocType)
+                                {
+                                    tempName += oSourceField.Type;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.DocName)
+                                {
+                                    tempName += ContentTypeName;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.DocSequence)
+                                {
+                                    tempName += indexBatch.ToString();
+                                }
+                                break;
+                            case SourceFieldType.System:
+                                if (oSourceField.StaticName == ScanCommon.ConstantString.SystemMachineName)
+                                {
+                                    tempName += System.Environment.MachineName;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemUserName)
+                                {
+                                    tempName += Common.Username; //System.Environment.UserName
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemDate)
+                                {
+                                    tempName += "{TypeDate}";//DateTime.Now.ToString(oNaming.DateFormat);
+                                    TypeDate = oNaming.DateFormat;
+                                }
+                                else if (oSourceField.StaticName == ScanCommon.ConstantString.SystemTime)
+                                {
+                                    tempName += "TypeTime"; // DateTime.Now.ToString(oNaming.TimeFormat);
+                                    TypeTime = oNaming.TimeFormat;
+                                }
+                                else if (oSourceField.StaticName.Equals("BranchID"))
+                                {
+                                    tempName += BranchName;
+                                }
+                                else
+                                {
+                                    tempName += oSourceField.DisplayName;
+                                }
+                                break;
+                            case SourceFieldType.TextConstant:
                                 tempName += oSourceField.DisplayName;
-                            }
-                            break;
-                        case SourceFieldType.TextConstant:
-                            tempName += oSourceField.DisplayName;
-                            break;
-                        default:
-                            break;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
             return tempName;
         }
-
-
     }
 }
