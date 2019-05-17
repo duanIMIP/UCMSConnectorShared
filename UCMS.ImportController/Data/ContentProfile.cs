@@ -45,9 +45,10 @@ namespace UCMS.ImportController.Data
         public String Namming { get; set; }
         [XmlElement("ProfileCreated")]
         public int ProfileCreated { get; set; }
-
-        private String TypeTime { get; set; }
-        private String TypeDate { get; set; }
+        [XmlElement("TypeTime")]
+        public String TypeTime { get; set; }
+        [XmlElement("TypeDate")]
+        public String TypeDate { get; set; }
 
         public ContentProfile()
         {
