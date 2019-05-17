@@ -118,7 +118,7 @@ namespace UCMS.ImportController.Data
             {
                 if (!String.IsNullOrEmpty(oContenTypeParent.Key))
                 {
-                    _Namming = getNamming(oBatchNamingSetting, oFolder.Name, oContenTypeParent.Value);
+                    _Namming = getNamming(oBatchNamingSetting, oBranch.Value, oContenTypeParent.Value);
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
                     foreach (var item in oContentParent)
@@ -133,7 +133,7 @@ namespace UCMS.ImportController.Data
                 }
                 else
                 {
-                    _Namming = getNamming(oBatchNamingSetting, oFolder.Name, oContenType.Value);
+                    _Namming = getNamming(oBatchNamingSetting, oBranch.Value, oContenType.Value);
                     oWorkflowItem.Content.Name = Namming;
                     oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
                     foreach (var item in oContentField)
@@ -407,7 +407,7 @@ namespace UCMS.ImportController.Data
             return config;
         }
 
-        private string getNamming(BatchNamingSetting oBatchNamingSetting, String FolderName, String ContentName)
+        private string getNamming(BatchNamingSetting oBatchNamingSetting, String BranchName, String ContentName)
         {
             String tempName = "";
             int indexBatch = 0;
@@ -451,7 +451,7 @@ namespace UCMS.ImportController.Data
                             }
                             else if (oSourceField.StaticName.Equals("BranchID"))
                             {
-                                tempName += FolderName;
+                                tempName += BranchName;
                             }
                             else
                             {
