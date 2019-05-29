@@ -262,7 +262,6 @@ namespace UCMS.ImportController.Data
             oWorkflowItem.Priority = 0;
             oWorkflowItem.State = 0;
             oWorkflowItem.WorkflowStep = null;
-            oBatch = null;
             oWorkflowItem.Workflow = null;
             if (oWorkflowItem.Content.Attachments.Count > 0) oWorkflowItem.Content.Attachments.Clear();
             oWorkflowItem.Content.Attachments = null;

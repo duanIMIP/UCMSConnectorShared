@@ -273,341 +273,6 @@ namespace UCMS.ImportController
         }
 
         #region AddProfile
-
-        private String Profile(UCMSApiClient oUCMSApiClient, DataValue oBranch, Model.Folder oFolder, DataValue oWorkflow, DataValue oWorkflowStep, DataValue oContenType, DataValue oContenTypeParent, Dictionary<string, object> oContentField, Dictionary<string, object> oLibraryField, Dictionary<string, object> oContentParent, Dictionary<string, object> oLibraryParent, List<FileInfo> arrayFileInfor, String RenameFile, String RemoveFile, String keyPrivateData, String Namming)
-        {
-            String pathClient = "";
-            Model.WorkflowItem oWorkflowItem = new Model.WorkflowItem();
-            oWorkflowItem.Content = new Model.Content();
-            oWorkflowItem.Content.Folder = oFolder;
-            oWorkflowItem.Content.Tags = new List<string>();
-            oWorkflowItem.Workflow = new Model.Workflow() { Id = oWorkflow.Key };
-            oWorkflowItem.WorkflowStep = new Model.WorkflowStep() { Id = oWorkflowStep.Key };
-            oWorkflowItem.State = Model.Enum.WorkflowItemState.Ready;
-            oWorkflowItem.Priority = Model.Enum.WorkflowItemPriority.Normal;
-            Dictionary<string, object> temp = null;
-            Model.ContentPrivateData oContentPrivateData = new Model.ContentPrivateData();
-            UniBatch oBatch = new UniBatch();
-            UniDocument oUniDocument = new UniDocument();
-            String ContentName = "";
-            String FilePathName = "";
-            DateTime DateValue = DateTime.MinValue;
-            try
-            {
-                if (!String.IsNullOrEmpty(oContenTypeParent.Key))//Branch or Document
-                {
-                    oWorkflowItem.Content.Name = Namming;
-                    oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenTypeParent.Key };
-                    temp = oContentParent;
-                    temp.Add("BranchID", oBranch.Value);
-                    oWorkflowItem.Content.Values = temp;
-                    oWorkflowItem.Content.LibraryFieldValues = oLibraryParent;
-                }
-                else
-                {
-                    oWorkflowItem.Content.Name = Namming;
-                    oWorkflowItem.Content.ContentType = new Model.ContentType() { Id = oContenType.Key };
-                    temp = oContentField;
-                    temp.Add("BranchID", oBranch.Value);
-                    oWorkflowItem.Content.Values = temp;
-                    oWorkflowItem.Content.LibraryFieldValues = oLibraryField;
-                }
-
-                DateValue = DateTime.Now;
-                oWorkflowItem.Content = oUCMSApiClient.Content.Create(oWorkflowItem.Content);
-                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
-                {
-                    Thread.Sleep(Common.MaxTimeUpdate);
-                }
-
-                oWorkflowItem.Content.Attachments = new List<Model.Attachment>();
-
-                oUCMSApiClient.Content.Checkout(oWorkflowItem.Content.Id);
-
-                for (int i = 0; i < arrayFileInfor.Count(); i++)
-                {
-                    pathClient = arrayFileInfor[i].DirectoryName;
-                    if (arrayFileInfor[i].Extension == ".pdf")
-                    {
-                        var tempFileSplit = Guid.NewGuid().ToString();
-                        Directory.CreateDirectory(tempFileSplit);
-
-                        ImageProcessing.SplitPDF2Tiff(arrayFileInfor[i].FullName, tempFileSplit, 300);
-                        foreach (var itemSplitFile in Directory.GetFiles(tempFileSplit))
-                        {
-                            var attachment = new Model.Attachment()
-                            {
-                                ContentId = oWorkflowItem.Content.Id,
-                                Data = File.ReadAllBytes(itemSplitFile),
-                                MIME = "image/universalscan",
-                                Type = UCMS.Model.Enum.AttachmentType.Public,
-                                Name = Path.GetFileName(itemSplitFile)
-                            };
-                            oUCMSApiClient.Attachment.Upload(attachment);
-                            attachment = null;
-                        }
-                        DeleteFileInDirectory(tempFileSplit);
-                    }
-                    else
-                    {
-                        var attachment = new Model.Attachment()
-                        {
-                            ContentId = oWorkflowItem.Content.Id,
-                            Data = File.ReadAllBytes(arrayFileInfor[i].FullName),
-                            MIME = "image/universalscan",
-                            Type = UCMS.Model.Enum.AttachmentType.Public,
-                            Name = Guid.NewGuid() + arrayFileInfor[i].Extension
-                        };
-                        oUCMSApiClient.Attachment.Upload(attachment);
-                        attachment = null;
-                    }
-
-                    FilePathName = arrayFileInfor[i].FullName;
-                    if (!String.IsNullOrEmpty(RemoveFile))
-                    {
-                        if (File.Exists(Path.Combine(RemoveFile, arrayFileInfor[i].Name)))
-                        {
-                            File.Replace(FilePathName, Path.Combine(RemoveFile, arrayFileInfor[i].Name), null);
-                        }
-                        else
-                        {
-                            File.Move(FilePathName, Path.Combine(RemoveFile, arrayFileInfor[i].Name));
-                        }
-                        FilePathName = Path.Combine(RemoveFile, arrayFileInfor[i].Name);
-                    }
-
-                    if (!string.IsNullOrEmpty(RenameFile))
-                    {
-                        File.Copy(FilePathName, FilePathName.Replace(arrayFileInfor[i].Extension, "") + RenameFile, true);
-                    }
-                    FilePathName = "";
-                }
-
-                DateValue = DateTime.Now;
-                oUCMSApiClient.Content.Checkin(oWorkflowItem.Content.Id);
-                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
-                {
-                    Thread.Sleep(Common.MaxTimeUpdate);
-                }
-                oContentPrivateData.Key = keyPrivateData;
-
-                //--------------Set value ContentPrivateData-----------------------------                
-                oBatch.BranchID = oBranch.Key;
-                oBatch.Name = oWorkflowItem.Content.Name;
-                oBatch.ClientName = oFolder.Name;
-                oBatch.ProcessName = oWorkflow.Value;
-                oBatch.ProcessStepName = oWorkflowStep.Value;
-                oBatch.FormTypeName = oWorkflowItem.Content.ContentType.Name;
-                oBatch.Fields = new List<UniField>();
-                oBatch.Pages = new List<UniPage>();
-                if (String.IsNullOrEmpty(oContenTypeParent.Key))
-                {
-                    oWorkflowItem.Content = oUCMSApiClient.Content.GetById(oWorkflowItem.Content.Id);
-                    for (int i = 0; i < oWorkflowItem.Content.Attachments.Count; i++)
-                    {
-                        oBatch.Pages.Add(new UniPage()
-                        {
-                            ID = Path.GetFileNameWithoutExtension(oWorkflowItem.Content.Attachments[i].Name),
-                            FullFileName = (string.IsNullOrEmpty(RemoveFile) ? pathClient : RemoveFile) + @"\" + oWorkflowItem.Content.Attachments[i].Name,
-                            Rejected = false,
-                            IsRescan = false,
-                            IsNew = false,
-                            SheetID = "",
-                            RejectedNote = ""
-                        });
-                    }
-
-                    foreach (var item in oContentField)
-                    {
-                        oBatch.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-                    foreach (var item in oLibraryField)
-                    {
-                        oBatch.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-                }
-                else
-                {
-                    foreach (var item in oContentParent)
-                    {
-                        oBatch.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-                    foreach (var item in oLibraryParent)
-                    {
-                        oBatch.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-
-                    oBatch.Docs = new List<UniDocument>();
-                    oUniDocument = new UniDocument();
-                    oUniDocument.Fields = new List<UniField>();
-                    oUniDocument.Pages = new List<UniPage>();
-                    oUniDocument.FormTypeName = oContenType.Value;
-
-                    for (int i = 0; i < oWorkflowItem.Content.Attachments.Count; i++)
-                    {
-                        oUniDocument.Pages.Add(new UniPage()
-                        {
-                            ID = Path.GetFileNameWithoutExtension(oWorkflowItem.Content.Attachments[i].Name),
-                            FullFileName = (string.IsNullOrEmpty(RemoveFile) ? pathClient : RemoveFile) + @"\" + oWorkflowItem.Content.Attachments[i].Name,
-                            Rejected = false,
-                            IsRescan = false,
-                            IsNew = false,
-                            SheetID = "",
-                            RejectedNote = ""
-                        });
-                    }
-                    foreach (var item in oContentField)
-                    {
-                        oUniDocument.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-                    foreach (var item in oLibraryField)
-                    {
-                        oUniDocument.Fields.Add(new UniField() { Name = item.Key, Value = item.Value.ToString() });
-                    }
-
-                    oBatch.Docs.Add(oUniDocument);
-                }
-                oContentPrivateData.Value = Common.SerializeToString(typeof(UniBatch), oBatch);
-
-                //--------------Set value ContentPrivateData-----------------------------
-
-                DateValue = DateTime.Now;
-                oUCMSApiClient.Content.SetPrivateData(oWorkflowItem.Content.Id, oContentPrivateData);
-                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
-                {
-                    Thread.Sleep(Common.MaxTimeUpdate);
-                }
-
-                Boolean autoProcess = false;
-                foreach (var item in Common.WFStepProcessAuto)
-                {
-                    if (item.Equals(oFolder.Name + "_" + oWorkflowStep.Value))
-                    {
-                        autoProcess = true; break;
-                    }
-                }
-
-                DateValue = DateTime.Now;
-                oUCMSApiClient.WorkflowItem.Insert(oWorkflowItem, autoProcess);
-                if (DateValue.AddMilliseconds(Common.MaxTimeUpdate) < DateTime.Now)
-                {
-                    Thread.Sleep(Common.MaxTimeUpdate);
-                }
-                ContentName = oWorkflowItem.Content.Name;
-            }
-            catch (Exception ex)
-            {
-                Common.LogToFile("Profile_" + ex.Message);
-                ContentName = "";
-            }
-
-            oWorkflowItem = null;
-            temp = null;
-            oContentPrivateData = null;
-            oBatch = null;
-            oUniDocument = null;
-            return ContentName;
-
-        }
-
-        private bool AddControllProfile(Boolean LoadRootFalse = false)// LoadRootFalse = false: không apload với content không là gốc
-        {
-            try
-            {
-                if (!CheckControllProfile(LoadRootFalse))
-                {
-                    return false;
-                }
-                DataValue oBranch = new DataValue() { Key = cboBrank.SelectedValue.ToString(), Value = cboBrank.Text };
-                Model.Folder oFolder = cboLibrary.SelectedItem as Model.Folder;
-                DataValue oWorkflow = new DataValue() { Key = cboWorkflow.SelectedValue.ToString(), Value = cboWorkflow.Text };
-                DataValue oWorkflowStep = new DataValue() { Key = cboWorkflowStep.SelectedValue.ToString(), Value = cboWorkflowStep.Text };
-                DataValue oContenType = new DataValue() { Key = cboContentType.SelectedValue.ToString(), Value = cboContentType.Text };
-                DataValue oContenTypeParent = new DataValue();
-                if (LoadRootFalse && !(cboContentType.SelectedItem as UniFormType).Root)
-                {
-                    oContenTypeParent.Key = cboParentContentType.SelectedValue.ToString();
-                    oContenTypeParent.Value = cboParentContentType.Text;
-                }
-                Dictionary<string, object> oContentField = new Dictionary<string, object>();
-                Dictionary<string, object> oLibraryField = new Dictionary<string, object>();
-                Dictionary<string, object> oContentParent = new Dictionary<string, object>();
-                Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
-                foreach (DataGridViewRow item in grdContentField.Rows)
-                {
-                    if (!item.IsNewRow)
-                    {
-                        oContentField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                    }
-                }
-                foreach (DataGridViewRow item in grdLibraryField.Rows)
-                {
-                    if (!item.IsNewRow)
-                    {
-                        oLibraryField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                    }
-                }
-                if (!String.IsNullOrEmpty(oContenTypeParent.Key))
-                {
-                    foreach (DataGridViewRow item in grdContentParent.Rows)
-                    {
-                        if (!item.IsNewRow)
-                        {
-                            oContentParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                        }
-                    }
-                    foreach (DataGridViewRow item in grdLibraryParent.Rows)
-                    {
-                        if (!item.IsNewRow)
-                        {
-                            oLibraryParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
-                        }
-                    }
-                }
-                List<FileInfo> arrayFileInfor = new List<FileInfo>();
-                var folderPath = txtFolder.Text.Trim();
-                if (!string.IsNullOrEmpty(folderPath) && Directory.Exists(folderPath))
-                {
-                    DirectoryInfo directInfo = new DirectoryInfo(folderPath);
-                    foreach (var item in directInfo.GetFiles())
-                    {
-                        if ((String.IsNullOrEmpty(_Type) || _Type.Contains(item.Extension + ";")) && !item.Extension.Equals(_ReName))
-                        {
-                            arrayFileInfor.Add(item);
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(_MoveTo))
-                    {
-                        Path.Combine(_MoveTo);
-                        Directory.CreateDirectory(_MoveTo);
-                        folderPath = _MoveTo;
-                    }
-                }
-
-                String ContentNew = "";
-                if (!String.IsNullOrEmpty(oContenTypeParent.Key))
-                {
-                    ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
-                }
-                else
-                {
-                    ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
-                }
-
-                if (Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, arrayFileInfor, _ReName, _MoveTo, "USCBatch", ContentNew) != "")
-                {
-                    MessageBox.Show("Cập nhật thành công");
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Có lỗi trong quá trình cập nhật");
-                Common.LogToFile("AddControllProfile_" + ex.Message);
-            }
-            return false;
-        }
-
         private bool AddEachAttachProfile(Boolean LoadRootFalse = false)// LoadRootFalse = false: không apload với content không là gốc
         {
             try
@@ -618,16 +283,21 @@ namespace UCMS.ImportController
                 }
                 List<FileInfo> fileInfoList = new List<FileInfo>();
                 int CoutNumber = 0;
-                DataValue oBranch = new DataValue() { Key = cboBrank.SelectedValue.ToString(), Value = cboBrank.Text };
+                ContentProfile oContentProfile = new ContentProfile();
+
+                Branch oBranch = cboBrank.SelectedItem as Branch;
                 Model.Folder oFolder = cboLibrary.SelectedItem as Model.Folder;
-                DataValue oWorkflow = new DataValue() { Key = cboWorkflow.SelectedValue.ToString(), Value = cboWorkflow.Text };
-                DataValue oWorkflowStep = new DataValue() { Key = cboWorkflowStep.SelectedValue.ToString(), Value = cboWorkflowStep.Text };
-                DataValue oContenType = new DataValue() { Key = cboContentType.SelectedValue.ToString(), Value = cboContentType.Text };
-                DataValue oContenTypeParent = new DataValue();
+                oContentProfile.BranchId = oBranch.Name;
+                oContentProfile.FolderId = oFolder.Id;
+
+                oContentProfile.oWorkflow = new DataValue() { Key = cboWorkflow.SelectedValue.ToString(), Value = cboWorkflow.Text };
+                oContentProfile.oWorkflowStep = new DataValue() { Key = cboWorkflowStep.SelectedValue.ToString(), Value = cboWorkflowStep.Text };
+                oContentProfile.oContenType = new DataValue() { Key = cboContentType.SelectedValue.ToString(), Value = cboContentType.Text };
+                oContentProfile.oContenTypeParent = new DataValue();
                 if (LoadRootFalse && !(cboContentType.SelectedItem as UniFormType).Root)
                 {
-                    oContenTypeParent.Key = cboParentContentType.SelectedValue.ToString();
-                    oContenTypeParent.Value = cboParentContentType.Text;
+                    oContentProfile.oContenTypeParent.Key = cboParentContentType.SelectedValue.ToString();
+                    oContentProfile.oContenTypeParent.Value = cboParentContentType.Text;
                 }
 
                 var folderPath = txtFolder.Text.Trim();
@@ -636,7 +306,6 @@ namespace UCMS.ImportController
                     DirectoryInfo directInfo = new DirectoryInfo(folderPath);
                     if (!string.IsNullOrEmpty(_MoveTo))
                     {
-                        Path.Combine(_MoveTo);
                         Directory.CreateDirectory(_MoveTo);
                         folderPath = _MoveTo;
                     }
@@ -644,7 +313,7 @@ namespace UCMS.ImportController
                     FileInfo[] fileInfo = directInfo.GetFiles();
                     foreach (var itemInfo in directInfo.GetFiles())
                     {
-                        if ((String.IsNullOrEmpty(_Type) || _Type.Contains(itemInfo.Extension + ";")) && !itemInfo.Extension.Equals(_ReName))
+                        if ((String.IsNullOrEmpty(_Type) || _Type.ToUpper().Contains(itemInfo.Extension.ToUpper() + ";")) && !itemInfo.Extension.ToUpper().Equals(_ReName.ToUpper()))
                         {
                             fileInfoList.Add(itemInfo);
                         }
@@ -660,55 +329,57 @@ namespace UCMS.ImportController
                     prgBarAddControl.Minimum = 0;
                     prgBarAddControl.Maximum = fileInfoList.Count;
 
+                    oContentProfile.RenameFile = _ReName;
+                    oContentProfile.RemoveFile = _MoveTo;
+
                     foreach (var itemInfo in fileInfoList)
                     {
-                        Dictionary<string, object> oContentField = new Dictionary<string, object>();
-                        Dictionary<string, object> oLibraryField = new Dictionary<string, object>();
-                        Dictionary<string, object> oContentParent = new Dictionary<string, object>();
-                        Dictionary<string, object> oLibraryParent = new Dictionary<string, object>();
+                        oContentProfile.oContentField = new List<DataValue>();
+                        oContentProfile.oLibraryField = new List<DataValue>();
+                        oContentProfile.oContentParent = new List<DataValue>();
+                        oContentProfile.oLibraryParent = new List<DataValue>();
+
                         foreach (DataGridViewRow item in grdContentField.Rows)
                         {
                             if (!item.IsNewRow)
                             {
-                                oContentField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                oContentProfile.oContentField.Add(new DataValue(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString())));
                             }
                         }
                         foreach (DataGridViewRow item in grdLibraryField.Rows)
                         {
                             if (!item.IsNewRow)
                             {
-                                oLibraryField.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                oContentProfile.oLibraryField.Add(new DataValue(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString())));
                             }
                         }
-                        if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                        if (!String.IsNullOrEmpty(oContentProfile.oContenTypeParent.Key))
                         {
                             foreach (DataGridViewRow item in grdContentParent.Rows)
                             {
                                 if (!item.IsNewRow)
                                 {
-                                    oContentParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                    oContentProfile.oContentParent.Add(new DataValue(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString())));
                                 }
                             }
                             foreach (DataGridViewRow item in grdLibraryParent.Rows)
                             {
                                 if (!item.IsNewRow)
                                 {
-                                    oLibraryParent.Add(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString()));
+                                    oContentProfile.oLibraryParent.Add(new DataValue(item.Cells[3].Value.ToString(), convertValueField(item.Cells[2].Value.ToString(), item.Cells[3].Value.ToString())));
                                 }
                             }
                         }
 
-                        String ContentNew = "";
-                        if (!String.IsNullOrEmpty(oContenTypeParent.Key))
+                        if (!String.IsNullOrEmpty(oContentProfile.oContenTypeParent.Key))
                         {
-                            ContentNew = GetData.Naming(oContenTypeParent.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                            oContentProfile.Namming = GetData.Naming(oContentProfile.oContenTypeParent.Value, oBranch.Name, oFolder.Name, oBatchNamingProfile);
                         }
                         else
                         {
-                            ContentNew = GetData.Naming(oContenType.Value, oBranch.Value, oFolder.Name, oBatchNamingProfile);
+                            oContentProfile.Namming = GetData.Naming(oContentProfile.oContenType.Value, oBranch.Name, oFolder.Name, oBatchNamingProfile);
                         }
-
-                        Profile(oUCMSApiClient, oBranch, oFolder, oWorkflow, oWorkflowStep, oContenType, oContenTypeParent, oContentField, oLibraryField, oContentParent, oLibraryParent, new List<FileInfo>() { itemInfo }, _ReName, _MoveTo, "USCBatch", ContentNew);
+                        oContentProfile.Profile(oUCMSApiClient, new List<Branch>() { oBranch }, new List<Model.Folder>() { oFolder }, itemInfo, "USCBatch");
                         CoutNumber++;
                         prgBarAddControl.Value = CoutNumber;
                         lblNumberTotalContents.Text = CoutNumber + "/" + fileInfoList.Count;

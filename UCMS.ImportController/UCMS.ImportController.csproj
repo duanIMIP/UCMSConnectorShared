@@ -113,7 +113,6 @@
     </Compile>
     <Compile Include="Core\GetData.cs" />
     <Compile Include="Core\MemoryManagement.cs" />
-    <Compile Include="Data\MultipleProfileThread.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\TokenCache.cs" />

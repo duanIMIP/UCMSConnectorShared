@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+//Using with case Import, export
 namespace UCMS.ImportController.Data
 {
     public class MultipleProfile
